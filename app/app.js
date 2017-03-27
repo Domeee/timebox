@@ -13,7 +13,7 @@ var visualToggle = false;
 document.addEventListener('DOMContentLoaded', function () {
   toggleTimer.onclick = toggleTimerClicked;
   togglePause.onclick = togglePauseClicked;
-  clock.onclick = function () {
+  document.onclick = function () {
     visualToggle = false;
     clearInterval(visualIntervalId);
     updateVisual();
