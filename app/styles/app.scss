@@ -1,0 +1,31 @@
+@import "variables";
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+#clock {
+  height: 75vh;
+  padding-top: 25vh;
+  text-align: center;
+  background-color: #000;
+  color: #ccc;
+}
+
+#control {
+  height: 22vh;
+}
+
+.timecount {
+  font-size: 15vh;
+}
+
+#timeTable {
+  text-align: right;
+}
+
+.timelabel {
+  font-size: 3vh;
+}
+
+.timeData {
+  float: left;
+  width: 10%;
+  cursor: default;
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="The personal website of Don Hubi">
+  <meta name="author" content="Don Hubi">
+  <title>Timebox</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+  <div id="clock">
+    <span id="min" class="timecount">00</span><span class="timelabel">m</span>
+    <span id="second" class="timecount">00</span><span class="timelabel">s</span>
+  </div>
+  <div class="container">
+    <div id="control" class="row align-items-end">
+      <div id="sound" class="col-12 col-md-3">
+        <input type="radio" name="sound" id="shipbell" value="shipbell" checked="checked" />&nbsp;<label for="shipbell">Ship Bell</label><br
+        />
+        <input type="radio" name="sound" id="airhorn" value="airhorn" />&nbsp;<label for="airhorn">Air Horn</label><br />
+        <input type="radio" name="sound" id="cometogheter" value="cometogheter" />&nbsp;<label for="cometogheter">Come togheter</label><br
+        />
+        <input type="radio" name="sound" id="getupstandup" value="getupstandup" />&nbsp;<label for="getupstandup">Get up stand up</label><br
+        />
+      </div>
+      <div id="timeTable" class="col-12 col-md-6">
+      </div>
+      <div id="buttons" class="col-12 col-md-3"><button id="toggleTimer">Start</button><button id="togglePause">Pause</button></div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>
