@@ -43,8 +43,10 @@ function updateTimer() {
       visualIntervalId = setInterval(updateVisual, 500);
       clearInterval(clockIntervalId);
       var sound = getSound();
-      audio = new Audio(sound);
-      audio.play();
+      if (sound !== 'silent.mp3') {
+        audio = new Audio(sound);
+        audio.play();
+      }
       initValues();
     }
   }
