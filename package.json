@@ -4,6 +4,9 @@
   "description": "Clock to timebox",
   "author": "Don Hubi",
   "license": "MIT",
+  "scripts": {
+    "deploy": "firebase deploy"
+  },
   "devDependencies": {
     "browser-sync": "^2.18.6",
     "del": "^2.2.2",
