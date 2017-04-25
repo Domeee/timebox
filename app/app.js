@@ -9,6 +9,7 @@ var clock = document.querySelector('#clock');
 var pause = false;
 var pad = "00";
 var visualToggle = false;
+var mode;
 
 document.addEventListener('DOMContentLoaded', function () {
   toggleTimer.onclick = toggleTimerClicked;
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var i = 1;
   var timeTable = document.querySelector('#timeTable');
-  while (i < 61) {
+  while (i < 60) {
     var data = document.createElement('div');
     data.classList.add('timeData');
     data.innerText = i;
@@ -59,8 +60,14 @@ function updateTimer() {
 }
 
 function timeSelected(event) {
-  timer = event.target.innerText * 60;
+  if (mode === 'Minutes') {
+    timer = event.target.innerText * 60;
+  } else {
+    timer = event.target.innerText;
+  }
+
   updateClock(timer);
+  $('#timePicker').modal('hide');
 }
 
 function toggleTimerClicked() {
@@ -141,3 +148,11 @@ function debugClock(seconds) {
   toggle = false;
   toggleTimerClicked();
 }
+
+// Update time picker source
+$('#timePicker').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  mode = button.data('mode');
+  var modal = $(this);
+  modal.find('#modalTitle').text(mode);
+})
