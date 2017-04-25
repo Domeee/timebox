@@ -1,15 +1,13 @@
 @import "variables";
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 #clock {
-  height: 95vh;
-  padding-top: 25vh;
-  text-align: center;
+  height: 90vh;
   background-color: #000;
   color: #ccc;
 }
 
 #control {
-  height: 5vh;
+  height: 10vh;
   padding-bottom: 1vh;
 }
 

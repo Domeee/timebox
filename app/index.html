@@ -12,23 +12,21 @@
 </head>
 
 <body>
-  <div id="clock">
-    <span id="min" class="timecount" data-toggle="modal" data-target="#timePicker" data-mode="Minutes">00</span>
-    <span class="timelabel">m</span>
-    <span id="second" class="timecount" data-toggle="modal" data-target="#timePicker" data-mode="Seconds">00</span>
-    <span class="timelabel">s</span>
+  <div id="clock" class="d-flex align-items-center justify-content-center flex-wrap">
+    <div id="min" class="timecount" data-toggle="modal" data-target="#timePicker" data-mode="Minutes"><span id="minValue">00</span><span class="timelabel">m</span></div>
+    <div id="second" class="timecount" data-toggle="modal" data-target="#timePicker" data-mode="Seconds"><span id="secValue">00</span><span class="timelabel">s</span></div>
   </div>
   <div class="container">
-    <div id="control" class="row align-items-end">
-      <div id="sound" class="col-9">
+    <div id="control" class="row d-flex align-items-center justify-content-between flex-wrap">
+      <div id="sound" class="hidden-sm-down col-9">
         <input type="radio" name="sound" id="silent" value="silent" />&nbsp;<label for="silent">Silent</label>&nbsp;&nbsp;
         <input type="radio" name="sound" id="gong" value="gong" checked="checked" />&nbsp;<label for="gong">Gong</label>&nbsp;&nbsp;
         <input type="radio" name="sound" id="cometogether" value="cometogether" />&nbsp;<label for="cometogether">Come together</label>&nbsp;&nbsp;
         <input type="radio" name="sound" id="getupstandup" value="getupstandup" />&nbsp;<label for="getupstandup">Get up stand up</label>&nbsp;&nbsp;
       </div>
-      <div id="buttons" class="col-3">
-        <button id="togglePause" class="pull-right">Pause</button>
-        <button id="toggleTimer" class="pull-right">Start</button>
+      <div id="buttons" class="col-12 col-md-3">
+        <button id="toggleTimer">Start</button>
+        <button id="togglePause">Pause</button>
       </div>
     </div>
   </div>

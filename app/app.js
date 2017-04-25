@@ -109,9 +109,9 @@ function getSound() {
 function updateClock(seconds) {
   var mins = Math.floor(seconds / 60);
   var secs = seconds - (mins * 60);
-  var m = document.querySelector('#min');
+  var m = document.querySelector('#minValue');
   m.innerText = padLeft(mins);
-  var s = document.querySelector('#second');
+  var s = document.querySelector('#secValue');
   s.innerText = padLeft(secs);
 }
 
