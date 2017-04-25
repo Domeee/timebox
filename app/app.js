@@ -41,6 +41,12 @@ function updateTimer() {
       updateClock(timer);
     } else {
       visualIntervalId = setInterval(updateVisual, 500);
+
+      // Stop the visual after 10 secs
+      setTimeout(function () {
+        clearInterval(visualIntervalId);
+        clock.style.backgroundColor = '#000';
+      }, 10000);
       clearInterval(clockIntervalId);
       var sound = getSound();
       if (sound !== 'silent.mp3') {
