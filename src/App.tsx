@@ -6,6 +6,7 @@ import TimeboxEvent, { TimeboxEventType } from './TimeboxEvent';
 
 export interface AppState {
   seconds: number;
+  minutes: number;
 }
 
 const MIN_VALUE: number = 0;
@@ -15,7 +16,8 @@ class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      seconds: 0
+      seconds: 0,
+      minutes: 0
     };
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
   }
@@ -25,7 +27,7 @@ class App extends React.Component<{}, AppState> {
       <div className="app">
         <TimeboxEventEmitter onChange={this.handleTimeboxChange}>
           <div className="counter-container">
-            <CounterLabel value={0} />
+            <CounterLabel value={this.state.minutes} />
             <div className="Counter-label-separator">:</div>
             <CounterLabel value={this.state.seconds} />
           </div>
@@ -47,6 +49,20 @@ class App extends React.Component<{}, AppState> {
         if (this.state.seconds < MAX_VALUE) {
           this.setState(prevState => {
             return { seconds: prevState.seconds + 1 };
+          });
+        }
+        break;
+      case TimeboxEventType.DECREASE_MINUTES:
+        if (this.state.minutes > MIN_VALUE) {
+          this.setState(prevState => {
+            return { minutes: prevState.minutes - 1 };
+          });
+        }
+        break;
+      case TimeboxEventType.INCREASE_MINUTES:
+        if (this.state.minutes < MAX_VALUE) {
+          this.setState(prevState => {
+            return { minutes: prevState.minutes + 1 };
           });
         }
         break;

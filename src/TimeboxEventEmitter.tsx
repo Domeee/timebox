@@ -7,6 +7,7 @@ export interface TimeboxEventEmitterProps {
 
 class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   private clientY: number;
+  private minutesTouched: boolean;
   constructor(props: TimeboxEventEmitterProps) {
     super(props);
     this.handleTouchStart = this.handleTouchStart.bind(this);
@@ -29,6 +30,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     if (changes.length > 0) {
       const change = changes[0];
       this.clientY = change.clientY;
+      this.minutesTouched = this.detectEntityTouched(change.clientX);
     }
   }
   // tslint:disable-next-line:no-any
@@ -37,14 +39,27 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     if (changes.length > 0) {
       const change = changes[0];
       if (this.clientY > change.clientY) {
-        this.props.onChange({ type: TimeboxEventType.INCREASE_SECONDS });
-        console.log('TimeboxEventType.INCREASE_SECONDS');
+        if (this.minutesTouched) {
+          this.props.onChange({ type: TimeboxEventType.INCREASE_MINUTES });
+        } else {
+          this.props.onChange({ type: TimeboxEventType.INCREASE_SECONDS });
+        }
       } else if (this.clientY < change.clientY) {
-        this.props.onChange({ type: TimeboxEventType.DECREASE_SECONDS });
-        console.log('TimeboxEventType.DECREASE_SECONDS');
+        if (this.minutesTouched) {
+          this.props.onChange({ type: TimeboxEventType.DECREASE_MINUTES });
+        } else {
+          this.props.onChange({ type: TimeboxEventType.DECREASE_SECONDS });
+        }
       }
       this.clientY = change.clientY;
     }
+  }
+  private detectEntityTouched(clientX: number) {
+    const viewportWidth = Math.max(
+      document.documentElement.clientWidth,
+      window.innerWidth || 0
+    );
+    return clientX < viewportWidth / 2;
   }
 }
 
