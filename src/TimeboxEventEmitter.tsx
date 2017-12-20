@@ -1,5 +1,6 @@
 import * as React from 'react';
 import TimeboxEvent, { TimeboxEventType } from './TimeboxEvent';
+import './TimeboxEventEmitter.css';
 
 export interface TimeboxEventEmitterProps {
   onChange(e: TimeboxEvent): void;
@@ -16,6 +17,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   public render() {
     return (
       <div
+        className="timebox-event-emitter"
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
       >

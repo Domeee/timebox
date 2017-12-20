@@ -1,7 +1,6 @@
 import * as React from 'react';
 import TimeboxEventEmitter from './TimeboxEventEmitter';
 import TimeboxEvent, { TimeboxEventType } from './TimeboxEvent';
-import './App.css';
 
 export interface AppState {
   seconds: number;
