@@ -1,8 +1,7 @@
 import * as React from 'react';
 import TimeboxEventEmitter from './TimeboxEventEmitter';
-import CounterLabel from './CounterLabel';
-import './App.css';
 import TimeboxEvent, { TimeboxEventType } from './TimeboxEvent';
+import './App.css';
 
 export interface AppState {
   seconds: number;
@@ -27,9 +26,9 @@ class App extends React.Component<{}, AppState> {
       <div className="app">
         <TimeboxEventEmitter onChange={this.handleTimeboxChange}>
           <div className="counter-container">
-            <CounterLabel value={this.state.minutes} />
+            <div className="counter-label">{this.state.minutes}</div>
             <div className="Counter-label-separator">:</div>
-            <CounterLabel value={this.state.seconds} />
+            <div className="counter-label">{this.state.seconds}</div>
           </div>
         </TimeboxEventEmitter>
       </div>
