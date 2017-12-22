@@ -7,7 +7,3 @@ html {
 body {
   font-size: 1.6rem;
 }
-
-.no-user-select {
-  user-select: none;
-}
