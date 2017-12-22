@@ -7,12 +7,14 @@ export interface TimeboxEventEmitterProps {
 }
 
 class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
-  private clientY: number;
+  private currentY: number;
   private minutesTouched: boolean;
+  private currentStepY: number;
   constructor(props: TimeboxEventEmitterProps) {
     super(props);
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.handleDoubleClick = this.handleDoubleClick.bind(this);
   }
   public render() {
     return (
@@ -20,18 +22,20 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
         className="timebox-event-emitter"
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
+        onDoubleClick={this.handleDoubleClick}
       >
         {this.props.children}
       </div>
     );
   }
   // tslint:disable-next-line:no-any
-  private handleTouchStart(e: any) {
+  private handleTouchStart(e: React.TouchEvent<HTMLElement>) {
     // Init y to current mouse position
     const changes = e.changedTouches;
     if (changes.length > 0) {
       const change = changes[0];
-      this.clientY = change.clientY;
+      this.currentY = change.clientY;
+      this.currentStepY = change.clientY;
       this.minutesTouched = this.detectEntityTouched(change.clientX);
     }
   }
@@ -40,20 +44,30 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     const changes = e.changedTouches;
     if (changes.length > 0) {
       const change = changes[0];
-      if (this.clientY > change.clientY) {
-        if (this.minutesTouched) {
-          this.props.onChange({ type: TimeboxEventType.INCREASE_MINUTES });
-        } else {
-          this.props.onChange({ type: TimeboxEventType.INCREASE_SECONDS });
+      if (this.hasReachedStep(change.clientY)) {
+        if (this.currentY > change.clientY) {
+          if (this.minutesTouched) {
+            this.props.onChange({ type: TimeboxEventType.INCREASE_MINUTES });
+          } else {
+            this.props.onChange({ type: TimeboxEventType.INCREASE_SECONDS });
+          }
+        } else if (this.currentY < change.clientY) {
+          if (this.minutesTouched) {
+            this.props.onChange({ type: TimeboxEventType.DECREASE_MINUTES });
+          } else {
+            this.props.onChange({ type: TimeboxEventType.DECREASE_SECONDS });
+          }
         }
-      } else if (this.clientY < change.clientY) {
-        if (this.minutesTouched) {
-          this.props.onChange({ type: TimeboxEventType.DECREASE_MINUTES });
-        } else {
-          this.props.onChange({ type: TimeboxEventType.DECREASE_SECONDS });
-        }
+        this.currentY = change.clientY;
       }
-      this.clientY = change.clientY;
+    }
+  }
+  // tslint:disable-next-line:no-any
+  private handleDoubleClick(e: React.MouseEvent<HTMLElement>) {
+    e.preventDefault();
+    const minutesTouched = this.detectEntityTouched(e.clientX);
+    if (minutesTouched) {
+      this.props.onChange({ type: TimeboxEventType.INCREASE_MINUTES_BIGTIME });
     }
   }
   private detectEntityTouched(clientX: number) {
@@ -62,6 +76,19 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
       window.innerWidth || 0
     );
     return clientX < viewportWidth / 2;
+  }
+  private hasReachedStep(newY: number) {
+    const distance = Math.abs(newY - this.currentStepY);
+    const viewportHeight = Math.max(
+      document.documentElement.clientHeight,
+      window.innerHeight || 0
+    );
+    const distanceFactor = distance / viewportHeight;
+    const hasReachedStep = distanceFactor >= 0.08;
+    if (hasReachedStep) {
+      this.currentStepY = newY;
+    }
+    return hasReachedStep;
   }
 }
 
