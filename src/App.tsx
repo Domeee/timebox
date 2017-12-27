@@ -30,31 +30,43 @@ class App extends React.Component<{}, AppState> {
 
   public render() {
     const toggleText = this.state.isTimeboxStarted ? 'Stop' : 'Start';
+    const seconds = this.padLeft(this.state.seconds);
+    const minutes = this.padLeft(this.state.minutes);
     return (
       <div className="app" tabIndex={0} onKeyDown={this.handleKeyDown}>
         <TimeboxEventEmitter onChange={this.handleTimeboxChange}>
-          <span tabIndex={1} id="minutes">
-            {this.state.minutes}
-          </span>
-          <span>:</span>
-          <span tabIndex={2} id="seconds">
-            {this.state.seconds}
-          </span>
-          <button onClick={this.handleToggleCountdown} tabIndex={3}>
-            {toggleText}
-          </button>
-          <div>
-            <div>
-              Swipe-up / down on the left hand side to increment / decrement the
-              minutes timer by 1
+          <div className="content-container">
+            <div className="counter-container">
+              <div className="clock">
+                <span tabIndex={1} id="minutes">
+                  {minutes}
+                </span>
+                <span>:</span>
+                <span tabIndex={2} id="seconds">
+                  {seconds}
+                </span>
+              </div>
+              <button
+                className="hidden"
+                onClick={this.handleToggleCountdown}
+                tabIndex={3}
+              >
+                {toggleText}
+              </button>
             </div>
-            <div>
-              Swipe-up / down on the right hand side to increment / decrement
-              the seconds timer by 1
-            </div>
-            <div>
-              Double-Click on the left hand side to increment the minutes timer
-              by 5
+            <div className="instruction-container">
+              <div>
+                Swipe-up / down on the left hand side to increment / decrement
+                the minutes timer by 1
+              </div>
+              <div>
+                Swipe-up / down on the right hand side to increment / decrement
+                the seconds timer by 5
+              </div>
+              <div>
+                Double-Click on the left hand side to increment the minutes
+                timer by 5
+              </div>
             </div>
           </div>
         </TimeboxEventEmitter>
@@ -170,6 +182,12 @@ class App extends React.Component<{}, AppState> {
         return { timer: 0, seconds: 0, minutes: 0 };
       });
     }
+  }
+  // tslint:disable-next-line:no-any
+  private padLeft(value: any): string {
+    const pad = '00';
+    const str = '' + value;
+    return pad.substring(0, pad.length - str.length) + str;
   }
 }
 
