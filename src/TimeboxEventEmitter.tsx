@@ -41,6 +41,8 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   }
   // tslint:disable-next-line:no-any
   private handleTouchMove(e: React.TouchEvent<HTMLElement>) {
+    // Prevent touch action (e.g. scrolling) on safari and older browsers
+    e.preventDefault();
     const changes = e.changedTouches;
     if (changes.length > 0) {
       const change = changes[0];
