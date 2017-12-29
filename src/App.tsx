@@ -77,14 +77,23 @@ class App extends React.Component<{}, AppState> {
   private handleTimeboxChange(e: TimeboxEvent) {
     switch (e.type) {
       case TimeboxEventType.DECREASE_SECONDS:
-        if (!this.state.isTimeboxStarted && this.state.seconds > MIN_VALUE) {
+        // 00:05 --> default case
+        // 00:00
+        // 01:00
+        if (!this.state.isTimeboxStarted) {
           this.setState(prevState => {
             let seconds = prevState.seconds - 5;
-            seconds = seconds === 54 ? 55 : seconds;
+            let minutes = prevState.minutes;
+            if (seconds < MIN_VALUE && minutes === MIN_VALUE) {
+              seconds = 0;
+            } else if (seconds < MIN_VALUE && minutes > MIN_VALUE) {
+              seconds = 55;
+              minutes -= 1;
+            }
 
             // -1 seconds because interval starts after 1 second
-            const timer = prevState.minutes * 60 + seconds - 1;
-            return { seconds, timer };
+            const timer = minutes * 60 + seconds - 1;
+            return { seconds, minutes, timer };
           });
         }
         break;
@@ -92,11 +101,17 @@ class App extends React.Component<{}, AppState> {
         if (!this.state.isTimeboxStarted && this.state.seconds < MAX_VALUE) {
           this.setState(prevState => {
             let seconds = prevState.seconds + 5;
-            seconds = seconds > MAX_VALUE ? MAX_VALUE : seconds;
+            let minutes = prevState.minutes;
+            if (seconds >= MAX_VALUE) {
+              seconds = 0;
+              if (minutes < MAX_VALUE) {
+                minutes += 1;
+              }
+            }
 
             // -1 seconds because interval starts after 1 second
-            const timer = prevState.minutes * 60 + seconds - 1;
-            return { seconds, timer };
+            const timer = minutes * 60 + seconds - 1;
+            return { seconds, minutes, timer };
           });
         }
         break;
