@@ -113,7 +113,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
       window.innerHeight || 0
     );
     const distanceFactor = distance / viewportHeight;
-    const hasReachedStep = distanceFactor >= 0.08;
+    const hasReachedStep = distanceFactor >= 0.03;
     if (hasReachedStep) {
       this.currentStepY = newY;
     }
