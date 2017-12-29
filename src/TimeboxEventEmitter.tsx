@@ -14,13 +14,18 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     super(props);
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.handleDragStart = this.handleDragStart.bind(this);
+    this.handleDragOver = this.handleDragOver.bind(this);
   }
   public render() {
     return (
       <div
         className="timebox-event-emitter"
+        draggable={true}
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
+        onDragStart={this.handleDragStart}
+        onDragOver={this.handleDragOver}
       >
         {this.props.children}
       </div>
@@ -60,6 +65,38 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
         }
         this.currentY = change.clientY;
       }
+    }
+  }
+  private handleDragStart(e: React.DragEvent<HTMLElement>) {
+    this.currentY = e.clientY;
+    this.currentStepY = e.clientY;
+    this.minutesTouched = this.detectEntityTouched(e.clientX);
+
+    // Disable the visual drag effect
+    const ghost = document.createElement('span');
+    e.dataTransfer.setDragImage(ghost, 0, 0);
+
+    // Dummy drag data, else onDrag won't be called in FF
+    e.dataTransfer.setData('text/plain', 'batman forever!');
+  }
+  private handleDragOver(e: React.DragEvent<HTMLElement>) {
+    // onDrag does not provide any values for clientY
+    // Provides results for clientY with less noise
+    if (this.hasReachedStep(e.clientY)) {
+      if (this.currentY > e.clientY) {
+        if (this.minutesTouched) {
+          this.props.onChange({ type: TimeboxEventType.INCREASE_MINUTES });
+        } else {
+          this.props.onChange({ type: TimeboxEventType.INCREASE_SECONDS });
+        }
+      } else if (this.currentY < e.clientY) {
+        if (this.minutesTouched) {
+          this.props.onChange({ type: TimeboxEventType.DECREASE_MINUTES });
+        } else {
+          this.props.onChange({ type: TimeboxEventType.DECREASE_SECONDS });
+        }
+      }
+      this.currentY = e.clientY;
     }
   }
   private detectEntityTouched(clientX: number) {
