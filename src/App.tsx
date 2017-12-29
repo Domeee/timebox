@@ -36,38 +36,22 @@ class App extends React.Component<{}, AppState> {
       <div className="app" tabIndex={0} onKeyDown={this.handleKeyDown}>
         <TimeboxEventEmitter onChange={this.handleTimeboxChange}>
           <div className="content-container">
-            <div className="counter-container">
-              <div className="clock">
-                <span tabIndex={1} id="minutes">
-                  {minutes}
-                </span>
-                <span>:</span>
-                <span tabIndex={2} id="seconds">
-                  {seconds}
-                </span>
-              </div>
-              <button
-                className="hidden"
-                onClick={this.handleToggleCountdown}
-                tabIndex={3}
-              >
-                {toggleText}
-              </button>
+            <div className="clock">
+              <span tabIndex={1} id="minutes">
+                {minutes}
+              </span>
+              <span>:</span>
+              <span tabIndex={2} id="seconds">
+                {seconds}
+              </span>
             </div>
-            <div className="instruction-container">
-              <div>
-                Swipe-up / down on the left hand side to increment / decrement
-                the minutes timer by 1
-              </div>
-              <div>
-                Swipe-up / down on the right hand side to increment / decrement
-                the seconds timer by 5
-              </div>
-              <div>
-                Double-Click on the left hand side to increment the minutes
-                timer by 5
-              </div>
-            </div>
+            <button
+              className="hidden"
+              onClick={this.handleToggleCountdown}
+              tabIndex={3}
+            >
+              {toggleText}
+            </button>
           </div>
         </TimeboxEventEmitter>
       </div>
@@ -131,18 +115,6 @@ class App extends React.Component<{}, AppState> {
         if (!this.state.isTimeboxStarted && this.state.minutes < MAX_VALUE) {
           this.setState(prevState => {
             const minutes = prevState.minutes + 1;
-
-            // -1 seconds because interval starts after 1 second
-            const timer = minutes * 60 + prevState.seconds - 1;
-            return { minutes, timer };
-          });
-        }
-        break;
-      case TimeboxEventType.INCREASE_MINUTES_BIGTIME:
-        if (!this.state.isTimeboxStarted && this.state.minutes < MAX_VALUE) {
-          this.setState(prevState => {
-            let minutes = prevState.minutes + 5;
-            minutes = minutes > MAX_VALUE ? MAX_VALUE : minutes;
 
             // -1 seconds because interval starts after 1 second
             const timer = minutes * 60 + prevState.seconds - 1;

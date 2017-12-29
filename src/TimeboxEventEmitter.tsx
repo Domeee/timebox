@@ -14,7 +14,6 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     super(props);
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
-    this.handleDoubleClick = this.handleDoubleClick.bind(this);
   }
   public render() {
     return (
@@ -22,7 +21,6 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
         className="timebox-event-emitter"
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
-        onDoubleClick={this.handleDoubleClick}
       >
         {this.props.children}
       </div>
@@ -62,14 +60,6 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
         }
         this.currentY = change.clientY;
       }
-    }
-  }
-  // tslint:disable-next-line:no-any
-  private handleDoubleClick(e: React.MouseEvent<HTMLElement>) {
-    e.preventDefault();
-    const minutesTouched = this.detectEntityTouched(e.clientX);
-    if (minutesTouched) {
-      this.props.onChange({ type: TimeboxEventType.INCREASE_MINUTES_BIGTIME });
     }
   }
   private detectEntityTouched(clientX: number) {
