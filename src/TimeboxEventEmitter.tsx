@@ -1,5 +1,6 @@
 import * as React from 'react';
 import TimeboxEvent, { TimeboxEventType } from './TimeboxEvent';
+import { TimeboxUnit } from './TimeboxUnit';
 import './TimeboxEventEmitter.css';
 
 export interface TimeboxEventEmitterProps {
@@ -8,7 +9,7 @@ export interface TimeboxEventEmitterProps {
 
 class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   private currentY: number;
-  private minutesTouched: boolean;
+  private currentUnit: TimeboxUnit;
   private currentStepY: number;
   constructor(props: TimeboxEventEmitterProps) {
     super(props);
@@ -39,7 +40,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
       const change = changes[0];
       this.currentY = change.clientY;
       this.currentStepY = change.clientY;
-      this.minutesTouched = this.detectEntityTouched(change.clientX);
+      this.currentUnit = this.getCurrentUnit(change.clientX);
     }
   }
   // tslint:disable-next-line:no-any
@@ -51,17 +52,15 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
       const change = changes[0];
       if (this.hasReachedStep(change.clientY)) {
         if (this.currentY > change.clientY) {
-          if (this.minutesTouched) {
-            this.props.onChange({ type: TimeboxEventType.INCREASE_MINUTES });
-          } else {
-            this.props.onChange({ type: TimeboxEventType.INCREASE_SECONDS });
-          }
+          this.props.onChange({
+            type: TimeboxEventType.INCREASE_UNIT,
+            unit: this.currentUnit,
+          });
         } else if (this.currentY < change.clientY) {
-          if (this.minutesTouched) {
-            this.props.onChange({ type: TimeboxEventType.DECREASE_MINUTES });
-          } else {
-            this.props.onChange({ type: TimeboxEventType.DECREASE_SECONDS });
-          }
+          this.props.onChange({
+            type: TimeboxEventType.DECREASE_UNIT,
+            unit: this.currentUnit,
+          });
         }
         this.currentY = change.clientY;
       }
@@ -70,7 +69,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   private handleDragStart(e: React.DragEvent<HTMLElement>) {
     this.currentY = e.clientY;
     this.currentStepY = e.clientY;
-    this.minutesTouched = this.detectEntityTouched(e.clientX);
+    this.currentUnit = this.getCurrentUnit(e.clientX);
 
     // Disable the visual drag effect
     const ghost = document.createElement('span');
@@ -84,27 +83,39 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     // Provides results for clientY with less noise
     if (this.hasReachedStep(e.clientY)) {
       if (this.currentY > e.clientY) {
-        if (this.minutesTouched) {
-          this.props.onChange({ type: TimeboxEventType.INCREASE_MINUTES });
-        } else {
-          this.props.onChange({ type: TimeboxEventType.INCREASE_SECONDS });
-        }
+        this.props.onChange({
+          type: TimeboxEventType.INCREASE_UNIT,
+          unit: this.currentUnit,
+        });
       } else if (this.currentY < e.clientY) {
-        if (this.minutesTouched) {
-          this.props.onChange({ type: TimeboxEventType.DECREASE_MINUTES });
-        } else {
-          this.props.onChange({ type: TimeboxEventType.DECREASE_SECONDS });
-        }
+        this.props.onChange({
+          type: TimeboxEventType.DECREASE_UNIT,
+          unit: this.currentUnit,
+        });
       }
       this.currentY = e.clientY;
     }
   }
-  private detectEntityTouched(clientX: number) {
+  private getCurrentUnit(clientX: number): TimeboxUnit {
     const viewportWidth = Math.max(
       document.documentElement.clientWidth,
       window.innerWidth || 0
     );
-    return clientX < viewportWidth / 2;
+
+    const hoursViewPortEnd = viewportWidth / 3;
+    const secondsViewPortStart = viewportWidth / 3 * 2;
+    const isHoursViewPort = clientX <= hoursViewPortEnd;
+    const isSecondsViewPort = clientX > secondsViewPortStart;
+
+    let unit: TimeboxUnit = TimeboxUnit.MINUTES;
+
+    if (isHoursViewPort) {
+      unit = TimeboxUnit.HOURS;
+    } else if (isSecondsViewPort) {
+      unit = TimeboxUnit.SECONDS;
+    }
+
+    return unit;
   }
   private hasReachedStep(newY: number) {
     const distance = Math.abs(newY - this.currentStepY);

@@ -5,12 +5,10 @@ import TimeboxEvent, { TimeboxEventType } from './TimeboxEvent';
 export interface AppState {
   seconds: number;
   minutes: number;
+  hours: number;
   isTimeboxStarted: boolean;
   timer: number;
 }
-
-const MIN_VALUE: number = 0;
-const MAX_VALUE: number = 59;
 
 class App extends React.Component<{}, AppState> {
   private timeboxInterval: number;
@@ -19,6 +17,7 @@ class App extends React.Component<{}, AppState> {
     this.state = {
       seconds: 0,
       minutes: 0,
+      hours: 0,
       isTimeboxStarted: false,
       timer: 0,
     };
@@ -31,20 +30,19 @@ class App extends React.Component<{}, AppState> {
     const toggleText = this.state.isTimeboxStarted ? 'Stop' : 'Start';
     const seconds = this.padLeft(this.state.seconds);
     const minutes = this.padLeft(this.state.minutes);
+    const hours = this.padLeft(this.state.hours);
     return (
       <div className="app">
         <TimeboxEventEmitter onChange={this.handleTimeboxChange}>
           <div className="content-container">
             <div className="clock">
+              <span>{hours}</span>
+              <span>:</span>
               <span>{minutes}</span>
               <span>:</span>
               <span>{seconds}</span>
             </div>
-            <button
-              className="hidden"
-              onClick={this.handleToggleCountdown}
-              tabIndex={3}
-            >
+            <button className="hidden" onClick={this.handleToggleCountdown}>
               {toggleText}
             </button>
           </div>
@@ -53,71 +51,18 @@ class App extends React.Component<{}, AppState> {
     );
   }
   private handleTimeboxChange(e: TimeboxEvent) {
-    switch (e.type) {
-      case TimeboxEventType.DECREASE_SECONDS:
-        // 00:05 --> default case
-        // 00:00
-        // 01:00
-        if (!this.state.isTimeboxStarted) {
-          this.setState(prevState => {
-            let seconds = prevState.seconds - 5;
-            let minutes = prevState.minutes;
-            if (seconds < MIN_VALUE && minutes === MIN_VALUE) {
-              seconds = 0;
-            } else if (seconds < MIN_VALUE && minutes > MIN_VALUE) {
-              seconds = 55;
-              minutes -= 1;
-            }
-
-            // -1 seconds because interval starts after 1 second
-            const timer = minutes * 60 + seconds - 1;
-            return { seconds, minutes, timer };
-          });
-        }
-        break;
-      case TimeboxEventType.INCREASE_SECONDS:
-        if (!this.state.isTimeboxStarted && this.state.seconds < MAX_VALUE) {
-          this.setState(prevState => {
-            let seconds = prevState.seconds + 5;
-            let minutes = prevState.minutes;
-            if (seconds >= MAX_VALUE) {
-              seconds = 0;
-              if (minutes < MAX_VALUE) {
-                minutes += 1;
-              }
-            }
-
-            // -1 seconds because interval starts after 1 second
-            const timer = minutes * 60 + seconds - 1;
-            return { seconds, minutes, timer };
-          });
-        }
-        break;
-      case TimeboxEventType.DECREASE_MINUTES:
-        if (!this.state.isTimeboxStarted && this.state.minutes > MIN_VALUE) {
-          this.setState(prevState => {
-            const minutes = prevState.minutes - 1;
-
-            // -1 seconds because interval starts after 1 second
-            const timer = minutes * 60 + prevState.seconds - 1;
-            return { minutes, timer };
-          });
-        }
-        break;
-      case TimeboxEventType.INCREASE_MINUTES:
-        if (!this.state.isTimeboxStarted && this.state.minutes < MAX_VALUE) {
-          this.setState(prevState => {
-            const minutes = prevState.minutes + 1;
-
-            // -1 seconds because interval starts after 1 second
-            const timer = minutes * 60 + prevState.seconds - 1;
-            return { minutes, timer };
-          });
-        }
-        break;
-      default:
-        break;
-    }
+    this.setState(prevState => {
+      const timer =
+        e.type === TimeboxEventType.INCREASE_UNIT
+          ? prevState.timer + e.unit
+          : prevState.timer - e.unit;
+      if (timer >= 0) {
+        const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
+        return { seconds, minutes, hours, timer };
+      } else {
+        return this.state;
+      }
+    });
   }
 
   private handleToggleCountdown() {
@@ -153,6 +98,13 @@ class App extends React.Component<{}, AppState> {
     const pad = '00';
     const str = '' + value;
     return pad.substring(0, pad.length - str.length) + str;
+  }
+  private calculateDisplayTime(timer: number) {
+    const hours = Math.floor(timer / 3600);
+    const minutes = Math.floor(timer / 60) - hours * 60;
+    const seconds = timer - hours * 3600 - minutes * 60;
+    const res = { seconds, minutes, hours };
+    return res;
   }
 }
 

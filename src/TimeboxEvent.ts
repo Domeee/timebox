@@ -1,10 +1,9 @@
 export enum TimeboxEventType {
-  INCREASE_SECONDS,
-  INCREASE_MINUTES,
-  DECREASE_SECONDS,
-  DECREASE_MINUTES,
+  INCREASE_UNIT,
+  DECREASE_UNIT,
 }
 
 export default interface TimeboxEvent {
   type: TimeboxEventType;
+  unit: number;
 };
