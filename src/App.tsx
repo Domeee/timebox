@@ -25,7 +25,6 @@ class App extends React.Component<{}, AppState> {
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
     this.handleToggleCountdown = this.handleToggleCountdown.bind(this);
     this.handleTimeboxTick = this.handleTimeboxTick.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   public render() {
@@ -33,17 +32,13 @@ class App extends React.Component<{}, AppState> {
     const seconds = this.padLeft(this.state.seconds);
     const minutes = this.padLeft(this.state.minutes);
     return (
-      <div className="app" tabIndex={0} onKeyDown={this.handleKeyDown}>
+      <div className="app">
         <TimeboxEventEmitter onChange={this.handleTimeboxChange}>
           <div className="content-container">
             <div className="clock">
-              <span tabIndex={1} id="minutes">
-                {minutes}
-              </span>
+              <span>{minutes}</span>
               <span>:</span>
-              <span tabIndex={2} id="seconds">
-                {seconds}
-              </span>
+              <span>{seconds}</span>
             </div>
             <button
               className="hidden"
@@ -56,23 +51,6 @@ class App extends React.Component<{}, AppState> {
         </TimeboxEventEmitter>
       </div>
     );
-  }
-  // tslint:disable-next-line:no-any
-  private handleKeyDown(e: React.KeyboardEvent<HTMLElement>) {
-    const activeElement = document.activeElement;
-    if (e.key === 'ArrowUp') {
-      if (activeElement.id === 'minutes') {
-        this.handleTimeboxChange({ type: TimeboxEventType.INCREASE_MINUTES });
-      } else {
-        this.handleTimeboxChange({ type: TimeboxEventType.INCREASE_SECONDS });
-      }
-    } else if (e.key === 'ArrowDown') {
-      if (activeElement.id === 'minutes') {
-        this.handleTimeboxChange({ type: TimeboxEventType.DECREASE_MINUTES });
-      } else {
-        this.handleTimeboxChange({ type: TimeboxEventType.DECREASE_SECONDS });
-      }
-    }
   }
   private handleTimeboxChange(e: TimeboxEvent) {
     switch (e.type) {
