@@ -3,6 +3,7 @@ import TimeboxEventEmitter from './TimeboxEventEmitter';
 import TimeboxChangeEvent, {
   TimeboxChangeEventType,
 } from './TimeboxChangeEvent';
+import TimeboxUnit from './TimeboxUnit';
 
 export interface AppState {
   seconds: number;
@@ -54,16 +55,20 @@ class App extends React.Component<{}, AppState> {
     );
   }
   private handleTimeboxChange(e: TimeboxChangeEvent) {
+    if (this.state.isTimeboxStarted) return;
+    if (
+      this.state.timer < TimeboxUnit.SECONDS &&
+      e.type === TimeboxChangeEventType.DECREASE_UNIT
+    )
+      return;
+
     this.setState(prevState => {
-      let timer =
+      const timer =
         e.type === TimeboxChangeEventType.INCREASE_UNIT
           ? prevState.timer + e.unit
           : prevState.timer - e.unit;
       if (timer >= 0) {
         const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
-
-        // -1 second on timer so that the interval starts after 1 second
-        timer -= 1;
         return { timer, seconds, minutes, hours };
       } else {
         return this.state;
@@ -80,17 +85,17 @@ class App extends React.Component<{}, AppState> {
     } else {
       this.setState({ isTimeboxStarted: true });
       this.timeboxInterval = window.setInterval(this.handleTimeboxTick, 1000);
+
+      // Direct call to handleTimeboxTick() so the UI updates right away
+      this.handleTimeboxTick();
     }
   }
 
   private handleTimeboxTick() {
     if (this.state.timer > 0) {
       this.setState(prevState => {
-        let timer = prevState.timer;
+        const timer = prevState.timer - 1;
         const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
-
-        // -1 second on timer so that the interval starts after 1 second
-        timer -= 1;
         return { timer, seconds, minutes, hours };
       });
     } else {
