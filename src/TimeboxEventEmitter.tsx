@@ -1,10 +1,14 @@
 import * as React from 'react';
-import TimeboxEvent, { TimeboxEventType } from './TimeboxEvent';
-import { TimeboxUnit } from './TimeboxUnit';
+import TimeboxChangeEvent, {
+  TimeboxChangeEventType,
+} from './TimeboxChangeEvent';
+import TimeboxUnit from './TimeboxUnit';
+import KeyCode from './KeyCode';
 import './TimeboxEventEmitter.css';
 
 export interface TimeboxEventEmitterProps {
-  onChange(e: TimeboxEvent): void;
+  onTimeboxChange(e: TimeboxChangeEvent): void;
+  onTimeboxToggle(): void;
 }
 
 class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
@@ -17,16 +21,19 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     this.handleTouchMove = this.handleTouchMove.bind(this);
     this.handleDragStart = this.handleDragStart.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
   public render() {
     return (
       <div
         className="timebox-event-emitter"
         draggable={true}
+        tabIndex={0}
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
         onDragStart={this.handleDragStart}
         onDragOver={this.handleDragOver}
+        onKeyDown={this.handleKeyDown}
       >
         {this.props.children}
       </div>
@@ -52,13 +59,13 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
       const change = changes[0];
       if (this.hasReachedStep(change.clientY)) {
         if (this.currentY > change.clientY) {
-          this.props.onChange({
-            type: TimeboxEventType.INCREASE_UNIT,
+          this.props.onTimeboxChange({
+            type: TimeboxChangeEventType.INCREASE_UNIT,
             unit: this.currentUnit,
           });
         } else if (this.currentY < change.clientY) {
-          this.props.onChange({
-            type: TimeboxEventType.DECREASE_UNIT,
+          this.props.onTimeboxChange({
+            type: TimeboxChangeEventType.DECREASE_UNIT,
             unit: this.currentUnit,
           });
         }
@@ -83,17 +90,22 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     // Provides results for clientY with less noise
     if (this.hasReachedStep(e.clientY)) {
       if (this.currentY > e.clientY) {
-        this.props.onChange({
-          type: TimeboxEventType.INCREASE_UNIT,
+        this.props.onTimeboxChange({
+          type: TimeboxChangeEventType.INCREASE_UNIT,
           unit: this.currentUnit,
         });
       } else if (this.currentY < e.clientY) {
-        this.props.onChange({
-          type: TimeboxEventType.DECREASE_UNIT,
+        this.props.onTimeboxChange({
+          type: TimeboxChangeEventType.DECREASE_UNIT,
           unit: this.currentUnit,
         });
       }
       this.currentY = e.clientY;
+    }
+  }
+  private handleKeyDown(e: React.KeyboardEvent<HTMLElement>) {
+    if (e.keyCode === KeyCode.SPACE) {
+      this.props.onTimeboxToggle();
     }
   }
   private getCurrentUnit(clientX: number): TimeboxUnit {

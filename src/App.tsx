@@ -1,6 +1,8 @@
 import * as React from 'react';
 import TimeboxEventEmitter from './TimeboxEventEmitter';
-import TimeboxEvent, { TimeboxEventType } from './TimeboxEvent';
+import TimeboxChangeEvent, {
+  TimeboxChangeEventType,
+} from './TimeboxChangeEvent';
 
 export interface AppState {
   seconds: number;
@@ -22,7 +24,7 @@ class App extends React.Component<{}, AppState> {
       timer: 0,
     };
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
-    this.handleToggleCountdown = this.handleToggleCountdown.bind(this);
+    this.handleTimeboxToggle = this.handleTimeboxToggle.bind(this);
     this.handleTimeboxTick = this.handleTimeboxTick.bind(this);
   }
 
@@ -33,7 +35,10 @@ class App extends React.Component<{}, AppState> {
     const hours = this.padLeft(this.state.hours);
     return (
       <div className="app">
-        <TimeboxEventEmitter onChange={this.handleTimeboxChange}>
+        <TimeboxEventEmitter
+          onTimeboxChange={this.handleTimeboxChange}
+          onTimeboxToggle={this.handleTimeboxToggle}
+        >
           <div className="content-container">
             <div className="clock">
               <span>{hours}</span>
@@ -42,30 +47,30 @@ class App extends React.Component<{}, AppState> {
               <span>:</span>
               <span>{seconds}</span>
             </div>
-            <button className="hidden" onClick={this.handleToggleCountdown}>
-              {toggleText}
-            </button>
+            <button onClick={this.handleTimeboxToggle}>{toggleText}</button>
           </div>
         </TimeboxEventEmitter>
       </div>
     );
   }
-  private handleTimeboxChange(e: TimeboxEvent) {
+  private handleTimeboxChange(e: TimeboxChangeEvent) {
     this.setState(prevState => {
-      const timer =
-        e.type === TimeboxEventType.INCREASE_UNIT
+      let timer =
+        e.type === TimeboxChangeEventType.INCREASE_UNIT
           ? prevState.timer + e.unit
           : prevState.timer - e.unit;
       if (timer >= 0) {
         const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
-        return { seconds, minutes, hours, timer };
+
+        // -1 second on timer so that the interval starts after 1 second
+        timer -= 1;
+        return { timer, seconds, minutes, hours };
       } else {
         return this.state;
       }
     });
   }
-
-  private handleToggleCountdown() {
+  private handleTimeboxToggle() {
     if (this.state.isTimeboxStarted) {
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
@@ -80,16 +85,19 @@ class App extends React.Component<{}, AppState> {
 
   private handleTimeboxTick() {
     if (this.state.timer > 0) {
-      const minutes = Math.floor(this.state.timer / 60);
-      const seconds = this.state.timer - minutes * 60;
       this.setState(prevState => {
-        return { timer: prevState.timer - 1, seconds, minutes };
+        let timer = prevState.timer;
+        const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
+
+        // -1 second on timer so that the interval starts after 1 second
+        timer -= 1;
+        return { timer, seconds, minutes, hours };
       });
     } else {
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
       this.setState(prevState => {
-        return { timer: 0, seconds: 0, minutes: 0 };
+        return { timer: 0, seconds: 0, minutes: 0, hours: 0 };
       });
     }
   }
