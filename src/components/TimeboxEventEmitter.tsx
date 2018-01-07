@@ -1,9 +1,9 @@
 import * as React from 'react';
 import TimeboxChangeEvent, {
   TimeboxChangeEventType,
-} from './TimeboxChangeEvent';
-import TimeboxUnit from './TimeboxUnit';
-import KeyCode from './KeyCode';
+} from '../lib/TimeboxChangeEvent';
+import TimeboxUnit from '../lib/TimeboxUnit';
+import KeyCode from '../lib/KeyCode';
 import './TimeboxEventEmitter.css';
 
 export interface TimeboxEventEmitterProps {

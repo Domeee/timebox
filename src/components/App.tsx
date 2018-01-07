@@ -2,8 +2,8 @@ import * as React from 'react';
 import TimeboxEventEmitter from './TimeboxEventEmitter';
 import TimeboxChangeEvent, {
   TimeboxChangeEventType,
-} from './TimeboxChangeEvent';
-import TimeboxUnit from './TimeboxUnit';
+} from '../lib/TimeboxChangeEvent';
+import TimeboxUnit from '../lib/TimeboxUnit';
 
 export interface AppState {
   seconds: number;
