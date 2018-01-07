@@ -4,6 +4,8 @@ import TimeboxChangeEvent, {
   TimeboxChangeEventType,
 } from '../lib/TimeboxChangeEvent';
 import TimeboxUnit from '../lib/TimeboxUnit';
+import SoundSelection from './SoundSelection';
+import SoundChangeEvent from '../lib/SoundChangeEvent';
 
 export interface AppState {
   seconds: number;
@@ -15,6 +17,8 @@ export interface AppState {
 
 class App extends React.Component<{}, AppState> {
   private timeboxInterval: number;
+  private song = SoundSelection.DefaultSound;
+
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -27,6 +31,7 @@ class App extends React.Component<{}, AppState> {
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
     this.handleTimeboxToggle = this.handleTimeboxToggle.bind(this);
     this.handleTimeboxTick = this.handleTimeboxTick.bind(this);
+    this.handleSoundChange = this.handleSoundChange.bind(this);
   }
 
   public render() {
@@ -41,6 +46,7 @@ class App extends React.Component<{}, AppState> {
           onTimeboxToggle={this.handleTimeboxToggle}
         >
           <div className="content-container">
+            <SoundSelection onSoundChange={this.handleSoundChange} />
             <div className="clock">
               <span>{hours}</span>
               <span>:</span>
@@ -54,6 +60,7 @@ class App extends React.Component<{}, AppState> {
       </div>
     );
   }
+
   private handleTimeboxChange(e: TimeboxChangeEvent) {
     if (this.state.isTimeboxStarted) return;
     if (
@@ -75,6 +82,7 @@ class App extends React.Component<{}, AppState> {
       }
     });
   }
+
   private handleTimeboxToggle() {
     if (this.state.isTimeboxStarted) {
       this.setState({ isTimeboxStarted: false });
@@ -85,20 +93,18 @@ class App extends React.Component<{}, AppState> {
     } else {
       this.setState({ isTimeboxStarted: true });
       this.timeboxInterval = window.setInterval(this.handleTimeboxTick, 1000);
-
-      // Direct call to handleTimeboxTick() so the UI updates right away
-      this.handleTimeboxTick();
     }
   }
 
   private handleTimeboxTick() {
-    if (this.state.timer > 0) {
+    if (this.state.timer > 1) {
       this.setState(prevState => {
         const timer = prevState.timer - 1;
         const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
         return { timer, seconds, minutes, hours };
       });
     } else {
+      this.playSound();
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
       this.setState(prevState => {
@@ -106,6 +112,19 @@ class App extends React.Component<{}, AppState> {
       });
     }
   }
+
+  private handleSoundChange(e: SoundChangeEvent) {
+    this.song = e.newSound;
+  }
+
+  private playSound() {
+    if (this.song !== SoundSelection.SilentSound) {
+      const song = this.song + '.mp3';
+      const audio = new Audio(song);
+      audio.play();
+    }
+  }
+
   // tslint:disable-next-line:no-any
   private padLeft(value: any): string {
     const pad = '00';
