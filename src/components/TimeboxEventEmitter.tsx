@@ -31,35 +31,28 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     this.handleTouchMove = this.handleTouchMove.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.handleTouchCancel = this.handleTouchCancel.bind(this);
-    this.handleDragStart = this.handleDragStart.bind(this);
-    this.handleDragOver = this.handleDragOver.bind(this);
-    this.handleDragEnd = this.handleDragEnd.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
   }
 
   public render() {
     return (
       <div
         className="timebox-event-emitter"
-        draggable={true}
         tabIndex={0}
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
         onTouchEnd={this.handleTouchEnd}
         onTouchCancel={this.handleTouchCancel}
-        onDragStart={this.handleDragStart}
-        onDragOver={this.handleDragOver}
-        onDragEnd={this.handleDragEnd}
         onKeyDown={this.handleKeyDown}
+        onMouseMove={this.handleMouseMove}
       >
         {this.props.children}
       </div>
     );
   }
 
-  // tslint:disable-next-line:no-any
   private handleTouchStart(e: React.TouchEvent<HTMLElement>) {
-    // Init y to current mouse position
     const changes = e.changedTouches;
     if (changes.length > 0) {
       const change = changes[0];
@@ -69,7 +62,6 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     }
   }
 
-  // tslint:disable-next-line:no-any
   private handleTouchMove(e: React.TouchEvent<HTMLElement>) {
     // Prevent touch action (e.g. scrolling) on safari and older browsers
     e.preventDefault();
@@ -78,39 +70,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     if (changes.length === 0) return;
 
     const change = changes[0];
-
-    // The swipe axis is stored for the current touch session. A ChangeEvent
-    // is only triggered for one swipe action (Swipe up/down OR Swipe right/left).
-    // If both swipe gesture are detected, Swipe up/down wins.
-    const { gesture, axis } = this.getSwipeGestureAndAxis(
-      this.currentX,
-      change.clientX,
-      this.currentY,
-      change.clientY
-    );
-
-    this.axis = this.axis || axis;
-
-    if (this.axis === SwipeAxis.Vertical) {
-      if (gesture === SwipeGesture.SwipeUp) {
-        this.props.onTimeboxChange({
-          type: TimeboxChangeEventType.INCREASE_UNIT,
-          unit: this.currentUnit,
-        });
-        this.currentY = change.clientY;
-      } else if (gesture === SwipeGesture.SwipeDown) {
-        this.props.onTimeboxChange({
-          type: TimeboxChangeEventType.DECREASE_UNIT,
-          unit: this.currentUnit,
-        });
-        this.currentY = change.clientY;
-      }
-    } else if (
-      this.axis === SwipeAxis.Horizontal &&
-      (gesture === SwipeGesture.SwipeRight || SwipeGesture.SwipeLeft)
-    ) {
-      this.gesture = gesture;
-    }
+    this.handleSwipeSession(change.clientX, change.clientY);
   }
 
   private handleTouchEnd(e: React.TouchEvent<HTMLElement>) {
@@ -121,30 +81,26 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     this.cleanupSwipeSession();
   }
 
-  private handleDragStart(e: React.DragEvent<HTMLElement>) {
-    this.currentX = e.clientX;
-    this.currentY = e.clientY;
-    this.currentUnit = this.getCurrentUnit(e.clientX);
-
-    // Disable the visual drag effect
-    const ghost = document.createElement('span');
-    e.dataTransfer.setDragImage(ghost, 0, 0);
-
-    // Dummy drag data, else onDrag won't be called in FF
-    e.dataTransfer.setData('text/plain', 'batman forever!');
+  private handleMouseMove(e: React.MouseEvent<HTMLElement>) {
+    const trigger = e.buttons === undefined ? e.nativeEvent.which : e.buttons;
+    if (trigger === 1) {
+      this.handleSwipeSession(e.clientX, e.clientY);
+    } else {
+      this.currentX = e.clientX;
+      this.currentY = e.clientY;
+      this.currentUnit = this.getCurrentUnit(e.clientX);
+    }
   }
 
-  // onDrag does not provide any values for clientY
-  // Provides results for clientY with less noise
-  private handleDragOver(e: React.DragEvent<HTMLElement>) {
+  private handleSwipeSession(newPositionX: number, newPositionY: number) {
     // The swipe axis is stored for the current touch session. A ChangeEvent
     // is only triggered for one swipe action (Swipe up/down OR Swipe right/left).
     // If both swipe gesture are detected, Swipe up/down wins.
     const { gesture, axis } = this.getSwipeGestureAndAxis(
       this.currentX,
-      e.clientX,
+      newPositionX,
       this.currentY,
-      e.clientY
+      newPositionY
     );
 
     this.axis = this.axis || axis;
@@ -155,13 +111,13 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
           type: TimeboxChangeEventType.INCREASE_UNIT,
           unit: this.currentUnit,
         });
-        this.currentY = e.clientY;
+        this.currentY = newPositionY;
       } else if (gesture === SwipeGesture.SwipeDown) {
         this.props.onTimeboxChange({
           type: TimeboxChangeEventType.DECREASE_UNIT,
           unit: this.currentUnit,
         });
-        this.currentY = e.clientY;
+        this.currentY = newPositionY;
       }
     } else if (
       this.axis === SwipeAxis.Horizontal &&
@@ -169,10 +125,6 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     ) {
       this.gesture = gesture;
     }
-  }
-
-  private handleDragEnd(e: React.DragEvent<HTMLElement>) {
-    this.handleSwipeSessionEnd();
   }
 
   private handleSwipeSessionEnd() {

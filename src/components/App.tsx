@@ -97,7 +97,7 @@ class App extends React.Component<{}, AppState> {
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
       this.setState(prevState => {
-        return { timer: 0, seconds: 0, minutes: 0 };
+        return { timer: 0, seconds: 0, minutes: 0, hours: 0 };
       });
     } else {
       this.setState({ isTimeboxStarted: true });
@@ -106,13 +106,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   private handleThemeChange(e: ThemeChangeEvent) {
-    let theme;
-    // tslint:disable-next-line:prefer-conditional-expression
-    if (e.next) {
-      theme = Theme.Green;
-    } else {
-      theme = Theme.Dark;
-    }
+    const theme = e.next ? Theme.Green : Theme.Dark;
 
     this.setState({
       theme,
@@ -148,12 +142,12 @@ class App extends React.Component<{}, AppState> {
     }
   }
 
-  // tslint:disable-next-line:no-any
-  private padLeft(value: any): string {
+  private padLeft(value: number): string {
     const pad = '00';
     const str = '' + value;
     return pad.substring(0, pad.length - str.length) + str;
   }
+
   private calculateDisplayTime(timer: number) {
     const hours = Math.floor(timer / 3600);
     const minutes = Math.floor(timer / 60) - hours * 60;
