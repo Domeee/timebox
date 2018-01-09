@@ -33,6 +33,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     this.handleTouchCancel = this.handleTouchCancel.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
   }
 
   public render() {
@@ -46,6 +47,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
         onTouchCancel={this.handleTouchCancel}
         onKeyDown={this.handleKeyDown}
         onMouseMove={this.handleMouseMove}
+        onMouseUp={this.handleMouseUp}
       >
         {this.props.children}
       </div>
@@ -90,6 +92,10 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
       this.currentY = e.clientY;
       this.currentUnit = this.getCurrentUnit(e.clientX);
     }
+  }
+
+  private handleMouseUp(e: React.MouseEvent<HTMLElement>) {
+    this.handleSwipeSessionEnd();
   }
 
   private handleSwipeSession(newPositionX: number, newPositionY: number) {
