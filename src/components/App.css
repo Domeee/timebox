@@ -3,7 +3,42 @@
   color: #b5b5c0;
 }
 
+.red {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+.purple {
+  background-color: #9c27b0;
+  color: #ffffff;
+}
+
+.blue {
+  background-color: #2196f3;
+  color: #ffffff;
+}
+
+.cyan {
+  background-color: #00bcd4;
+  color: #ffffff;
+}
+
+.teal {
+  background-color: #009688;
+  color: #ffffff;
+}
+
 .green {
-  background-color: forestgreen;
-  color: black;
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.yellow {
+  background-color: #ffeb3b;
+  color: #212121;
+}
+
+.amber {
+  background-color: #ffc107;
+  color: #212121;
 }

@@ -6,7 +6,6 @@ import TimeboxChangeEvent, {
 import TimeboxUnit from '../lib/TimeboxUnit';
 import SoundSelection from './SoundSelection';
 import SoundChangeEvent from '../lib/SoundChangeEvent';
-import Theme from '../lib/Theme';
 import ThemeChangeEvent from '../lib/ThemeChangeEvent';
 
 import './App.css';
@@ -17,12 +16,23 @@ export interface AppState {
   hours: number;
   isTimeboxStarted: boolean;
   timer: number;
-  theme: Theme;
+  theme: number;
 }
 
 class App extends React.Component<{}, AppState> {
   private timeboxInterval: number;
   private song = SoundSelection.DefaultSound;
+  private themes = [
+    'dark',
+    'red',
+    'purple',
+    'blue',
+    'cyan',
+    'teal',
+    'green',
+    'yellow',
+    'amber',
+  ];
 
   constructor(props: {}) {
     super(props);
@@ -32,7 +42,7 @@ class App extends React.Component<{}, AppState> {
       hours: 0,
       isTimeboxStarted: false,
       timer: 0,
-      theme: Theme.Dark,
+      theme: 0,
     };
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
     this.handleTimeboxToggle = this.handleTimeboxToggle.bind(this);
@@ -46,7 +56,7 @@ class App extends React.Component<{}, AppState> {
     const seconds = this.padLeft(this.state.seconds);
     const minutes = this.padLeft(this.state.minutes);
     const hours = this.padLeft(this.state.hours);
-    const appClasses = `app ${Theme[this.state.theme].toLowerCase()}`;
+    const appClasses = `app ${this.themes[this.state.theme]}`;
     return (
       <div className={appClasses}>
         <TimeboxEventEmitter
@@ -106,7 +116,14 @@ class App extends React.Component<{}, AppState> {
   }
 
   private handleThemeChange(e: ThemeChangeEvent) {
-    const theme = e.next ? Theme.Green : Theme.Dark;
+    let theme = this.state.theme;
+    if (e.next) {
+      theme = this.state.theme + 1;
+      theme = theme < this.themes.length ? theme : 0;
+    } else {
+      theme = this.state.theme - 1;
+      theme = theme >= 0 ? theme : this.themes.length - 1;
+    }
 
     this.setState({
       theme,
