@@ -6,6 +6,10 @@ import TimeboxChangeEvent, {
 import TimeboxUnit from '../lib/TimeboxUnit';
 import SoundSelection from './SoundSelection';
 import SoundChangeEvent from '../lib/SoundChangeEvent';
+import Theme from '../lib/Theme';
+import ThemeChangeEvent from '../lib/ThemeChangeEvent';
+
+import './App.css';
 
 export interface AppState {
   seconds: number;
@@ -13,6 +17,7 @@ export interface AppState {
   hours: number;
   isTimeboxStarted: boolean;
   timer: number;
+  theme: Theme;
 }
 
 class App extends React.Component<{}, AppState> {
@@ -27,11 +32,13 @@ class App extends React.Component<{}, AppState> {
       hours: 0,
       isTimeboxStarted: false,
       timer: 0,
+      theme: Theme.Dark,
     };
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
     this.handleTimeboxToggle = this.handleTimeboxToggle.bind(this);
     this.handleTimeboxTick = this.handleTimeboxTick.bind(this);
     this.handleSoundChange = this.handleSoundChange.bind(this);
+    this.handleThemeChange = this.handleThemeChange.bind(this);
   }
 
   public render() {
@@ -39,11 +46,13 @@ class App extends React.Component<{}, AppState> {
     const seconds = this.padLeft(this.state.seconds);
     const minutes = this.padLeft(this.state.minutes);
     const hours = this.padLeft(this.state.hours);
+    const appClasses = `app ${Theme[this.state.theme].toLowerCase()}`;
     return (
-      <div className="app">
+      <div className={appClasses}>
         <TimeboxEventEmitter
           onTimeboxChange={this.handleTimeboxChange}
           onTimeboxToggle={this.handleTimeboxToggle}
+          onThemeChange={this.handleThemeChange}
         >
           <div className="content-container">
             <SoundSelection onSoundChange={this.handleSoundChange} />
@@ -94,6 +103,20 @@ class App extends React.Component<{}, AppState> {
       this.setState({ isTimeboxStarted: true });
       this.timeboxInterval = window.setInterval(this.handleTimeboxTick, 1000);
     }
+  }
+
+  private handleThemeChange(e: ThemeChangeEvent) {
+    let theme;
+    // tslint:disable-next-line:prefer-conditional-expression
+    if (e.next) {
+      theme = Theme.Green;
+    } else {
+      theme = Theme.Dark;
+    }
+
+    this.setState({
+      theme,
+    });
   }
 
   private handleTimeboxTick() {

@@ -1,0 +1,9 @@
+.dark {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #b5b5c0;
+}
+
+.green {
+  background-color: forestgreen;
+  color: black;
+}

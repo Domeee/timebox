@@ -6,10 +6,6 @@ html {
 
 body {
   font-size: 1.6rem;
-
-  /* temporary */
-  background-color: rgba(0, 0, 0, 0.9);
-  color: #b5b5c0;
   font-family: 'Lato', sans-serif;
 }
 
