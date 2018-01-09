@@ -6,9 +6,9 @@ import TimeboxUnit from '../lib/TimeboxUnit';
 import KeyCode from '../lib/KeyCode';
 import SwipeGesture from '../lib/SwipeGesture';
 import SwipeAxis from '../lib/SwipeAxis';
+import ThemeChangeEvent from '../lib/ThemeChangeEvent';
 
 import './TimeboxEventEmitter.css';
-import ThemeChangeEvent from '../lib/ThemeChangeEvent';
 
 export interface TimeboxEventEmitterProps {
   onTimeboxChange(e: TimeboxChangeEvent): void;
@@ -33,6 +33,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     this.handleTouchCancel = this.handleTouchCancel.bind(this);
     this.handleDragStart = this.handleDragStart.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
+    this.handleDragEnd = this.handleDragEnd.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
@@ -48,6 +49,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
         onTouchCancel={this.handleTouchCancel}
         onDragStart={this.handleDragStart}
         onDragOver={this.handleDragOver}
+        onDragEnd={this.handleDragEnd}
         onKeyDown={this.handleKeyDown}
       >
         {this.props.children}
@@ -112,26 +114,15 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   }
 
   private handleTouchEnd(e: React.TouchEvent<HTMLElement>) {
-    if (this.axis === SwipeAxis.Horizontal) {
-      if (this.gesture === SwipeGesture.SwipeRight) {
-        this.props.onThemeChange({ next: true });
-      } else if (this.gesture === SwipeGesture.SwipeLeft) {
-        this.props.onThemeChange({ next: false });
-      }
-    }
-
-    // Cleanup
-    this.axis = undefined;
-    this.gesture = undefined;
+    this.handleSwipeSessionEnd();
   }
 
   private handleTouchCancel(e: React.TouchEvent<HTMLElement>) {
-    // Cleanup
-    this.axis = undefined;
-    this.gesture = undefined;
+    this.cleanupSwipeSession();
   }
 
   private handleDragStart(e: React.DragEvent<HTMLElement>) {
+    this.currentX = e.clientX;
     this.currentY = e.clientY;
     this.currentUnit = this.getCurrentUnit(e.clientX);
 
@@ -146,20 +137,58 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   // onDrag does not provide any values for clientY
   // Provides results for clientY with less noise
   private handleDragOver(e: React.DragEvent<HTMLElement>) {
-    // if (this.hasReachedStep(e.clientY)) {
-    //   if (this.currentY > e.clientY) {
-    //     this.props.onTimeboxChange({
-    //       type: TimeboxChangeEventType.INCREASE_UNIT,
-    //       unit: this.currentUnit,
-    //     });
-    //   } else if (this.currentY < e.clientY) {
-    //     this.props.onTimeboxChange({
-    //       type: TimeboxChangeEventType.DECREASE_UNIT,
-    //       unit: this.currentUnit,
-    //     });
-    //   }
-    //   this.currentY = e.clientY;
-    // }
+    // The swipe axis is stored for the current touch session. A ChangeEvent
+    // is only triggered for one swipe action (Swipe up/down OR Swipe right/left).
+    // If both swipe gesture are detected, Swipe up/down wins.
+    const { gesture, axis } = this.getSwipeGestureAndAxis(
+      this.currentX,
+      e.clientX,
+      this.currentY,
+      e.clientY
+    );
+
+    this.axis = this.axis || axis;
+
+    if (this.axis === SwipeAxis.Vertical) {
+      if (gesture === SwipeGesture.SwipeUp) {
+        this.props.onTimeboxChange({
+          type: TimeboxChangeEventType.INCREASE_UNIT,
+          unit: this.currentUnit,
+        });
+        this.currentY = e.clientY;
+      } else if (gesture === SwipeGesture.SwipeDown) {
+        this.props.onTimeboxChange({
+          type: TimeboxChangeEventType.DECREASE_UNIT,
+          unit: this.currentUnit,
+        });
+        this.currentY = e.clientY;
+      }
+    } else if (
+      this.axis === SwipeAxis.Horizontal &&
+      (gesture === SwipeGesture.SwipeRight || SwipeGesture.SwipeLeft)
+    ) {
+      this.gesture = gesture;
+    }
+  }
+
+  private handleDragEnd(e: React.DragEvent<HTMLElement>) {
+    this.handleSwipeSessionEnd();
+  }
+
+  private handleSwipeSessionEnd() {
+    if (this.axis === SwipeAxis.Horizontal) {
+      if (this.gesture === SwipeGesture.SwipeRight) {
+        this.props.onThemeChange({ next: true });
+      } else if (this.gesture === SwipeGesture.SwipeLeft) {
+        this.props.onThemeChange({ next: false });
+      }
+    }
+    this.cleanupSwipeSession();
+  }
+
+  private cleanupSwipeSession() {
+    this.axis = undefined;
+    this.gesture = undefined;
   }
 
   private handleKeyDown(e: React.KeyboardEvent<HTMLElement>) {
