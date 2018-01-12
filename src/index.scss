@@ -6,5 +6,18 @@ html {
 
 body {
   font-size: 1.6rem;
-  font-family: 'Lato', sans-serif;
+  font-family: 'LatoLatin', sans-serif;
+}
+
+@font-face {
+  font-family: 'LatoLatin';
+  src: url('./fonts/LatoLatin-Regular.eot');
+  src: local('LatoLatin'),
+    url('./fonts/LatoLatin-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/LatoLatin-Regular.woff2') format('woff2'),
+    url('./fonts/LatoLatin-Regular.woff') format('woff'),
+    url('./fonts/LatoLatin-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
 }
