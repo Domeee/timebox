@@ -59,13 +59,13 @@ class App extends React.Component<{}, AppState> {
     const appClasses = `app ${this.themes[this.state.theme]}`;
     return (
       <div className={appClasses}>
+        <SoundSelection onSoundChange={this.handleSoundChange} />
         <TimeboxEventEmitter
           onTimeboxChange={this.handleTimeboxChange}
           onTimeboxToggle={this.handleTimeboxToggle}
           onThemeChange={this.handleThemeChange}
         >
           <div className="content-container">
-            <SoundSelection onSoundChange={this.handleSoundChange} />
             <div className="clock">
               <span>{hours}</span>
               <span>:</span>

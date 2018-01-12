@@ -1,0 +1,13 @@
+.soundselection {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 5vw;
+  padding-right: 5vw;
+  select {
+    background: inherit;
+    border: none;
+    color: inherit;
+    font: inherit;
+    outline: none;
+  }
+}

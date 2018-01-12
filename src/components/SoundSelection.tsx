@@ -1,6 +1,8 @@
 import * as React from 'react';
 import SoundChangeEvent from '../lib/SoundChangeEvent';
 
+import './SoundSelection.css';
+
 export interface SoundSelectionState {
   sound: string;
 }
@@ -23,13 +25,13 @@ class SoundSelection extends React.Component<
 
   public render() {
     return (
-      <div>
+      <div className="soundselection">
         <select
           name="sound"
           value={this.state.sound}
           onChange={this.handleChange}
         >
-          <option value="silent">Silent</option>
+          <option value="silent">Sound OFF</option>
           <option value="gong">Gong</option>
           <option value="cometogether">Come together</option>
           <option value="getupstandup">Get up stand up</option>

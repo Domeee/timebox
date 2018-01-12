@@ -1,3 +1,5 @@
+@import 'shared.scss';
+
 html {
   height: 100vh;
   width: 100vw;
@@ -5,8 +7,17 @@ html {
 }
 
 body {
-  font-size: 1.6rem;
   font-family: 'LatoLatin', sans-serif;
+  font-size: 1.8rem;
+  @include tablet {
+    font-size: 3.6rem;
+  }
+  @include desktop {
+    font-size: 3.6rem;
+  }
+  @include big {
+    font-size: 3.6rem;
+  }
 }
 
 @font-face {
