@@ -151,6 +151,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
 
   private handleKeyDown(e: React.KeyboardEvent<HTMLElement>) {
     if (e.keyCode === KeyCode.SPACE) {
+      e.preventDefault();
       this.props.onTimeboxToggle();
     }
   }

@@ -25,7 +25,7 @@ class SoundSelection extends React.Component<
 
   public render() {
     return (
-      <div className="soundselection">
+      <div className="sound-selection">
         <select
           name="sound"
           value={this.state.sound}

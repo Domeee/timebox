@@ -7,6 +7,7 @@ import TimeboxUnit from '../lib/TimeboxUnit';
 import SoundSelection from './SoundSelection';
 import SoundChangeEvent from '../lib/SoundChangeEvent';
 import ThemeChangeEvent from '../lib/ThemeChangeEvent';
+import TimeboxToggle from './TimeboxToggle';
 
 import './App.css';
 
@@ -52,7 +53,6 @@ class App extends React.Component<{}, AppState> {
   }
 
   public render() {
-    const toggleText = this.state.isTimeboxStarted ? 'Stop' : 'Start';
     const seconds = this.padLeft(this.state.seconds);
     const minutes = this.padLeft(this.state.minutes);
     const hours = this.padLeft(this.state.hours);
@@ -73,7 +73,10 @@ class App extends React.Component<{}, AppState> {
               <span>:</span>
               <span>{seconds}</span>
             </div>
-            <button onClick={this.handleTimeboxToggle}>{toggleText}</button>
+            <TimeboxToggle
+              isTimeboxStarted={this.state.isTimeboxStarted}
+              onTimeboxToggle={this.handleTimeboxToggle}
+            />
           </div>
         </TimeboxEventEmitter>
       </div>
