@@ -22,7 +22,11 @@ export interface AppState {
 
 class App extends React.Component<{}, AppState> {
   private timeboxInterval: number;
+  private flashBackgroundInterval: number;
   private song = SoundSelection.DefaultSound;
+  private container: HTMLDivElement;
+  private isFlashed: boolean;
+  private originalBackground: string;
   private themes = [
     'dark',
     'red',
@@ -50,6 +54,7 @@ class App extends React.Component<{}, AppState> {
     this.handleTimeboxTick = this.handleTimeboxTick.bind(this);
     this.handleSoundChange = this.handleSoundChange.bind(this);
     this.handleThemeChange = this.handleThemeChange.bind(this);
+    this.flashBackground = this.flashBackground.bind(this);
   }
 
   public render() {
@@ -58,7 +63,12 @@ class App extends React.Component<{}, AppState> {
     const hours = this.padLeft(this.state.hours);
     const appClasses = `app ${this.themes[this.state.theme]}`;
     return (
-      <div className={appClasses}>
+      <div
+        className={appClasses}
+        ref={container => {
+          this.container = container!;
+        }}
+      >
         <SoundSelection onSoundChange={this.handleSoundChange} />
         <TimeboxEventEmitter
           onTimeboxChange={this.handleTimeboxChange}
@@ -81,6 +91,16 @@ class App extends React.Component<{}, AppState> {
         </TimeboxEventEmitter>
       </div>
     );
+  }
+
+  public componentDidMount() {
+    this.updateOriginalBackground();
+  }
+
+  public componentDidUpdate(prevState: AppState) {
+    if (this.state.theme !== prevState.theme) {
+      this.updateOriginalBackground();
+    }
   }
 
   private handleTimeboxChange(e: TimeboxChangeEvent) {
@@ -127,7 +147,8 @@ class App extends React.Component<{}, AppState> {
       theme = this.state.theme - 1;
       theme = theme >= 0 ? theme : this.themes.length - 1;
     }
-
+    const style = window.getComputedStyle(this.container);
+    this.originalBackground = style.backgroundColor!;
     this.setState({
       theme,
     });
@@ -142,6 +163,16 @@ class App extends React.Component<{}, AppState> {
       });
     } else {
       this.playSound();
+      this.flashBackgroundInterval = window.setInterval(
+        this.flashBackground,
+        500
+      );
+      // Stop the visual after 10 secs
+      window.setTimeout(() => {
+        window.clearInterval(this.flashBackgroundInterval);
+        this.container.style.backgroundColor = '';
+        // tslint:disable-next-line:align
+      }, 10000);
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
       this.setState(prevState => {
@@ -174,6 +205,19 @@ class App extends React.Component<{}, AppState> {
     const seconds = timer - hours * 3600 - minutes * 60;
     const res = { seconds, minutes, hours };
     return res;
+  }
+
+  private flashBackground() {
+    this.container.style.backgroundColor = this.isFlashed
+      ? this.originalBackground
+      : '#f44336';
+
+    this.isFlashed = !this.isFlashed;
+  }
+
+  private updateOriginalBackground() {
+    const style = window.getComputedStyle(this.container);
+    this.originalBackground = style.backgroundColor!;
   }
 }
 
