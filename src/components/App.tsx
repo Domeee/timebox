@@ -47,7 +47,7 @@ class App extends React.Component<{}, AppState> {
       hours: 0,
       isTimeboxStarted: false,
       timer: 0,
-      theme: 0,
+      theme: Math.floor(Math.random() * 10),
     };
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
     this.handleTimeboxToggle = this.handleTimeboxToggle.bind(this);
@@ -62,6 +62,7 @@ class App extends React.Component<{}, AppState> {
     const minutes = this.padLeft(this.state.minutes);
     const hours = this.padLeft(this.state.hours);
     const appClasses = `app ${this.themes[this.state.theme]}`;
+    const hoursClass = this.state.hours > 0 ? '' : 'hours-semi-visible';
     return (
       <div
         className={appClasses}
@@ -77,8 +78,12 @@ class App extends React.Component<{}, AppState> {
         >
           <div className="content-container">
             <div className="clock">
-              <span>{hours}</span>
-              <span>:</span>
+              {(this.state.hours > 0 || !this.state.isTimeboxStarted) && (
+                <span className={hoursClass}>
+                  <span>{hours}</span>
+                  <span>:</span>
+                </span>
+              )}
               <span>{minutes}</span>
               <span>:</span>
               <span>{seconds}</span>
