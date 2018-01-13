@@ -1,13 +1,58 @@
 .sound-selection {
+  position: absolute;
+  top: 5vw;
+  right: 5vw;
   display: flex;
-  justify-content: flex-end;
-  padding-top: 5vw;
-  padding-right: 5vw;
   select {
-    background: inherit;
+    // background: inherit;
     border: none;
-    color: inherit;
+    // color: inherit;
     font: inherit;
     outline: none;
   }
+}
+
+.dark .sound-selection select {
+  background-color: #212121;
+  color: #b5b5c0;
+}
+
+.red .sound-selection select {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+.purple .sound-selection select {
+  background-color: #9c27b0;
+  color: #ffffff;
+}
+
+.blue .sound-selection select {
+  background-color: #2196f3;
+  color: #ffffff;
+}
+
+.cyan .sound-selection select {
+  background-color: #00bcd4;
+  color: #ffffff;
+}
+
+.teal .sound-selection select {
+  background-color: #009688;
+  color: #ffffff;
+}
+
+.green .sound-selection select {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.yellow .sound-selection select {
+  background-color: #ffeb3b;
+  color: #212121;
+}
+
+.amber .sound-selection select {
+  background-color: #ffc107;
+  color: #212121;
 }
