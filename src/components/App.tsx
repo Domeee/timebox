@@ -47,7 +47,7 @@ class App extends React.Component<{}, AppState> {
       hours: 0,
       isTimeboxStarted: false,
       timer: 0,
-      theme: Math.floor(Math.random() * 10),
+      theme: 0,
     };
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
     this.handleTimeboxToggle = this.handleTimeboxToggle.bind(this);

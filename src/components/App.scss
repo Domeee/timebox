@@ -9,13 +9,15 @@
 }
 
 .clock {
-  font-size: 8rem;
+  font-family: 'ArchivoNarrow', sans-serif;
+  font-size: 10rem;
+  letter-spacing: -0.1rem;
   margin-bottom: 4vh;
   @include tablet {
-    font-size: 19rem;
+    font-size: 24rem;
   }
   @include desktop {
-    font-size: 25rem;
+    font-size: 32rem;
   }
   @include big {
     font-size: 36rem;

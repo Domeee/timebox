@@ -7,8 +7,9 @@ html {
 }
 
 body {
-  font-family: 'LatoLatin', sans-serif;
-  font-size: 1.8rem;
+  font-family: 'BebasNeue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.2rem;
   @include tablet {
     font-size: 3.6rem;
   }
@@ -21,14 +22,21 @@ body {
 }
 
 @font-face {
-  font-family: 'LatoLatin';
-  src: url('./fonts/LatoLatin-Regular.eot');
-  src: local('LatoLatin'),
-    url('./fonts/LatoLatin-Regular.eot?#iefix') format('embedded-opentype'),
-    url('./fonts/LatoLatin-Regular.woff2') format('woff2'),
-    url('./fonts/LatoLatin-Regular.woff') format('woff'),
-    url('./fonts/LatoLatin-Regular.ttf') format('truetype');
-  font-style: normal;
-  font-weight: normal;
-  text-rendering: optimizeLegibility;
+  font-family: 'BebasNeue';
+  src: local('BebasNeue'),
+    url('./fonts/BebasNeue.eot') format('embedded-opentype'),
+    url('./fonts/BebasNeue.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/BebasNeue.woff2') format('woff2'),
+    url('./fonts/BebasNeue.woff') format('woff'),
+    url('./fonts/BebasNeue.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'ArchivoNarrow';
+  src: local('ArchivoNarrow'),
+    url('./fonts/ArchivoNarrow.eot') format('embedded-opentype'),
+    url('./fonts/ArchivoNarrow.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/ArchivoNarrow.woff2') format('woff2'),
+    url('./fonts/ArchivoNarrow.woff') format('woff'),
+    url('./fonts/ArchivoNarrow.ttf') format('truetype');
 }

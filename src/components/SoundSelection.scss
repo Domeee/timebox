@@ -1,3 +1,5 @@
+@import 'shared.scss';
+
 .sound-selection {
   position: absolute;
   top: 5vw;
@@ -7,7 +9,18 @@
     background: inherit;
     border: none;
     color: inherit;
-    font: inherit;
     outline: none;
+    font-family: 'BebasNeue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    @include tablet {
+      font-size: 3.6rem;
+    }
+    @include desktop {
+      font-size: 3.6rem;
+    }
+    @include big {
+      font-size: 3.6rem;
+    }
   }
 }
