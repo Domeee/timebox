@@ -62,7 +62,6 @@ class App extends React.Component<{}, AppState> {
     const minutes = this.padLeft(this.state.minutes);
     const hours = this.padLeft(this.state.hours);
     const appClasses = `app ${this.themes[this.state.theme]}`;
-    const hoursClass = this.state.hours > 0 ? '' : 'hours-semi-visible';
     return (
       <div
         className={appClasses}
@@ -79,7 +78,7 @@ class App extends React.Component<{}, AppState> {
           <div className="content-container">
             <div className="clock">
               {(this.state.hours > 0 || !this.state.isTimeboxStarted) && (
-                <span className={hoursClass}>
+                <span>
                   <span>{hours}</span>
                   <span>:</span>
                 </span>
