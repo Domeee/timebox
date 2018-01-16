@@ -9,10 +9,20 @@
 }
 
 .clock {
+  display: flex;
+}
+
+.clock-value-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clock-style {
+  color: #ffffff;
   font-family: 'ArchivoNarrow', sans-serif;
-  font-size: 10rem;
+  font-size: 9.6rem;
   letter-spacing: -0.1rem;
-  margin-bottom: 4vh;
   @include tablet {
     font-size: 24rem;
   }
@@ -24,9 +34,22 @@
   }
 }
 
+.clock-label {
+  margin-top: -2vh;
+  @include tablet {
+    margin-top: -4vh;
+  }
+  @include desktop {
+    margin-top: -6vh;
+  }
+  @include big {
+    margin-top: -80px;
+  }
+}
+
 .dark {
-  background-color: #212121;
-  color: #b5b5c0;
+  background: linear-gradient(202.05deg, #1f2634 0%, #161a24 100%);
+  color: #8d99b2;
 }
 
 .red {

@@ -78,14 +78,23 @@ class App extends React.Component<{}, AppState> {
           <div className="content-container">
             <div className="clock">
               {(this.state.hours > 0 || !this.state.isTimeboxStarted) && (
-                <span>
-                  <span>{hours}</span>
-                  <span>:</span>
-                </span>
+                <React.Fragment>
+                  <div className="clock-value-container">
+                    <div className="clock-style">{hours}</div>
+                    <div className="clock-label">hours</div>
+                  </div>
+                  <div className="clock-style">:</div>
+                </React.Fragment>
               )}
-              <span>{minutes}</span>
-              <span>:</span>
-              <span>{seconds}</span>
+              <div className="clock-value-container">
+                <div className="clock-style">{minutes}</div>
+                <div className="clock-label">minutes</div>
+              </div>
+              <div className="clock-style">:</div>
+              <div className="clock-value-container">
+                <div className="clock-style">{seconds}</div>
+                <div className="clock-label">seconds</div>
+              </div>
             </div>
             <TimeboxToggle
               isTimeboxStarted={this.state.isTimeboxStarted}
