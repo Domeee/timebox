@@ -20,22 +20,24 @@
 
 .clock-style {
   color: #ffffff;
-  font-family: 'ArchivoNarrow', sans-serif;
-  font-size: 9.6rem;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  font-size: 8rem;
   letter-spacing: -0.1rem;
   @include tablet {
-    font-size: 24rem;
+    font-size: 19rem;
   }
   @include desktop {
-    font-size: 32rem;
+    font-size: 25rem;
   }
   @include big {
-    font-size: 36rem;
+    font-size: 35rem;
   }
 }
 
 .clock-label {
   margin-top: -2vh;
+  text-transform: capitalize;
   @include tablet {
     margin-top: -4vh;
   }

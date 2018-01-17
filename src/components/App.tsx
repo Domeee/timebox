@@ -81,19 +81,19 @@ class App extends React.Component<{}, AppState> {
                 <React.Fragment>
                   <div className="clock-value-container">
                     <div className="clock-style">{hours}</div>
-                    <div className="clock-label">hours</div>
+                    <div className="clock-label">h</div>
                   </div>
                   <div className="clock-style">:</div>
                 </React.Fragment>
               )}
               <div className="clock-value-container">
                 <div className="clock-style">{minutes}</div>
-                <div className="clock-label">minutes</div>
+                <div className="clock-label">m</div>
               </div>
               <div className="clock-style">:</div>
               <div className="clock-value-container">
                 <div className="clock-style">{seconds}</div>
-                <div className="clock-label">seconds</div>
+                <div className="clock-label">s</div>
               </div>
             </div>
             <TimeboxToggle
