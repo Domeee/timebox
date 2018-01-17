@@ -1,9 +1,8 @@
 .timebox-toggle {
-  display: none;
-  svg {
-    height: 6vw;
-    width: 6vw;
-    fill: currentColor;
-    cursor: pointer;
+  .timebox-toggle-icon {
+    height: 12vh;
+    width: 12vh;
+    max-height: 200px;
+    max-width: 200px;
   }
 }
