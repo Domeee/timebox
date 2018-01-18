@@ -153,7 +153,7 @@ class App extends React.Component<{}, AppState> {
       theme = theme >= 0 ? theme : this.themes.length - 1;
     }
     const style = window.getComputedStyle(this.container);
-    this.originalBackground = style.backgroundColor!;
+    this.originalBackground = style.background!;
     this.setState({
       theme,
     });
@@ -175,7 +175,7 @@ class App extends React.Component<{}, AppState> {
       // Stop the visual after 10 secs
       window.setTimeout(() => {
         window.clearInterval(this.flashBackgroundInterval);
-        this.container.style.backgroundColor = '';
+        this.container.style.background = '';
         // tslint:disable-next-line:align
       }, 10000);
       this.setState({ isTimeboxStarted: false });
@@ -207,7 +207,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   private flashBackground() {
-    this.container.style.backgroundColor = this.isFlashed
+    this.container.style.background = this.isFlashed
       ? this.originalBackground
       : '#f44336';
 
@@ -216,7 +216,7 @@ class App extends React.Component<{}, AppState> {
 
   private updateOriginalBackground() {
     const style = window.getComputedStyle(this.container);
-    this.originalBackground = style.backgroundColor!;
+    this.originalBackground = style.background!;
   }
 }
 
