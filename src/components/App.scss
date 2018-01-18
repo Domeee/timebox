@@ -1,5 +1,11 @@
 @import 'shared.scss';
 
+.sound-selection-container {
+  position: absolute;
+  top: 5vw;
+  right: 5vw;
+}
+
 .clock-container {
   display: flex;
   justify-content: center;

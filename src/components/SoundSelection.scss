@@ -1,26 +1,87 @@
 @import 'shared.scss';
 
-.sound-selection {
-  position: absolute;
-  top: 5vw;
-  right: 5vw;
+.overlay {
+  height: 0;
+  width: 100%;
+  position: fixed;
   display: flex;
-  select {
-    background: inherit;
-    border: none;
-    color: inherit;
-    outline: none;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 0.2rem;
-    @include tablet {
-      font-size: 3.6rem;
-    }
-    @include desktop {
-      font-size: 3.6rem;
-    }
-    @include big {
-      font-size: 3.6rem;
-    }
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background: linear-gradient(202.05deg, #1f2634 0%, #161a24 100%);
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.sound-item {
+  padding: 1.6rem;
+  text-transform: uppercase;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.sound-item:hover,
+.sound-item:focus {
+  color: #f1f1f1;
+}
+
+.sound-item-value {
+  display: none;
+}
+
+.sound-item-value:checked + label {
+  color: #f1f1f1;
+  font-weight: 800;
+}
+
+.overlay-close-container {
+  margin-top: -5vh;
+  margin-bottom: 5vh;
+  @include tablet {
+    margin-top: -20vh;
+    margin-bottom: 20vh;
   }
+  @include desktop {
+    margin-top: -20vh;
+    margin-bottom: 20vh;
+  }
+  @include big {
+    margin-top: -20vh;
+    margin-bottom: 20vh;
+  }
+}
+
+.overlay-close {
+  height: 24px;
+  cursor: pointer;
+  @include tablet {
+    height: 48px;
+  }
+  @include desktop {
+    height: 48px;
+  }
+  @include big {
+    height: 48px;
+  }
+}
+
+.overlay-content {
+  text-align: center;
+}
+
+.sound-selection-toggle {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  transition: 0.3s;
+  cursor: pointer;
+  img {
+    margin-left: 1vw;
+  }
+}
+.sound-selection-toggle:hover,
+.sound-selection-toggle:focus {
+  color: #f1f1f1;
 }

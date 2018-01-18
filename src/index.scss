@@ -9,17 +9,14 @@ html {
 body {
   font-family: 'Nunito Sans', sans-serif;
   font-size: 2rem;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.1rem;
   @include tablet {
-    letter-spacing: 0.3rem;
     font-size: 3.6rem;
   }
   @include desktop {
-    letter-spacing: 0.3rem;
     font-size: 3.6rem;
   }
   @include big {
-    letter-spacing: 0.3rem;
     font-size: 3.6rem;
   }
 }

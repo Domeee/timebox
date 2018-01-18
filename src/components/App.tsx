@@ -69,7 +69,9 @@ class App extends React.Component<{}, AppState> {
           this.container = container!;
         }}
       >
-        <SoundSelection onSoundChange={this.handleSoundChange} />
+        <div className="sound-selection-container">
+          <SoundSelection onSoundChange={this.handleSoundChange} />
+        </div>
         <TimeboxEventEmitter
           onTimeboxChange={this.handleTimeboxChange}
           onTimeboxToggle={this.handleTimeboxToggle}
