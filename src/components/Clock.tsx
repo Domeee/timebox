@@ -19,19 +19,19 @@ export default (props: ClockProps) => {
         <React.Fragment>
           <div className="clock-value-container">
             <div className="clock-style">{hours}</div>
-            <div className="clock-label">h</div>
+            {!props.isTimeboxStarted && <div className="clock-label">h</div>}
           </div>
           <div className="clock-style">:</div>
         </React.Fragment>
       )}
       <div className="clock-value-container">
         <div className="clock-style">{minutes}</div>
-        <div className="clock-label">m</div>
+        {!props.isTimeboxStarted && <div className="clock-label">m</div>}
       </div>
       <div className="clock-style">:</div>
       <div className="clock-value-container">
         <div className="clock-style">{seconds}</div>
-        <div className="clock-label">s</div>
+        {!props.isTimeboxStarted && <div className="clock-label">s</div>}
       </div>
     </React.Fragment>
   );
