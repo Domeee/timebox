@@ -8,6 +8,9 @@ import SoundSelection from './SoundSelection';
 import SoundChangeEvent from '../lib/SoundChangeEvent';
 import ThemeChangeEvent from '../lib/ThemeChangeEvent';
 import TimeboxToggle from './TimeboxToggle';
+import Clock from './Clock';
+
+import logoInnoarchitects from './logo-innoarchitects.svg';
 
 import './App.css';
 
@@ -58,9 +61,6 @@ class App extends React.Component<{}, AppState> {
   }
 
   public render() {
-    const seconds = this.padLeft(this.state.seconds);
-    const minutes = this.padLeft(this.state.minutes);
-    const hours = this.padLeft(this.state.hours);
     const appClasses = `app ${this.themes[this.state.theme]}`;
     return (
       <div
@@ -75,31 +75,28 @@ class App extends React.Component<{}, AppState> {
           onTimeboxToggle={this.handleTimeboxToggle}
           onThemeChange={this.handleThemeChange}
         >
-          <div className="content-container">
-            <div className="clock">
-              {(this.state.hours > 0 || !this.state.isTimeboxStarted) && (
-                <React.Fragment>
-                  <div className="clock-value-container">
-                    <div className="clock-style">{hours}</div>
-                    <div className="clock-label">h</div>
-                  </div>
-                  <div className="clock-style">:</div>
-                </React.Fragment>
-              )}
-              <div className="clock-value-container">
-                <div className="clock-style">{minutes}</div>
-                <div className="clock-label">m</div>
-              </div>
-              <div className="clock-style">:</div>
-              <div className="clock-value-container">
-                <div className="clock-style">{seconds}</div>
-                <div className="clock-label">s</div>
-              </div>
-            </div>
+          <div className="clock-container">
+            <Clock
+              seconds={this.state.seconds}
+              minutes={this.state.minutes}
+              hours={this.state.hours}
+              isTimeboxStarted={this.state.isTimeboxStarted}
+            />
+          </div>
+          <div className="timebox-toggle-container">
             <TimeboxToggle
               isTimeboxStarted={this.state.isTimeboxStarted}
               onTimeboxToggle={this.handleTimeboxToggle}
             />
+          </div>
+          <div className="logo-container">
+            <a href="https://innoarchitects.ch">
+              <img
+                src={logoInnoarchitects}
+                className="logo-ia"
+                alt="INNOArchitects"
+              />
+            </a>
           </div>
         </TimeboxEventEmitter>
       </div>
@@ -204,12 +201,6 @@ class App extends React.Component<{}, AppState> {
       const audio = new Audio(song);
       audio.play();
     }
-  }
-
-  private padLeft(value: number): string {
-    const pad = '00';
-    const str = '' + value;
-    return pad.substring(0, pad.length - str.length) + str;
   }
 
   private calculateDisplayTime(timer: number) {

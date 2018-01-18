@@ -19,14 +19,12 @@ class TimeboxToggle extends React.Component<TimeboxToggleProps> {
     const svg = this.props.isTimeboxStarted ? stopWhite : playWhite;
 
     return (
-      <div className="timebox-toggle">
-        <img
-          src={svg}
-          className="timebox-toggle-icon"
-          alt="Timebox Toggle"
-          onClick={this.handleTimeboxToggle}
-        />
-      </div>
+      <img
+        src={svg}
+        className="timebox-toggle-icon"
+        alt="Timebox Toggle"
+        onClick={this.handleTimeboxToggle}
+      />
     );
   }
 

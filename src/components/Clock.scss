@@ -1,0 +1,40 @@
+@import 'shared.scss';
+
+.clock-value-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clock-style {
+  color: #ffffff;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  font-size: 7rem;
+  @include tablet {
+    font-size: 19rem;
+    letter-spacing: -0.2rem;
+  }
+  @include desktop {
+    font-size: 25rem;
+    letter-spacing: -0.2rem;
+  }
+  @include big {
+    font-size: 35rem;
+    letter-spacing: -0.2rem;
+  }
+}
+
+.clock-label {
+  margin-top: -2vh;
+  text-transform: capitalize;
+  @include tablet {
+    margin-top: -4vh;
+  }
+  @include desktop {
+    margin-top: -54px;
+  }
+  @include big {
+    margin-top: -80px;
+  }
+}
