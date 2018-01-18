@@ -7,10 +7,14 @@
 }
 
 .clock-style {
-  color: #ffffff;
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 600;
   font-size: 7rem;
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      color: map-get($map, colorClock);
+    }
+  }
   @include tablet {
     font-size: 19rem;
     letter-spacing: -0.2rem;

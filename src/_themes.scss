@@ -1,0 +1,37 @@
+$themes: (
+  dark:
+    (
+      background: linear-gradient(202.05deg, #1f2634 0%, #161a24 100%),
+      color: #8d99b2,
+      colorClock: #ffffff,
+      colorFocus: #f1f1f1
+    ),
+  blue:
+    (
+      background: linear-gradient(202.05deg, #1f8fea 0%, #197fd3 100%),
+      color: #ffffff,
+      colorClock: #ffffff,
+      colorFocus: #f1f1f1
+    ),
+  yellow:
+    (
+      background: #ffc20a,
+      color: #111111,
+      colorClock: #111111,
+      colorFocus: #111111
+    ),
+  pink:
+    (
+      background: linear-gradient(202.05deg, #f2366b 0%, #ac3584 100%),
+      color: #ffffff,
+      colorClock: #ffffff,
+      colorFocus: #f1f1f1
+    ),
+  green:
+    (
+      background: linear-gradient(202.05deg, #6dab11 0%, #319422 100%),
+      color: #ffffff,
+      colorClock: #ffffff,
+      colorFocus: #f1f1f1
+    )
+);

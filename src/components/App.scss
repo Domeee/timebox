@@ -1,5 +1,12 @@
 @import 'shared.scss';
 
+@each $theme, $map in $themes {
+  .#{$theme} {
+    background: map-get($map, background);
+    color: map-get($map, color);
+  }
+}
+
 .sound-selection-container {
   position: absolute;
   top: 5vw;
@@ -36,6 +43,11 @@
 
 .logo-ia {
   height: 16px;
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      fill: map-get($map, colorClock);
+    }
+  }
   @include tablet {
     height: 24px;
   }
@@ -45,49 +57,4 @@
   @include big {
     height: 32px;
   }
-}
-
-.dark {
-  background: linear-gradient(202.05deg, #1f2634 0%, #161a24 100%);
-  color: #8d99b2;
-}
-
-.red {
-  background-color: #f44336;
-  color: #ffffff;
-}
-
-.purple {
-  background-color: #9c27b0;
-  color: #ffffff;
-}
-
-.blue {
-  background-color: #2196f3;
-  color: #ffffff;
-}
-
-.cyan {
-  background-color: #00bcd4;
-  color: #ffffff;
-}
-
-.teal {
-  background-color: #009688;
-  color: #ffffff;
-}
-
-.green {
-  background-color: #4caf50;
-  color: #ffffff;
-}
-
-.yellow {
-  background-color: #ffeb3b;
-  color: #212121;
-}
-
-.amber {
-  background-color: #ffc107;
-  color: #212121;
 }
