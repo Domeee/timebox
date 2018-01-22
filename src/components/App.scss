@@ -19,7 +19,7 @@
   flex: 1 1 auto;
   padding-top: 30vh;
   @include tablet {
-    padding-top: 30vh;
+    padding-top: 28vh;
   }
   @include desktop {
     padding-top: 26vh;
@@ -38,7 +38,7 @@
 .logo-container {
   display: flex;
   justify-content: center;
-  height: 7vh;
+  height: 9vh;
 }
 
 .logo-ia {
