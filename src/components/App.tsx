@@ -9,6 +9,7 @@ import SoundChangeEvent from '../lib/SoundChangeEvent';
 import ThemeChangeEvent from '../lib/ThemeChangeEvent';
 import TimeboxToggle from './TimeboxToggle';
 import Clock from './Clock';
+import { Howl } from 'howler';
 
 import './App.css';
 
@@ -192,9 +193,9 @@ class App extends React.Component<{}, AppState> {
 
   private playSound() {
     if (this.song !== SoundSelection.SilentSound) {
-      const song = this.song + '.mp3';
-      const audio = new Audio(song);
-      audio.play();
+      const src = this.song + '.mp3';
+      const howler = new Howl({ src });
+      howler.play();
     }
   }
 
