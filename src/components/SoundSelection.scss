@@ -24,6 +24,18 @@
   padding: 1.6rem;
   text-transform: uppercase;
   cursor: pointer;
+  @include mobile {
+    line-height: 4.4rem;
+  }
+  @include tablet {
+    line-height: 4.4rem;
+  }
+  @include desktop {
+    line-height: 4.4rem;
+  }
+  @include big {
+    line-height: 4.4rem;
+  }
 }
 
 .sound-item-value {
@@ -40,8 +52,10 @@
 }
 
 .overlay-close-container {
-  margin-top: -5vh;
-  margin-bottom: 5vh;
+  @include mobile {
+    margin-top: -5vh;
+    margin-bottom: 5vh;
+  }
   @include tablet {
     margin-top: -20vh;
     margin-bottom: 20vh;
@@ -57,8 +71,10 @@
 }
 
 .overlay-close {
-  height: 24px;
   cursor: pointer;
+  @include mobile {
+    height: 24px;
+  }
   @include tablet {
     height: 48px;
   }
@@ -86,6 +102,24 @@
   align-items: center;
   text-transform: uppercase;
   cursor: pointer;
+  @include mobile {
+    // TODO
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+  @include tablet {
+    // TODO
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+  @include desktop {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+  @include big {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
   .sound-selection-toggle-icon {
     margin-left: 1vw;
     height: 1vh;

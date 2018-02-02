@@ -9,52 +9,48 @@
 
 .sound-selection-container {
   position: absolute;
-  top: 5vw;
-  right: 5vw;
+  top: 6.4rem;
+  right: 6.4rem;
 }
 
 .clock-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex: 1 1 auto;
-  padding-top: 30vh;
+  @include mobile {
+    // TODO
+    margin: 11.5rem 11.5rem;
+  }
   @include tablet {
-    padding-top: 28vh;
+    // TODO
+    margin: 11.5rem 11.5rem;
   }
   @include desktop {
-    padding-top: 26vh;
+    margin: 11.5rem 11.5rem;
   }
   @include big {
-    padding-top: 26vh;
+    margin: 11.5rem 11.5rem;
   }
 }
 
 .timebox-toggle-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 8vh;
+  margin-bottom: 3.2rem;
 }
 
 .logo-container {
   display: flex;
   justify-content: center;
-  height: 9vh;
+  margin-bottom: 3.3rem;
 }
 
 .logo-ia {
-  height: 16px;
+  height: 2.4rem;
   @each $theme, $map in $themes {
     .#{$theme} & {
       fill: map-get($map, colorClock);
     }
-  }
-  @include tablet {
-    height: 24px;
-  }
-  @include desktop {
-    height: 24px;
-  }
-  @include big {
-    height: 32px;
   }
 }

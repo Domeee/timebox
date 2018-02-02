@@ -1,10 +1,8 @@
 @import 'shared.scss';
 
 .timebox-toggle-icon {
-  height: 12vh;
-  width: 12vh;
-  max-height: 200px;
-  max-width: 200px;
+  height: 8rem;
+  width: 8rem;
   circle {
     @each $theme, $map in $themes {
       .#{$theme} & {

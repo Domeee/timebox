@@ -8,35 +8,7 @@ html {
 
 body {
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 2rem;
+  font-size: 3.2rem;
+  line-height: 3.2rem;
   letter-spacing: 0.1rem;
-  @include tablet {
-    font-size: 3.6rem;
-  }
-  @include desktop {
-    font-size: 3.6rem;
-  }
-  @include big {
-    font-size: 3.6rem;
-  }
-}
-
-@font-face {
-  font-family: 'BebasNeue';
-  src: local('BebasNeue'),
-    url('./fonts/BebasNeue.eot') format('embedded-opentype'),
-    url('./fonts/BebasNeue.eot?#iefix') format('embedded-opentype'),
-    url('./fonts/BebasNeue.woff2') format('woff2'),
-    url('./fonts/BebasNeue.woff') format('woff'),
-    url('./fonts/BebasNeue.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'ArchivoNarrow';
-  src: local('ArchivoNarrow'),
-    url('./fonts/ArchivoNarrow.eot') format('embedded-opentype'),
-    url('./fonts/ArchivoNarrow.eot?#iefix') format('embedded-opentype'),
-    url('./fonts/ArchivoNarrow.woff2') format('woff2'),
-    url('./fonts/ArchivoNarrow.woff') format('woff'),
-    url('./fonts/ArchivoNarrow.ttf') format('truetype');
 }

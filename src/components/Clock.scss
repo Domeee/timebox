@@ -9,36 +9,44 @@
 .clock-style {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 600;
-  font-size: 7rem;
   @each $theme, $map in $themes {
     .#{$theme} & {
       color: map-get($map, colorClock);
     }
   }
+  @include mobile {
+    font-size: 7rem;
+    line-height: 7rem;
+  }
   @include tablet {
     font-size: 19rem;
+    line-height: 19rem;
     letter-spacing: -0.2rem;
   }
   @include desktop {
     font-size: 25rem;
+    line-height: 25rem;
     letter-spacing: -0.2rem;
   }
   @include big {
     font-size: 35rem;
+    line-height: 35rem;
     letter-spacing: -0.2rem;
   }
 }
 
 .clock-label {
-  margin-top: -2vh;
   text-transform: capitalize;
+  @include mobile {
+    // margin-top: -2vh;
+  }
   @include tablet {
-    margin-top: -4vh;
+    // margin-top: -4vh;
   }
   @include desktop {
-    margin-top: -54px;
+    // margin-top: -54px;
   }
   @include big {
-    margin-top: -80px;
+    margin-top: -3.2rem;
   }
 }
