@@ -124,9 +124,9 @@ class App extends React.Component<{}, AppState> {
           : prevState.timer - e.unit;
       if (timer >= 0) {
         const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
-        return { timer, seconds, minutes, hours };
+        return { ...prevState, timer, seconds, minutes, hours };
       } else {
-        return this.state;
+        return prevState;
       }
     });
   }

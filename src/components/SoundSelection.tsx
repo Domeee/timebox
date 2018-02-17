@@ -8,7 +8,6 @@ export interface SoundSelectionProps {
 }
 
 export interface SoundSelectionState {
-  isOpen: boolean;
   sound: string;
 }
 
@@ -29,7 +28,6 @@ class SoundSelection extends React.Component<
     super(props);
 
     this.state = {
-      isOpen: false,
       sound: SoundSelection.DefaultSound,
     };
 
@@ -140,8 +138,8 @@ class SoundSelection extends React.Component<
   }
 
   private toggleOverlay() {
-    this.overlay.style.height = this.state.isOpen ? '0' : '100%';
-    this.setState({ isOpen: !this.state.isOpen });
+    this.overlay.style.height =
+      this.overlay.style.height === '100%' ? '0' : '100%';
   }
 
   private handleChange(e: React.ChangeEvent<HTMLInputElement>) {
