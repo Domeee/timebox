@@ -134,8 +134,8 @@
     line-height: 3rem;
   }
   .sound-selection-toggle-icon {
-    margin-left: 1vw;
-    height: 1vh;
+    margin-left: 0.8rem;
+    height: 0.6rem;
     g {
       @each $theme, $map in $themes {
         .#{$theme} & {
