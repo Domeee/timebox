@@ -23,13 +23,13 @@ export default [
     id: 2,
     name: 'getupstandup',
     title: 'get up, stand up',
-    hosts: ['localhost', 'timebox-test.donhubi.ch'],
+    hosts: ['localhost'],
   },
   {
     id: 3,
     name: 'cometogether',
     title: 'come together',
-    hosts: ['localhost', 'timebox-test.donhubi.ch'],
+    hosts: ['localhost'],
   },
   {
     id: 4,
