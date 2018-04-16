@@ -1,5 +1,7 @@
 import * as React from 'react';
 import SoundChangeEvent from '../lib/SoundChangeEvent';
+import { Sound } from './Sound';
+import Sounds from './Sounds';
 
 import './SoundSelection.css';
 
@@ -9,6 +11,7 @@ export interface SoundSelectionProps {
 
 export interface SoundSelectionState {
   sound: string;
+  sounds: Sound[];
 }
 
 class SoundSelection extends React.Component<
@@ -18,17 +21,13 @@ class SoundSelection extends React.Component<
   public static SilentSound = 'silent';
   public static DefaultSound = 'gong';
   private overlay: HTMLDivElement;
-  private sounds = [
-    { id: 0, name: 'silent', title: 'sound off' },
-    { id: 1, name: 'gong', title: 'gong' },
-    { id: 2, name: 'getupstandup', title: 'get up, stand up' },
-    { id: 3, name: 'cometogether', title: 'come together' },
-  ];
+
   constructor(props: SoundSelectionProps) {
     super(props);
 
     this.state = {
       sound: SoundSelection.DefaultSound,
+      sounds: [],
     };
 
     this.toggleOverlay = this.toggleOverlay.bind(this);
@@ -36,7 +35,7 @@ class SoundSelection extends React.Component<
   }
 
   public render() {
-    const soundItems = this.sounds.map(s => {
+    const soundItems = this.state.sounds.map(s => {
       return (
         <li key={s.name} className="sound-item color-focus">
           <input
@@ -54,7 +53,7 @@ class SoundSelection extends React.Component<
         </li>
       );
     });
-    const sound = this.sounds.find(s => s.name === this.state.sound)!;
+    const sound = Sounds.find(s => s.name === this.state.sound)!;
     return (
       <React.Fragment>
         <div className="sound-selection-toggle" onClick={this.toggleOverlay}>
@@ -135,6 +134,14 @@ class SoundSelection extends React.Component<
         </div>
       </React.Fragment>
     );
+  }
+
+  public componentDidMount() {
+    const host = window.location.hostname;
+    const hostSounds = Sounds.filter(s => s.hosts.some(h => h === host));
+    this.setState({
+      sounds: hostSounds,
+    });
   }
 
   private toggleOverlay() {

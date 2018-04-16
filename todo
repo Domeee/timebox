@@ -1,0 +1,34 @@
+# Timebox
+
+## General
+
+* DEV, TEST, PROD, IA environment
+  * [x] Unterschiedliche Sounds
+* Build Info at runtime
+* Was passiert mit nicht unterstützten Browsern? (IE 9, ...) => eigene Direktive
+* PWA fullscreen on Tablets
+* Piwik Analytics
+* Alarm color hang tests
+
+## Mobile
+
+* Stunden entfernen
+* Fonts fixen
+* Bestehende Assets updaten
+* Bestehendes Layout updaten, spacing, etc.
+* Themes updaten
+
+## Medium und aufwärts
+
+* Swipe left/right
+* +/- 15 secs.
+* CSS Breakpoints festlegen und implementieren
+
+## Help
+
+* http://timebox.sprinteins.com/#/tab/eventTimer
+
+## Nice to have
+
+* Transitions (z.B. auf Zeit +/-)
+* Alarm Komplementärfarben
