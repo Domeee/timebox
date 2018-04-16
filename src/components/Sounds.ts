@@ -2,7 +2,7 @@ export default [
   {
     id: 0,
     name: 'silent',
-    title: 'sound off',
+    title: 'Sound OFF',
     hosts: [
       'localhost',
       'timebox-test.donhubi.ch',
@@ -12,7 +12,7 @@ export default [
   {
     id: 1,
     name: 'gong',
-    title: 'gong',
+    title: 'Gong',
     hosts: [
       'localhost',
       'timebox-test.donhubi.ch',
@@ -22,19 +22,19 @@ export default [
   {
     id: 2,
     name: 'getupstandup',
-    title: 'get up, stand up',
+    title: 'Get up, stand up',
     hosts: ['localhost'],
   },
   {
     id: 3,
     name: 'cometogether',
-    title: 'come together',
+    title: 'Come together',
     hosts: ['localhost'],
   },
   {
     id: 4,
     name: 'fivesonic',
-    title: 'fivesonic',
+    title: '5 Sonic',
     hosts: [
       'localhost',
       'timebox-test.donhubi.ch',
@@ -44,7 +44,7 @@ export default [
   {
     id: 5,
     name: 'galaxy',
-    title: 'galaxy',
+    title: 'Galaxy',
     hosts: [
       'localhost',
       'timebox-test.donhubi.ch',
@@ -54,7 +54,7 @@ export default [
   {
     id: 7,
     name: 'laidback',
-    title: 'laidback',
+    title: 'Laidback',
     hosts: [
       'localhost',
       'timebox-test.donhubi.ch',
@@ -64,7 +64,7 @@ export default [
   {
     id: 8,
     name: 'singingbowl',
-    title: 'singing bowl',
+    title: 'Singing Bowl',
     hosts: [
       'localhost',
       'timebox-test.donhubi.ch',

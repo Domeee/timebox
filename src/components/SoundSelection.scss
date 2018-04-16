@@ -22,7 +22,6 @@
 
 .sound-item {
   padding: 1.6rem;
-  text-transform: uppercase;
   cursor: pointer;
   @include mobile {
     line-height: 4.4rem;
@@ -48,7 +47,7 @@
       color: map-get($map, colorFocus);
     }
   }
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .overlay-close-container {

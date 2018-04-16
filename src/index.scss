@@ -7,8 +7,57 @@ html {
 }
 
 body {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Trueno';
+  font-weight: 300;
   font-size: 3.2rem;
   line-height: 3.2rem;
   letter-spacing: 0.1rem;
+}
+
+@font-face {
+  font-family: 'Roboto Condensed';
+  src: url('./fonts/RobotoCondensed.eot');
+  src: local('Roboto Condensed'), local('RobotoCondensed-Regular'),
+    url('./fonts/RobotoCondensed.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/RobotoCondensed.woff2') format('woff2'),
+    url('./fonts/RobotoCondensed.woff') format('woff'),
+    url('./fonts/RobotoCondensed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Trueno';
+  src: url('./fonts/TruenoRg.eot');
+  src: local('Trueno Regular'), local('TruenoRg'),
+    url('./fonts/TruenoRg.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/TruenoRg.woff2') format('woff2'),
+    url('./fonts/TruenoRg.woff') format('woff'),
+    url('./fonts/TruenoRg.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Trueno';
+  src: url('./fonts/TruenoBd.eot');
+  src: local('Trueno Bold'), local('TruenoBd'),
+    url('./fonts/TruenoBd.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/TruenoBd.woff2') format('woff2'),
+    url('./fonts/TruenoBd.woff') format('woff'),
+    url('./fonts/TruenoBd.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Trueno';
+  src: url('./fonts/TruenoLt.eot');
+  src: local('Trueno Light'), local('TruenoLt'),
+    url('./fonts/TruenoLt.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/TruenoLt.woff2') format('woff2'),
+    url('./fonts/TruenoLt.woff') format('woff'),
+    url('./fonts/TruenoLt.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
 }
