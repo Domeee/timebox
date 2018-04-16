@@ -23,13 +23,17 @@ export default [
     id: 2,
     name: 'getupstandup',
     title: 'Get up, stand up',
-    hosts: ['localhost'],
+    hosts: [
+      // 'localhost'
+    ],
   },
   {
     id: 3,
     name: 'cometogether',
     title: 'Come together',
-    hosts: ['localhost'],
+    hosts: [
+      // 'localhost'
+    ],
   },
   {
     id: 4,

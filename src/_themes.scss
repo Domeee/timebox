@@ -6,6 +6,7 @@ $themes: (
       colorClock: #ffffff,
       colorFocus: #f1f1f1,
       colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSoundItem: rgba(255, 255, 255, 0.7),
       colorSwitcher: center no-repeat url('../images/dots-dark.svg')
     ),
   blue:
@@ -20,6 +21,7 @@ $themes: (
       colorClock: #ffffff,
       colorFocus: #f1f1f1,
       colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSoundItem: rgba(255, 255, 255, 0.7),
       colorSwitcher: center no-repeat url('../images/dots-blue.svg')
     ),
   yellow:
@@ -29,6 +31,7 @@ $themes: (
       colorClock: #111111,
       colorFocus: #111111,
       colorClockLabel: rgba(0, 0, 0, 0.8),
+      colorSoundItem: rgba(0, 0, 0, 0.7),
       colorSwitcher: center no-repeat url('../images/dots-yellow.svg')
     ),
   pink:
@@ -43,6 +46,7 @@ $themes: (
       colorClock: #ffffff,
       colorFocus: #f1f1f1,
       colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSoundItem: rgba(255, 255, 255, 0.7),
       colorSwitcher: center no-repeat url('../images/dots-red.svg')
     ),
   purple:
@@ -57,6 +61,7 @@ $themes: (
       colorClock: #ffffff,
       colorFocus: #f1f1f1,
       colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSoundItem: rgba(255, 255, 255, 0.7),
       colorSwitcher: center no-repeat url('../images/dots-purple.svg')
     )
 );

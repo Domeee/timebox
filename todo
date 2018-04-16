@@ -8,7 +8,7 @@
 * Was passiert mit nicht unterstützten Browsern? (IE 9, ...) => eigene Direktive
 * PWA fullscreen on Tablets
 * Piwik Analytics
-* Alarm color hang tests
+* Alarm color hang tests / late alarm
 
 ## Mobile
 
@@ -16,12 +16,12 @@
 * [x] Fonts fixen
 * [x] Bestehende Assets updaten
 * Bestehendes Layout updaten, spacing, etc.
-* Themes updaten
+* [x] Themes updaten
+* +/- 15 secs.
 
 ## Medium und aufwärts
 
 * Swipe left/right
-* +/- 15 secs.
 * CSS Breakpoints festlegen und implementieren
 
 ## Help

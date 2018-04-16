@@ -57,7 +57,7 @@
   text-transform: capitalize;
   @each $theme, $map in $themes {
     .#{$theme} & {
-      color: map-get($map, colorClock);
+      color: map-get($map, colorClockLabel);
     }
   }
   @include mobile {

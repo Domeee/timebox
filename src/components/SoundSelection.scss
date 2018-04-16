@@ -7,7 +7,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   z-index: 1;
   left: 0;
   top: 0;
@@ -21,24 +20,40 @@
 }
 
 .sound-item {
-  padding: 1.6rem;
   cursor: pointer;
   @include mobile {
-    line-height: 4.4rem;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    margin-bottom: 3.2rem;
   }
   @include tablet {
-    line-height: 4.4rem;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    margin-bottom: 3.2rem;
   }
   @include desktop {
-    line-height: 4.4rem;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    margin-bottom: 3.2rem;
   }
   @include big {
-    line-height: 4.4rem;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    margin-bottom: 3.2rem;
   }
 }
 
 .sound-item-value {
   display: none;
+}
+
+.sound-item-value + label {
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      color: map-get($map, colorSoundItem);
+    }
+  }
+  font-weight: 300;
 }
 
 .sound-item-value:checked + label {
@@ -52,8 +67,8 @@
 
 .overlay-close-container {
   @include mobile {
-    margin-top: -5vh;
-    margin-bottom: 5vh;
+    margin-top: 6.4rem;
+    margin-bottom: 3.1rem;
   }
   @include tablet {
     margin-top: -20vh;
@@ -72,7 +87,7 @@
 .overlay-close {
   cursor: pointer;
   @include mobile {
-    height: 24px;
+    height: 3.6rem;
   }
   @include tablet {
     height: 48px;
