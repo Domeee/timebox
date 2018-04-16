@@ -7,10 +7,11 @@
   }
 }
 
-.sound-selection-container {
-  position: absolute;
-  top: 6.4rem;
-  right: 6.4rem;
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2.4rem 2rem 0 2rem;
 }
 
 .clock-container {
@@ -18,20 +19,6 @@
   justify-content: center;
   align-items: center;
   flex: 1 1 auto;
-  @include mobile {
-    // TODO
-    margin: 11.5rem 11.5rem;
-  }
-  @include tablet {
-    // TODO
-    margin: 11.5rem 11.5rem;
-  }
-  @include desktop {
-    margin: 11.5rem 11.5rem;
-  }
-  @include big {
-    margin: 11.5rem 11.5rem;
-  }
 }
 
 .timebox-toggle-container {
@@ -40,8 +27,13 @@
   margin-bottom: 3.2rem;
 }
 
-.logo-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 3.3rem;
+.theme-switch {
+  margin-bottom: 3.2rem;
+  height: 1.2rem;
+
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      background: map-get($map, colorSwitcher);
+    }
+  }
 }

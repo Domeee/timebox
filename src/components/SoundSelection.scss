@@ -99,12 +99,11 @@
 .sound-selection-toggle {
   display: flex;
   align-items: center;
-  text-transform: uppercase;
   cursor: pointer;
   @include mobile {
-    // TODO
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+    height: 1.6rem;
   }
   @include tablet {
     // TODO

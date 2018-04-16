@@ -29,7 +29,7 @@ class App extends React.Component<{}, AppState> {
   private container: HTMLDivElement;
   private isFlashed: boolean;
   private originalBackground: string;
-  private themes = ['dark', 'blue', 'yellow', 'pink', 'green'];
+  private themes = ['dark', 'blue', 'yellow', 'pink', 'purple'];
 
   constructor(props: {}) {
     super(props);
@@ -57,14 +57,15 @@ class App extends React.Component<{}, AppState> {
           this.container = container!;
         }}
       >
-        <div className="sound-selection-container">
-          <SoundSelection onSoundChange={this.handleSoundChange} />
-        </div>
         <TimeboxEventEmitter
           onTimeboxChange={this.handleTimeboxChange}
           onTimeboxToggle={this.handleTimeboxToggle}
           onThemeChange={this.handleThemeChange}
         >
+          <div className="header-container">
+            <SoundSelection onSoundChange={this.handleSoundChange} />
+            <LogoIa />
+          </div>
           <div className="clock-container">
             <Clock
               seconds={this.state.seconds}
@@ -78,9 +79,10 @@ class App extends React.Component<{}, AppState> {
               onTimeboxToggle={this.handleTimeboxToggle}
             />
           </div>
-          <div className="logo-container">
-            <LogoIa />
-          </div>
+          <div
+            className="theme-switch"
+            onClick={e => this.handleThemeChange({ next: true })}
+          />
         </TimeboxEventEmitter>
       </div>
     );

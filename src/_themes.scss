@@ -2,36 +2,61 @@ $themes: (
   dark:
     (
       background: linear-gradient(202.05deg, #1f2634 0%, #161a24 100%),
-      color: #8d99b2,
+      color: #ffffff,
       colorClock: #ffffff,
-      colorFocus: #f1f1f1
+      colorFocus: #f1f1f1,
+      colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSwitcher: center no-repeat url('../images/dots-dark.svg')
     ),
   blue:
     (
-      background: linear-gradient(202.05deg, #1f8fea 0%, #197fd3 100%),
+      background:
+        linear-gradient(
+          202.32deg,
+          rgba(41, 124, 218, 1) 0%,
+          rgba(31, 101, 158, 1) 100%
+        ),
       color: #ffffff,
       colorClock: #ffffff,
-      colorFocus: #f1f1f1
+      colorFocus: #f1f1f1,
+      colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSwitcher: center no-repeat url('../images/dots-blue.svg')
     ),
   yellow:
     (
-      background: #ffc20a,
+      background: rgba(255, 204, 0, 1),
       color: #111111,
       colorClock: #111111,
-      colorFocus: #111111
+      colorFocus: #111111,
+      colorClockLabel: rgba(0, 0, 0, 0.8),
+      colorSwitcher: center no-repeat url('../images/dots-yellow.svg')
     ),
   pink:
     (
-      background: linear-gradient(202.05deg, #f2366b 0%, #ac3584 100%),
+      background:
+        linear-gradient(
+          151.88deg,
+          rgba(229, 97, 76, 1) 0%,
+          rgba(198, 48, 79, 1) 100%
+        ),
       color: #ffffff,
       colorClock: #ffffff,
-      colorFocus: #f1f1f1
+      colorFocus: #f1f1f1,
+      colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSwitcher: center no-repeat url('../images/dots-red.svg')
     ),
-  green:
+  purple:
     (
-      background: linear-gradient(202.05deg, #6dab11 0%, #319422 100%),
+      background:
+        linear-gradient(
+          202.85deg,
+          rgba(143, 43, 202, 1) 0%,
+          rgba(106, 48, 147, 1) 100%
+        ),
       color: #ffffff,
       colorClock: #ffffff,
-      colorFocus: #f1f1f1
+      colorFocus: #f1f1f1,
+      colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSwitcher: center no-repeat url('../images/dots-purple.svg')
     )
 );

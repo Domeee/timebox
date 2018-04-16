@@ -206,9 +206,9 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     } else if (swipedHorizontal) {
       axis = SwipeAxis.Horizontal;
       if (oldPositionX > newPositionX) {
-        gesture = SwipeGesture.SwipeLeft;
-      } else if (oldPositionX < newPositionX) {
         gesture = SwipeGesture.SwipeRight;
+      } else if (oldPositionX < newPositionX) {
+        gesture = SwipeGesture.SwipeLeft;
       }
     }
 

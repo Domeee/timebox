@@ -11,16 +11,21 @@ export interface ClockProps {
 export default (props: ClockProps) => {
   const seconds = padLeft(props.seconds);
   const minutes = padLeft(props.minutes);
+  const labelSeconds = props.isTimeboxStarted ? <span>&nbsp;</span> : 's';
+  const labelMinutes = props.isTimeboxStarted ? <span>&nbsp;</span> : 'm';
   return (
     <React.Fragment>
       <div className="clock-value-container">
         <div className="clock-style">{minutes}</div>
-        {!props.isTimeboxStarted && <div className="clock-label">m</div>}
+        <div className="clock-label">{labelMinutes}</div>
       </div>
-      <div className="clock-style">:</div>
+      <div className="clock-style clock-style-colon">
+        :
+        <div className="clock-label">&nbsp;</div>
+      </div>
       <div className="clock-value-container">
         <div className="clock-style">{seconds}</div>
-        {!props.isTimeboxStarted && <div className="clock-label">s</div>}
+        <div className="clock-label">{labelSeconds}</div>
       </div>
     </React.Fragment>
   );

@@ -14,8 +14,8 @@
     }
   }
   @include mobile {
-    font-size: 7rem;
-    line-height: 7rem;
+    font-size: 12.8rem;
+    line-height: 12.8rem;
   }
   @include tablet {
     font-size: 19rem;
@@ -34,10 +34,35 @@
   }
 }
 
+.clock-style-colon {
+  @include mobile {
+    font-size: 9.6rem;
+    line-height: 12.8rem;
+  }
+  @include tablet {
+    font-size: 9.6rem;
+    line-height: 12.8rem;
+  }
+  @include desktop {
+    font-size: 9.6rem;
+    line-height: 12.8rem;
+  }
+  @include big {
+    font-size: 9.6rem;
+    line-height: 12.8rem;
+  }
+}
+
 .clock-label {
   text-transform: capitalize;
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      color: map-get($map, colorClock);
+    }
+  }
   @include mobile {
-    // margin-top: -2vh;
+    font-size: 1.3rem;
+    line-height: 1.6rem;
   }
   @include tablet {
     // margin-top: -4vh;
