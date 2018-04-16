@@ -16,7 +16,18 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 2.4rem 2rem 0 2rem;
+  @include mobile {
+    padding: 2.4rem 2rem 0 2rem;
+  }
+  @include tablet {
+    padding: 3.4rem 3.2rem 0 3.2rem;
+  }
+  @include desktop {
+    padding: 3.4rem 3.2rem 0 3.2rem;
+  }
+  @include big {
+    padding: 3.4rem 3.2rem 0 3.2rem;
+  }
 }
 
 .clock-container {

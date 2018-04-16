@@ -19,8 +19,8 @@ export default (props: ClockProps) => {
         <div className="clock-style">{minutes}</div>
         <div className="clock-label">{labelMinutes}</div>
       </div>
-      <div className="clock-style clock-style-colon">
-        :
+      <div className="clock-value-container">
+        <div className="clock-style-colon">:</div>
         <div className="clock-label">&nbsp;</div>
       </div>
       <div className="clock-value-container">

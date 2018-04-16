@@ -1,7 +1,18 @@
 @import 'shared.scss';
 
 .nudge {
-  height: 3.2rem;
+  @include mobile {
+    height: 3.2rem;
+  }
+  @include tablet {
+    height: 3.2rem;
+  }
+  @include desktop {
+    height: 3.2rem;
+  }
+  @include big {
+    height: 4.2rem;
+  }
   path {
     @each $theme, $map in $themes {
       .#{$theme} & {

@@ -10,19 +10,19 @@ $breakpoint-desktop: 1440px;
 }
 
 @mixin tablet {
-  @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet}) {
+  @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1}) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: #{$breakpoint-tablet + 1px}) and (max-width: #{$breakpoint-desktop}) {
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1}) {
     @content;
   }
 }
 
 @mixin big {
-  @media (min-width: #{$breakpoint-desktop + 1px}) {
+  @media (min-width: #{$breakpoint-desktop}) {
     @content;
   }
 }

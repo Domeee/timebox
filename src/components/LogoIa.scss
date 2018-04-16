@@ -1,7 +1,18 @@
 @import 'shared.scss';
 
 .logo-ia {
-  height: 1.4rem;
+  @include mobile {
+    height: 1.4rem;
+  }
+  @include tablet {
+    height: 1.4rem;
+  }
+  @include desktop {
+    height: 1.4rem;
+  }
+  @include big {
+    height: 1.8rem;
+  }
   @each $theme, $map in $themes {
     .#{$theme} & g {
       fill: map-get($map, colorClock);

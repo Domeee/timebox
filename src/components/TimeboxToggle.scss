@@ -1,9 +1,26 @@
 @import 'shared.scss';
 
 .timebox-toggle-icon {
-  height: 6rem;
-  width: 6rem;
-  margin: 0 4rem;
+  @include mobile {
+    height: 6rem;
+    width: 6rem;
+    margin: 0 4rem;
+  }
+  @include tablet {
+    height: 6rem;
+    width: 6rem;
+    margin: 0 4.8rem;
+  }
+  @include desktop {
+    height: 8rem;
+    width: 8rem;
+    margin: 0 8rem;
+  }
+  @include big {
+    height: 12rem;
+    width: 12rem;
+    margin: 0 8.8rem;
+  }
   circle {
     @each $theme, $map in $themes {
       .#{$theme} & {

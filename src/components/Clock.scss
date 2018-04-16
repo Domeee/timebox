@@ -18,38 +18,41 @@
     line-height: 12.8rem;
   }
   @include tablet {
-    font-size: 19rem;
-    line-height: 19rem;
-    letter-spacing: -0.2rem;
+    font-size: 22rem;
+    line-height: 22rem;
   }
   @include desktop {
-    font-size: 25rem;
-    line-height: 25rem;
-    letter-spacing: -0.2rem;
+    font-size: 29.2rem;
+    line-height: 29.2rem;
   }
   @include big {
-    font-size: 35rem;
-    line-height: 35rem;
-    letter-spacing: -0.2rem;
+    font-size: 38.8rem;
+    line-height: 38.8rem;
   }
 }
 
 .clock-style-colon {
+  font-family: 'Roboto Condensed';
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      color: map-get($map, colorClock);
+    }
+  }
   @include mobile {
     font-size: 9.6rem;
     line-height: 12.8rem;
   }
   @include tablet {
-    font-size: 9.6rem;
-    line-height: 12.8rem;
+    font-size: 16.5rem;
+    line-height: 22rem;
   }
   @include desktop {
-    font-size: 9.6rem;
-    line-height: 12.8rem;
+    font-size: 21.9rem;
+    line-height: 29.2rem;
   }
   @include big {
-    font-size: 9.6rem;
-    line-height: 12.8rem;
+    font-size: 29.1rem;
+    line-height: 38.8rem;
   }
 }
 
@@ -65,12 +68,15 @@
     line-height: 1.6rem;
   }
   @include tablet {
-    // margin-top: -4vh;
+    font-size: 1.3rem;
+    line-height: 1.6rem;
   }
   @include desktop {
-    // margin-top: -54px;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
   }
   @include big {
-    margin-top: -3.2rem;
+    font-size: 2rem;
+    line-height: 2.4rem;
   }
 }

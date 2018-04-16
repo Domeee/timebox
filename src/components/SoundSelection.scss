@@ -21,26 +21,9 @@
 
 .sound-item {
   cursor: pointer;
-  @include mobile {
-    font-size: 2rem;
-    line-height: 2.4rem;
-    margin-bottom: 3.2rem;
-  }
-  @include tablet {
-    font-size: 2rem;
-    line-height: 2.4rem;
-    margin-bottom: 3.2rem;
-  }
-  @include desktop {
-    font-size: 2rem;
-    line-height: 2.4rem;
-    margin-bottom: 3.2rem;
-  }
-  @include big {
-    font-size: 2rem;
-    line-height: 2.4rem;
-    margin-bottom: 3.2rem;
-  }
+  font-size: 2rem;
+  line-height: 2.4rem;
+  margin-bottom: 3.2rem;
 }
 
 .sound-item-value {
@@ -66,38 +49,13 @@
 }
 
 .overlay-close-container {
-  @include mobile {
-    margin-top: 6.4rem;
-    margin-bottom: 3.1rem;
-  }
-  @include tablet {
-    margin-top: -20vh;
-    margin-bottom: 20vh;
-  }
-  @include desktop {
-    margin-top: -20vh;
-    margin-bottom: 20vh;
-  }
-  @include big {
-    margin-top: -20vh;
-    margin-bottom: 20vh;
-  }
+  margin-top: 6.4rem;
+  margin-bottom: 3.2rem;
 }
 
 .overlay-close {
   cursor: pointer;
-  @include mobile {
-    height: 3.6rem;
-  }
-  @include tablet {
-    height: 48px;
-  }
-  @include desktop {
-    height: 48px;
-  }
-  @include big {
-    height: 48px;
-  }
+  height: 3.6rem;
   .overlay-close-g {
     @each $theme, $map in $themes {
       .#{$theme} & {
@@ -121,17 +79,19 @@
     height: 1.6rem;
   }
   @include tablet {
-    // TODO
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+    height: 1.6rem;
   }
   @include desktop {
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+    height: 1.6rem;
   }
   @include big {
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    height: 2.4rem;
   }
   .sound-selection-toggle-icon {
     margin-left: 0.8rem;
