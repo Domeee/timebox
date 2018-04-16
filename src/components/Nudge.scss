@@ -1,24 +1,22 @@
 @import 'shared.scss';
 
-.timebox-toggle-icon {
-  height: 6rem;
-  width: 6rem;
-  margin: 0 4rem;
-  circle {
+.nudge {
+  height: 3.2rem;
+  path {
     @each $theme, $map in $themes {
       .#{$theme} & {
         stroke: map-get($map, colorClock);
       }
     }
   }
-  rect {
+  polygon {
     @each $theme, $map in $themes {
       .#{$theme} & {
         fill: map-get($map, colorClock);
       }
     }
   }
-  polygon {
+  text {
     @each $theme, $map in $themes {
       .#{$theme} & {
         fill: map-get($map, colorClock);

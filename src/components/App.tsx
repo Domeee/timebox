@@ -11,6 +11,7 @@ import ThemeChangeEvent from '../lib/ThemeChangeEvent';
 import TimeboxToggle from './TimeboxToggle';
 import Clock from './Clock';
 import LogoIa from './LogoIa';
+import Nudge from './Nudge';
 
 import './App.css';
 
@@ -74,9 +75,21 @@ class App extends React.Component<{}, AppState> {
             />
           </div>
           <div className="timebox-toggle-container">
+            <Nudge
+              forward={false}
+              unit={15}
+              onTimeboxChange={this.handleTimeboxChange}
+              visible={this.state.isTimeboxStarted}
+            />
             <TimeboxToggle
               isTimeboxStarted={this.state.isTimeboxStarted}
               onTimeboxToggle={this.handleTimeboxToggle}
+            />
+            <Nudge
+              forward={true}
+              unit={15}
+              onTimeboxChange={this.handleTimeboxChange}
+              visible={this.state.isTimeboxStarted}
             />
           </div>
           <div
@@ -99,7 +112,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   private handleTimeboxChange(e: TimeboxChangeEvent) {
-    if (this.state.isTimeboxStarted) return;
+    if (this.state.isTimeboxStarted && !e.nudge) return;
     if (
       this.state.timer < TimeboxUnit.SECONDS &&
       e.type === TimeboxChangeEventType.DECREASE_UNIT

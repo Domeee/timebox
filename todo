@@ -15,14 +15,16 @@
 * [x] Stunden entfernen
 * [x] Fonts fixen
 * [x] Bestehende Assets updaten
-* Bestehendes Layout updaten, spacing, etc.
+* [x] Bestehendes Layout updaten, spacing, etc.
 * [x] Themes updaten
 * +/- 15 secs.
+* Cross Browser Tests
 
 ## Medium und aufwärts
 
 * Swipe left/right
 * CSS Breakpoints festlegen und implementieren
+* Cross Browser Tests
 
 ## Help
 

@@ -6,4 +6,5 @@ export enum TimeboxChangeEventType {
 export default interface TimeboxChangeEvent {
   type: TimeboxChangeEventType;
   unit: number;
-};
+  nudge?: boolean;
+}

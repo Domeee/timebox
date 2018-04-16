@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="48px" viewBox="0 0 44 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>CA283FED-5969-4276-8991-D8096B38D88B</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Assets" transform="translate(-858.000000, -452.000000)">
+            <g id="Controls/Nudge-Forward-Black" transform="translate(848.000000, 446.000000)">
+                <rect id="Bounding-Box-Copy" x="0" y="0" width="64" height="64"></rect>
+                <g id="Forward-Icon" stroke-width="1" fill-rule="evenodd" transform="translate(31.833333, 29.333333) scale(-1, 1) translate(-31.833333, -29.333333) translate(10.333333, 5.333333)">
+                    <path d="M0,26.6666667 C0,38.4487413 9.55125867,48 21.3333333,48 C33.115408,48 42.6666667,38.4487413 42.6666667,26.6666667 C42.6666667,14.884592 33.115408,5.33333333 21.3333333,5.33333333" id="Oval" stroke="#000000" stroke-width="1.33333333"></path>
+                    <polygon id="Triangle" fill="#000000" transform="translate(18.000000, 5.333333) rotate(-90.000000) translate(-18.000000, -5.333333) " points="18 2 22.6666667 8.66666667 13.3333333 8.66666667"></polygon>
+                </g>
+                <text id="15" font-family="RobotoCondensed-Regular, Roboto Condensed" font-size="21" font-style="condensed" font-weight="normal" letter-spacing="-0.300000012" fill="#000000">
+                    <tspan x="21" y="39.1333415">1</tspan>
+                    <tspan x="31.0666992" y="39.1333415">5</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
