@@ -159,16 +159,12 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   private getCurrentUnit(clientX: number): TimeboxUnit {
     const viewportWidth = this.getViewportWidth();
 
-    const hoursViewPortEnd = viewportWidth / 3;
-    const secondsViewPortStart = viewportWidth / 3 * 2;
-    const isHoursViewPort = clientX <= hoursViewPortEnd;
-    const isSecondsViewPort = clientX > secondsViewPortStart;
+    const minutesViewPortEnd = viewportWidth / 2;
+    const isSecondsViewPort = clientX > minutesViewPortEnd;
 
     let unit: TimeboxUnit = TimeboxUnit.MINUTES;
 
-    if (isHoursViewPort) {
-      unit = TimeboxUnit.HOURS;
-    } else if (isSecondsViewPort) {
+    if (isSecondsViewPort) {
       unit = TimeboxUnit.SECONDS;
     }
 

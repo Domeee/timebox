@@ -16,7 +16,6 @@ import './App.css';
 export interface AppState {
   seconds: number;
   minutes: number;
-  hours: number;
   isTimeboxStarted: boolean;
   timer: number;
   theme: number;
@@ -36,7 +35,6 @@ class App extends React.Component<{}, AppState> {
     this.state = {
       seconds: 0,
       minutes: 0,
-      hours: 0,
       isTimeboxStarted: false,
       timer: 0,
       theme: 0,
@@ -70,7 +68,6 @@ class App extends React.Component<{}, AppState> {
             <Clock
               seconds={this.state.seconds}
               minutes={this.state.minutes}
-              hours={this.state.hours}
               isTimeboxStarted={this.state.isTimeboxStarted}
             />
           </div>
@@ -123,8 +120,8 @@ class App extends React.Component<{}, AppState> {
           ? prevState.timer + e.unit
           : prevState.timer - e.unit;
       if (timer >= 0) {
-        const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
-        return { ...prevState, timer, seconds, minutes, hours };
+        const { seconds, minutes } = this.calculateDisplayTime(timer);
+        return { ...prevState, timer, seconds, minutes };
       } else {
         return prevState;
       }
@@ -136,7 +133,7 @@ class App extends React.Component<{}, AppState> {
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
       this.setState(prevState => {
-        return { timer: 0, seconds: 0, minutes: 0, hours: 0 };
+        return { timer: 0, seconds: 0, minutes: 0 };
       });
     } else {
       this.setState({ isTimeboxStarted: true });
@@ -164,8 +161,8 @@ class App extends React.Component<{}, AppState> {
     if (this.state.timer > 1) {
       this.setState(prevState => {
         const timer = prevState.timer - 1;
-        const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
-        return { timer, seconds, minutes, hours };
+        const { seconds, minutes } = this.calculateDisplayTime(timer);
+        return { timer, seconds, minutes };
       });
     } else {
       this.playSound();
@@ -182,7 +179,7 @@ class App extends React.Component<{}, AppState> {
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
       this.setState(prevState => {
-        return { timer: 0, seconds: 0, minutes: 0, hours: 0 };
+        return { timer: 0, seconds: 0, minutes: 0 };
       });
     }
   }
@@ -200,10 +197,9 @@ class App extends React.Component<{}, AppState> {
   }
 
   private calculateDisplayTime(timer: number) {
-    const hours = Math.floor(timer / 3600);
-    const minutes = Math.floor(timer / 60) - hours * 60;
-    const seconds = timer - hours * 3600 - minutes * 60;
-    const res = { seconds, minutes, hours };
+    const minutes = Math.floor(timer / 60);
+    const seconds = timer - minutes * 60;
+    const res = { seconds, minutes };
     return res;
   }
 
