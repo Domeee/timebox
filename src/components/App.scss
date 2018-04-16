@@ -45,12 +45,3 @@
   justify-content: center;
   margin-bottom: 3.3rem;
 }
-
-.logo-ia {
-  height: 2.4rem;
-  @each $theme, $map in $themes {
-    .#{$theme} & {
-      fill: map-get($map, colorClock);
-    }
-  }
-}
