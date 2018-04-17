@@ -7,7 +7,7 @@
 * Build Info at runtime
 * Was passiert mit nicht unterstützten Browsern? (IE 9, ...) => eigene Direktive
 * PWA fullscreen on Tablets
-* Piwik Analytics
+* [x] Piwik Analytics
 * [x] Alarm color hang tests / late alarm
 
 ## Mobile
