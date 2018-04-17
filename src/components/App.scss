@@ -31,22 +31,29 @@
 }
 
 .clock-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1 1 auto;
 }
 
 .timebox-toggle-container {
+  position: absolute;
+  bottom: 7.6rem;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3.2rem;
 }
 
 .theme-switch {
-  margin-bottom: 3.2rem;
+  position: absolute;
+  bottom: 3.2rem;
   height: 1.2rem;
+  width: 100%;
 
   @each $theme, $map in $themes {
     .#{$theme} & {

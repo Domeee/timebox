@@ -22,8 +22,8 @@
 
 ## Medium und aufwärts
 
+* [x] CSS Breakpoints festlegen und implementieren
 * Swipe left/right
-* CSS Breakpoints festlegen und implementieren
 * Cross Browser Tests
 
 ## Help
@@ -32,5 +32,6 @@
 
 ## Nice to have
 
+* hoppy yb
 * Transitions (z.B. auf Zeit +/-)
 * Alarm Komplementärfarben
