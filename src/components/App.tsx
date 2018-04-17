@@ -194,7 +194,7 @@ class App extends React.Component<{}, AppState> {
         window.clearInterval(this.flashBackgroundInterval);
         this.container.style.background = '';
         // tslint:disable-next-line:align
-      }, 10000);
+      }, 3000);
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
       this.setState(prevState => {

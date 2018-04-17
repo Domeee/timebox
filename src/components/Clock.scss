@@ -70,13 +70,16 @@
   @include tablet {
     font-size: 1.3rem;
     line-height: 1.6rem;
+    margin-top: -1.6rem;
   }
   @include desktop {
     font-size: 1.6rem;
     line-height: 1.9rem;
+    margin-top: -1.6rem;
   }
   @include big {
     font-size: 2rem;
     line-height: 2.4rem;
+    margin-top: -2rem;
   }
 }
