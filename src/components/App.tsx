@@ -152,6 +152,7 @@ class App extends React.Component<{}, AppState> {
     } else {
       this.setState({ isTimeboxStarted: true });
       this.timeboxInterval = window.setInterval(this.handleTimeboxTick, 1000);
+      this.unlockSoundPlayback();
     }
   }
 
@@ -228,6 +229,13 @@ class App extends React.Component<{}, AppState> {
   private updateOriginalBackground() {
     const style = window.getComputedStyle(this.container);
     this.originalBackground = style.background!;
+  }
+
+  private unlockSoundPlayback() {
+    // https://github.com/goldfire/howler.js/#mobile-playback
+    const src = 'gong.mp3';
+    const howler = new Howl({ src, volume: 0 });
+    howler.play();
   }
 }
 
