@@ -13,6 +13,10 @@ import Clock from './Clock';
 import LogoIa from './LogoIa';
 import Nudge from './Nudge';
 import ThemeSwiper from './ThemeSwiper';
+import Sounds from './Sounds';
+import { Sound } from './Sound';
+// @ts-ignore
+import Gong from '../sounds/gong.mp3';
 
 import './App.css';
 
@@ -205,8 +209,8 @@ class App extends React.Component<{}, AppState> {
 
   private playSound() {
     if (this.song !== SoundSelection.SilentSound) {
-      const src = this.song + '.mp3';
-      const howler = new Howl({ src });
+      const sound: Sound = Sounds.find(s => s.name === this.song)!;
+      const howler = new Howl({ src: sound.path });
       howler.play();
     }
   }
@@ -233,7 +237,7 @@ class App extends React.Component<{}, AppState> {
 
   private unlockSoundPlayback() {
     // https://github.com/goldfire/howler.js/#mobile-playback
-    const src = 'gong.mp3';
+    const src = Gong;
     const howler = new Howl({ src, volume: 0 });
     howler.play();
   }
