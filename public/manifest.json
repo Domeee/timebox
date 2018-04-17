@@ -1,6 +1,7 @@
 {
   "short_name": "Timebox",
   "name": "Timebox",
+  "description": "One Timebox To Rule Them All",
   "icons": [
     {
       "src": "/android-icon-36x36.png",
@@ -40,7 +41,7 @@
     }
   ],
   "start_url": "./index.html",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#ffffff",
   "background_color": "#ffffff"
 }
