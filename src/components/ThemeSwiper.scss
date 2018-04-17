@@ -1,0 +1,33 @@
+@import 'shared.scss';
+
+.theme-swiper {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  fill-opacity: 30%;
+  transition: 0.3s;
+
+  polyline {
+    @each $theme, $map in $themes {
+      .#{$theme} & {
+        stroke: map-get($map, colorClock);
+      }
+    }
+  }
+}
+
+.theme-swiper-forward {
+  right: -3.5rem;
+}
+
+.theme-swiper-forward:hover {
+  right: 0rem;
+}
+
+.theme-swiper-backward {
+  left: -3.5rem;
+}
+
+.theme-swiper-backward:hover {
+  left: 0rem;
+}

@@ -12,6 +12,7 @@ import TimeboxToggle from './TimeboxToggle';
 import Clock from './Clock';
 import LogoIa from './LogoIa';
 import Nudge from './Nudge';
+import ThemeSwiper from './ThemeSwiper';
 
 import './App.css';
 
@@ -68,10 +69,18 @@ class App extends React.Component<{}, AppState> {
             <LogoIa />
           </div>
           <div className="clock-container">
+            <ThemeSwiper
+              forward={false}
+              onThemeChange={this.handleThemeChange}
+            />
             <Clock
               seconds={this.state.seconds}
               minutes={this.state.minutes}
               isTimeboxStarted={this.state.isTimeboxStarted}
+            />
+            <ThemeSwiper
+              forward={true}
+              onThemeChange={this.handleThemeChange}
             />
           </div>
           <div className="timebox-toggle-container">
