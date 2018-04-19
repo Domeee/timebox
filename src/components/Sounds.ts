@@ -41,18 +41,14 @@ export default [
     name: 'getupstandup',
     path: Getupstandup,
     title: 'Get up, stand up',
-    hosts: [
-      // 'localhost'
-    ],
+    hosts: ['localhost', 'timebox.innoarchitects.ch'],
   },
   {
     id: 3,
     name: 'cometogether',
     path: Cometogether,
     title: 'Come together',
-    hosts: [
-      // 'localhost'
-    ],
+    hosts: ['localhost', 'timebox.innoarchitects.ch'],
   },
   {
     id: 4,

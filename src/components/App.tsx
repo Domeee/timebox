@@ -189,7 +189,7 @@ class App extends React.Component<{}, AppState> {
         this.flashBackground,
         500
       );
-      // Stop the visual after 10 secs
+      // Stop the visual after 3 secs
       window.setTimeout(() => {
         window.clearInterval(this.flashBackgroundInterval);
         this.container.style.background = '';
