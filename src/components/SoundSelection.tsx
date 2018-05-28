@@ -31,6 +31,7 @@ class SoundSelection extends React.Component<
     };
 
     this.toggleOverlay = this.toggleOverlay.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -56,7 +57,7 @@ class SoundSelection extends React.Component<
     const sound = Sounds.find(s => s.name === this.state.sound)!;
     return (
       <React.Fragment>
-        <div className="sound-selection-toggle" onClick={this.toggleOverlay}>
+        <div className="sound-selection-toggle" onClick={this.handleClick}>
           {sound.title}
           <svg
             className="sound-selection-toggle-icon"
@@ -87,11 +88,13 @@ class SoundSelection extends React.Component<
           ref={o => {
             this.overlay = o!;
           }}
+          // Disable modal onClick
+          onClick={e => e.stopPropagation()}
         >
           <div className="overlay-close-container">
             <svg
               className="overlay-close"
-              onClick={this.toggleOverlay}
+              onClick={this.handleClick}
               viewBox="0 0 36 36"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -142,6 +145,11 @@ class SoundSelection extends React.Component<
     this.setState({
       sounds: hostSounds,
     });
+  }
+
+  private handleClick(e: React.MouseEvent<HTMLElement | SVGElement>) {
+    e.stopPropagation();
+    this.toggleOverlay();
   }
 
   private toggleOverlay() {

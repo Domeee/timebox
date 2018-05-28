@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './ThemeSwiper.css';
 import ThemeChangeEvent from '../lib/ThemeChangeEvent';
+import BrowserUtils from '../lib/BrowserUtils';
 
 export interface ThemeSwiperProps {
   forward: boolean;
@@ -8,14 +9,17 @@ export interface ThemeSwiperProps {
 }
 
 export default (props: ThemeSwiperProps) => {
-  const hasTouch = 'ontouchstart' in window;
   const rightArrow = (
     <svg
       width="70px"
       height="140px"
       viewBox="0 0 70 140"
       className="theme-swiper theme-swiper-forward"
-      onClick={e => props.onThemeChange({ next: true })}
+      onClick={e => {
+        // Disable modal onclick
+        e.stopPropagation();
+        props.onThemeChange({ next: true });
+      }}
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-851.000000, -570.000000)">
@@ -49,7 +53,11 @@ export default (props: ThemeSwiperProps) => {
       height="140px"
       viewBox="0 0 70 140"
       className="theme-swiper theme-swiper-backward"
-      onClick={e => props.onThemeChange({ next: false })}
+      onClick={e => {
+        // Disable modal onclick
+        e.stopPropagation();
+        props.onThemeChange({ next: false });
+      }}
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-773.000000, -570.000000)">
@@ -80,5 +88,9 @@ export default (props: ThemeSwiperProps) => {
       </g>
     </svg>
   );
-  return !hasTouch ? (props.forward ? rightArrow : leftArrow) : null;
+  return !BrowserUtils.hasTouch()
+    ? props.forward
+      ? rightArrow
+      : leftArrow
+    : null;
 };

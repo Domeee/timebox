@@ -19,6 +19,7 @@ import { Sound } from './Sound';
 import Gong from '../sounds/gong.mp3';
 
 import './App.css';
+import Modal from './Modal';
 
 export interface AppState {
   seconds: number;
@@ -26,6 +27,7 @@ export interface AppState {
   isTimeboxStarted: boolean;
   timer: number;
   theme: number;
+  isModalVisible: boolean;
 }
 
 class App extends React.Component<{}, AppState> {
@@ -45,6 +47,7 @@ class App extends React.Component<{}, AppState> {
       isTimeboxStarted: false,
       timer: 0,
       theme: 0,
+      isModalVisible: false,
     };
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
     this.handleTimeboxToggle = this.handleTimeboxToggle.bind(this);
@@ -52,6 +55,7 @@ class App extends React.Component<{}, AppState> {
     this.handleSoundChange = this.handleSoundChange.bind(this);
     this.handleThemeChange = this.handleThemeChange.bind(this);
     this.flashBackground = this.flashBackground.bind(this);
+    this.handleTimeboxClick = this.handleTimeboxClick.bind(this);
   }
 
   public render() {
@@ -62,6 +66,7 @@ class App extends React.Component<{}, AppState> {
           onTimeboxChange={this.handleTimeboxChange}
           onTimeboxToggle={this.handleTimeboxToggle}
           onThemeChange={this.handleThemeChange}
+          onTimeboxClick={this.handleTimeboxClick}
         >
           <div className="header-container">
             <SoundSelection onSoundChange={this.handleSoundChange} />
@@ -102,8 +107,14 @@ class App extends React.Component<{}, AppState> {
           </div>
           <div
             className="theme-switch"
-            onClick={e => this.handleThemeChange({ next: true })}
+            onClick={e => {
+              e.stopPropagation();
+              this.handleThemeChange({ next: true });
+            }}
           />
+          <Modal isVisible={this.state.isModalVisible}>
+            <h1>modal</h1>
+          </Modal>
         </TimeboxEventEmitter>
       </div>
     );
@@ -114,7 +125,10 @@ class App extends React.Component<{}, AppState> {
   }
 
   private handleTimeboxChange(e: TimeboxChangeEvent) {
+    // Ignore change for running timebox
     if (this.state.isTimeboxStarted && !e.nudge) return;
+
+    // Ignore change if time left too short to decrease further
     if (
       this.state.timer < TimeboxUnit.SECONDS &&
       e.type === TimeboxChangeEventType.DECREASE_UNIT
@@ -239,6 +253,12 @@ class App extends React.Component<{}, AppState> {
     const src = Gong;
     const howler = new Howl({ src, volume: 0 });
     howler.play();
+  }
+
+  private handleTimeboxClick() {
+    this.setState(prevState => {
+      return { isModalVisible: !prevState.isModalVisible };
+    });
   }
 }
 

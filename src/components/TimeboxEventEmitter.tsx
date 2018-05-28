@@ -7,6 +7,7 @@ import KeyCode from '../lib/KeyCode';
 import SwipeGesture from '../lib/SwipeGesture';
 import SwipeAxis from '../lib/SwipeAxis';
 import ThemeChangeEvent from '../lib/ThemeChangeEvent';
+import BrowserUtils from '../lib/BrowserUtils';
 
 import './TimeboxEventEmitter.css';
 
@@ -14,6 +15,7 @@ export interface TimeboxEventEmitterProps {
   onTimeboxChange(e: TimeboxChangeEvent): void;
   onTimeboxToggle(): void;
   onThemeChange(e: ThemeChangeEvent): void;
+  onTimeboxClick(): void;
 }
 
 class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
@@ -34,6 +36,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   public render() {
@@ -48,6 +51,7 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
         onKeyDown={this.handleKeyDown}
         onMouseMove={this.handleMouseMove}
         onMouseUp={this.handleMouseUp}
+        onClick={this.handleClick}
       >
         {this.props.children}
       </div>
@@ -239,6 +243,13 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
       document.documentElement.clientWidth,
       window.innerWidth || 0
     );
+  }
+
+  private handleClick(e: React.MouseEvent<HTMLElement>) {
+    // Signaling click events only on non-touch devices
+    if (BrowserUtils.hasTouch()) return;
+
+    this.props.onTimeboxClick();
   }
 }
 

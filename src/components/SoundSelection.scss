@@ -20,7 +20,6 @@
 }
 
 .sound-item {
-  cursor: pointer;
   font-size: 2rem;
   line-height: 2.4rem;
   margin-bottom: 3.2rem;
@@ -37,6 +36,7 @@
     }
   }
   font-weight: 300;
+  cursor: pointer;
 }
 
 .sound-item-value:checked + label {

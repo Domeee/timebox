@@ -17,13 +17,14 @@ export default (props: NudgeProps) => {
     <svg
       className="nudge"
       viewBox="0 0 44 48"
-      onClick={e =>
+      onClick={e => {
+        e.stopPropagation();
         props.onTimeboxChange({
           type: TimeboxChangeEventType.INCREASE_UNIT,
           unit: props.unit,
           nudge: true,
-        })
-      }
+        });
+      }}
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-858.000000, -452.000000)">
@@ -72,13 +73,14 @@ export default (props: NudgeProps) => {
     <svg
       className="nudge"
       viewBox="0 0 44 48"
-      onClick={e =>
+      onClick={e => {
+        e.stopPropagation();
         props.onTimeboxChange({
           type: TimeboxChangeEventType.DECREASE_UNIT,
           unit: props.unit,
           nudge: true,
-        })
-      }
+        });
+      }}
     >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-778.000000, -452.000000)">

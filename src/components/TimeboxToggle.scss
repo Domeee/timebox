@@ -1,6 +1,7 @@
 @import 'shared.scss';
 
 .timebox-toggle-icon {
+  cursor: pointer;
   @include mobile {
     height: 6rem;
     width: 6rem;

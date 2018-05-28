@@ -58,7 +58,9 @@ class TimeboxToggle extends React.Component<TimeboxToggleProps> {
     );
   }
 
-  private handleTimeboxToggle() {
+  private handleTimeboxToggle(e: React.MouseEvent<SVGElement>) {
+    // Disable modal click
+    e.stopPropagation();
     this.props.onTimeboxToggle();
   }
 }

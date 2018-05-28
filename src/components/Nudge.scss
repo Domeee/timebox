@@ -1,6 +1,7 @@
 @import 'shared.scss';
 
 .nudge {
+  cursor: pointer;
   @include mobile {
     height: 3.2rem;
   }
