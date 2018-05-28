@@ -32,10 +32,10 @@ class App extends React.Component<{}, AppState> {
   private timeboxInterval: number;
   private flashBackgroundInterval: number;
   private song = SoundSelection.DefaultSound;
-  private container: HTMLDivElement;
-  private isFlashed: boolean;
-  private originalBackground: string;
-  private themes = ['dark', 'blue', 'yellow', 'pink', 'purple'];
+  private initialTheme: number;
+  private themes = ['dark', 'blue', 'yellow', 'pink', 'purple', 'alarm'];
+  // 5th position in themes array
+  private alarmTheme = 5;
 
   constructor(props: {}) {
     super(props);
@@ -57,12 +57,7 @@ class App extends React.Component<{}, AppState> {
   public render() {
     const appClasses = `app ${this.themes[this.state.theme]}`;
     return (
-      <div
-        className={appClasses}
-        ref={container => {
-          this.container = container!;
-        }}
-      >
+      <div className={appClasses}>
         <TimeboxEventEmitter
           onTimeboxChange={this.handleTimeboxChange}
           onTimeboxToggle={this.handleTimeboxToggle}
@@ -115,13 +110,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   public componentDidMount() {
-    this.updateOriginalBackground();
-  }
-
-  public componentDidUpdate(prevState: AppState) {
-    if (this.state.theme !== prevState.theme) {
-      this.updateOriginalBackground();
-    }
+    this.setInitialTheme();
   }
 
   private handleTimeboxChange(e: TimeboxChangeEvent) {
@@ -164,13 +153,14 @@ class App extends React.Component<{}, AppState> {
     let theme = this.state.theme;
     if (e.next) {
       theme = this.state.theme + 1;
-      theme = theme < this.themes.length ? theme : 0;
+      // Ignore alarm theme
+      theme = theme < this.themes.length - 1 ? theme : 0;
     } else {
       theme = this.state.theme - 1;
-      theme = theme >= 0 ? theme : this.themes.length - 1;
+      // Ignore alarm theme
+      theme = theme >= 0 ? theme : this.themes.length - 2;
     }
-    const style = window.getComputedStyle(this.container);
-    this.originalBackground = style.background!;
+    this.setInitialTheme(theme);
     this.setState({
       theme,
     });
@@ -192,7 +182,9 @@ class App extends React.Component<{}, AppState> {
       // Stop the visual after 3 secs
       window.setTimeout(() => {
         window.clearInterval(this.flashBackgroundInterval);
-        this.container.style.background = '';
+        this.setState({
+          theme: this.initialTheme,
+        });
         // tslint:disable-next-line:align
       }, 3000);
       this.setState({ isTimeboxStarted: false });
@@ -223,16 +215,23 @@ class App extends React.Component<{}, AppState> {
   }
 
   private flashBackground() {
-    this.container.style.background = this.isFlashed
-      ? this.originalBackground
-      : '#f44336';
-
-    this.isFlashed = !this.isFlashed;
+    this.setState(prevState => {
+      const currentTheme =
+        prevState.theme === this.alarmTheme
+          ? this.initialTheme
+          : this.alarmTheme;
+      return { theme: currentTheme };
+    });
   }
 
-  private updateOriginalBackground() {
-    const style = window.getComputedStyle(this.container);
-    this.originalBackground = style.background!;
+  private setInitialTheme(theme?: number) {
+    // Null coalescing operator fails because theme can be 0
+    // tslint:disable-next-line:prefer-conditional-expression
+    if (theme !== undefined) {
+      this.initialTheme = theme;
+    } else {
+      this.initialTheme = this.state.theme;
+    }
   }
 
   private unlockSoundPlayback() {

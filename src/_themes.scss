@@ -63,5 +63,15 @@ $themes: (
       colorClockLabel: rgba(255, 255, 255, 0.8),
       colorSoundItem: rgba(255, 255, 255, 0.7),
       colorSwitcher: center no-repeat url('../images/dots-purple.svg')
+    ),
+  alarm:
+    (
+      background: #f44336,
+      color: #ffffff,
+      colorClock: #ffffff,
+      colorFocus: #f1f1f1,
+      colorClockLabel: rgba(255, 255, 255, 0.8),
+      colorSoundItem: rgba(255, 255, 255, 0.7),
+      colorSwitcher: center no-repeat url('../images/dots-purple.svg')
     )
 );

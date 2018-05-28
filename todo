@@ -1,30 +1,5 @@
 # Timebox
 
-## General
-
-* DEV, TEST, PROD, IA environment
-  * [x] Unterschiedliche Sounds
-* [x] Was passiert mit nicht unterstützten Browsern? (IE 9, ...) => eigene Direktive
-* [x] PWA fullscreen on Tablets
-* [x] Piwik Analytics
-* [x] Alarm color hang tests / late alarm
-
-## Mobile
-
-* [x] Stunden entfernen
-* [x] Fonts fixen
-* [x] Bestehende Assets updaten
-* [x] Bestehendes Layout updaten, spacing, etc.
-* [x] Themes updaten
-* [x] +/- 15 secs.
-* [x] Cross Browser Tests
-
-## Medium und aufwärts
-
-* [x] CSS Breakpoints festlegen und implementieren
-* [x] Swipe left/right
-* [x] Cross Browser Tests
-
 ## Help
 
 * http://timebox.sprinteins.com/#/tab/eventTimer
