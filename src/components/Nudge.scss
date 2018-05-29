@@ -4,15 +4,19 @@
   cursor: pointer;
   @include mobile {
     height: 3.2rem;
+    max-width: 2.94rem;
   }
   @include tablet {
     height: 3.2rem;
+    max-width: 2.94rem;
   }
   @include desktop {
     height: 3.2rem;
+    max-width: 2.94rem;
   }
   @include big {
     height: 4.2rem;
+    max-width: 3.8rem;
   }
   path {
     @each $theme, $map in $themes {
