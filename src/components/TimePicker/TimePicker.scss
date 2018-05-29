@@ -111,7 +111,7 @@
 
 .values {
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   @include mobile {
     margin-top: 1.2rem;
     margin-bottom: 1.2rem;
