@@ -1,6 +1,7 @@
 export enum TimeboxChangeEventType {
   INCREASE_UNIT,
   DECREASE_UNIT,
+  INIT_UNIT,
 }
 
 export default interface TimeboxChangeEvent {

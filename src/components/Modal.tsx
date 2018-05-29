@@ -9,9 +9,6 @@ export interface ModalProps {
 
 export default (props: ModalProps) => {
   return props.isVisible ? (
-    <div className="timebox-modal">
-      <h1>modal</h1>
-      {props.children}
-    </div>
+    <div className="timebox-modal">{props.children}</div>
   ) : null;
 };

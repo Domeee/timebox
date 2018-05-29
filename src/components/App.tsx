@@ -17,9 +17,10 @@ import Sounds from './Sounds';
 import { Sound } from './Sound';
 // @ts-ignore
 import Gong from '../sounds/gong.mp3';
+import Modal from './Modal';
+import TimePicker from './TimePicker/TimePicker';
 
 import './App.css';
-import Modal from './Modal';
 
 export interface AppState {
   seconds: number;
@@ -113,7 +114,7 @@ class App extends React.Component<{}, AppState> {
             }}
           />
           <Modal isVisible={this.state.isModalVisible}>
-            <h1>modal</h1>
+            <TimePicker onTimeboxChange={e => this.handleTimeboxChange(e)} />
           </Modal>
         </TimeboxEventEmitter>
       </div>
@@ -136,10 +137,19 @@ class App extends React.Component<{}, AppState> {
       return;
 
     this.setState(prevState => {
-      const timer =
-        e.type === TimeboxChangeEventType.INCREASE_UNIT
-          ? prevState.timer + e.unit
-          : prevState.timer - e.unit;
+      let timer = 0;
+      switch (e.type) {
+        case TimeboxChangeEventType.DECREASE_UNIT:
+          timer = prevState.timer - e.unit;
+          break;
+        case TimeboxChangeEventType.INCREASE_UNIT:
+          timer = prevState.timer + e.unit;
+          break;
+        default:
+          // TimeboxChangeEventType.INIT_UNIT
+          timer = e.unit;
+          break;
+      }
       if (timer >= 0) {
         const { seconds, minutes } = this.calculateDisplayTime(timer);
         return { ...prevState, timer, seconds, minutes };

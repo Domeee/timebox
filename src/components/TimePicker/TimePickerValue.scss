@@ -1,0 +1,29 @@
+@import 'shared.scss';
+
+button {
+  padding: 0;
+  color: #666666;
+  cursor: pointer;
+  background-color: #ffffff;
+  border: none;
+  font-family: 'Roboto Condensed';
+
+  @include mobile {
+    font-size: 2rem;
+    line-height: 2rem;
+    padding: 1.2rem;
+  }
+  @include tablet {
+    font-size: 2rem;
+    line-height: 2rem;
+    padding: 1.2rem;
+  }
+  @include desktop {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+  @include big {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+}
