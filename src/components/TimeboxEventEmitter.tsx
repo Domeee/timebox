@@ -59,6 +59,9 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   }
 
   private handleTouchStart(e: React.TouchEvent<HTMLElement>) {
+    // Signaling touch events only on touch devices
+    if (!BrowserUtils.hasTouch()) return;
+
     const changes = e.changedTouches;
     if (changes.length > 0) {
       const change = changes[0];
@@ -69,6 +72,9 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   }
 
   private handleTouchMove(e: React.TouchEvent<HTMLElement>) {
+    // Signaling touch events only on touch devices
+    if (!BrowserUtils.hasTouch()) return;
+
     // Prevent touch action (e.g. scrolling) on safari and older browsers
     e.preventDefault();
 
@@ -80,14 +86,23 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   }
 
   private handleTouchEnd(e: React.TouchEvent<HTMLElement>) {
+    // Signaling touch events only on touch devices
+    if (!BrowserUtils.hasTouch()) return;
+
     this.handleSwipeSessionEnd();
   }
 
   private handleTouchCancel(e: React.TouchEvent<HTMLElement>) {
+    // Signaling touch events only on touch devices
+    if (!BrowserUtils.hasTouch()) return;
+
     this.cleanupSwipeSession();
   }
 
   private handleMouseMove(e: React.MouseEvent<HTMLElement>) {
+    // Signaling touch events only on touch devices
+    if (!BrowserUtils.hasTouch()) return;
+
     const trigger = e.buttons === undefined ? e.nativeEvent.which : e.buttons;
     if (trigger === 1) {
       this.handleSwipeSession(e.clientX, e.clientY);
@@ -99,6 +114,9 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   }
 
   private handleMouseUp(e: React.MouseEvent<HTMLElement>) {
+    // Signaling touch events only on touch devices
+    if (!BrowserUtils.hasTouch()) return;
+
     this.handleSwipeSessionEnd();
   }
 

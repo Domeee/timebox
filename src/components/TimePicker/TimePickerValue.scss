@@ -1,6 +1,6 @@
 @import 'shared.scss';
 
-button {
+button.button-time-value {
   padding: 0;
   color: #666666;
   cursor: pointer;
@@ -21,9 +21,38 @@ button {
   @include desktop {
     font-size: 2rem;
     line-height: 2rem;
+    padding: 1.2rem;
   }
   @include big {
     font-size: 2rem;
     line-height: 2rem;
+    padding: 1.2rem;
+  }
+}
+
+button.button-time-value:hover {
+  border-radius: 2px;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      color: map-get($map, color);
+      background-color: rgba(
+        $color: map-get($map, buttonBackground),
+        $alpha: 0.5
+      );
+    }
+  }
+}
+
+button.button-time-value.active,
+button.button-time-value:active {
+  border-radius: 2px;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      color: map-get($map, color);
+      background-color: map-get($map, buttonBackground);
+      border-color: map-get($map, buttonBackground);
+    }
   }
 }

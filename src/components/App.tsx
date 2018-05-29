@@ -114,7 +114,11 @@ class App extends React.Component<{}, AppState> {
             }}
           />
           <Modal isVisible={this.state.isModalVisible}>
-            <TimePicker onTimeboxChange={e => this.handleTimeboxChange(e)} />
+            <TimePicker
+              onTimeboxChange={e => this.handleTimeboxChange(e)}
+              minutes={this.state.minutes}
+              seconds={this.state.seconds}
+            />
           </Modal>
         </TimeboxEventEmitter>
       </div>
@@ -266,6 +270,9 @@ class App extends React.Component<{}, AppState> {
   }
 
   private handleTimeboxClick() {
+    // Ignore change for running timebox
+    if (this.state.isTimeboxStarted) return;
+
     this.setState(prevState => {
       return { isModalVisible: !prevState.isModalVisible };
     });

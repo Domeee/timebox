@@ -7,6 +7,8 @@ import TimeboxChangeEvent, {
 import './TimePicker.css';
 
 export interface TimePickerProps {
+  minutes?: number;
+  seconds?: number;
   onTimeboxChange(e: TimeboxChangeEvent): void;
 }
 
@@ -23,8 +25,8 @@ class TimePicker extends React.Component<TimePickerProps, TimePickerState> {
     super(props);
 
     this.state = {
-      minutes: 0,
-      seconds: 0,
+      minutes: this.props.minutes || 0,
+      seconds: this.props.seconds || 0,
     };
 
     for (let i = 0; i < 60; i++) {
@@ -45,6 +47,7 @@ class TimePicker extends React.Component<TimePickerProps, TimePickerState> {
           key={v}
           value={v}
           onClick={e => this.setState({ minutes: e })}
+          isActive={this.state.minutes === v}
         />
       );
     });
@@ -55,6 +58,7 @@ class TimePicker extends React.Component<TimePickerProps, TimePickerState> {
           key={s}
           value={s}
           onClick={e => this.setState({ seconds: e })}
+          isActive={this.state.seconds === s}
         />
       );
     });
@@ -64,16 +68,23 @@ class TimePicker extends React.Component<TimePickerProps, TimePickerState> {
         <div className="values-container">
           <div className="minutes-container">
             <div className="minutes-header">Minutes</div>
-            <div className="values">{minutes}</div>
+            <div className="minutes-values values">{minutes}</div>
           </div>
           <div className="seconds-container">
             <div className="seconds-header">Seconds</div>
-            <div className="values">{seconds}</div>
+            <div className="seconds-values values">{seconds}</div>
           </div>
         </div>
         <div className="footer-container">
-          <button>Cancel</button>
-          <button onClick={e => this.handleClick(e)}>Set</button>
+          <button className="button button-footer button-secondary">
+            Cancel
+          </button>
+          <button
+            className="button button-footer button-primary"
+            onClick={e => this.handleClick(e)}
+          >
+            Set
+          </button>
         </div>
       </div>
     );

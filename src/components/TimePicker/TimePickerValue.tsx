@@ -4,6 +4,7 @@ import './TimePickerValue.css';
 
 export interface TimePickerValueProps {
   value: number;
+  isActive: boolean;
   onClick(value: number): void;
 }
 
@@ -22,6 +23,11 @@ export default (props: TimePickerValueProps) => {
         e.stopPropagation();
         props.onClick(props.value);
       }}
+      className={
+        props.isActive
+          ? 'button button-time-value active'
+          : 'button button-time-value'
+      }
     >
       {v}
     </button>
