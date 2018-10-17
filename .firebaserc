@@ -1,7 +1,5 @@
 {
   "projects": {
-    "default": "timebox-test",
-    "test": "timebox-test",
-    "prod-inno": "timebox-innoarchitects"
+    "default": "timebox-innoarchitects"
   }
 }
