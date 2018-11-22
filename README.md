@@ -40,11 +40,11 @@ Visit your app at [http://localhost:3000](http://localhost:3000).
 Production build with webpack and deployment to firebase.
 
 ```sh
-npm deploy
+npm run deploy
 ```
 
 ## Mobile and Browser Testing Sponsor
 
 Unlimited web and mobile app testing is sponsored by [Browserstack](https://www.browserstack.com/). THANKS!
 
-![alt text](https://github.com/n48.png 'Logo Title')
+[![Browserstack](https://timebox.innoarchitects.ch/browserstack.png 'Browserstack')](https://www.browserstack.com)
