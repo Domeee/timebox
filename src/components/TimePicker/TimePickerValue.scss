@@ -1,4 +1,4 @@
-@import 'shared.scss';
+@import "../../styles/shared";
 
 button.button-time-value {
   padding: 0;
@@ -6,7 +6,7 @@ button.button-time-value {
   cursor: pointer;
   background-color: #ffffff;
   border: none;
-  font-family: 'Roboto Condensed';
+  font-family: "Roboto Condensed";
 
   @include mobile {
     font-size: 2rem;

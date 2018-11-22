@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import './LogoIa.css';
+import "./LogoIa.scss";
 
 export default () => {
   return (

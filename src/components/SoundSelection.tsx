@@ -1,9 +1,9 @@
-import * as React from 'react';
-import SoundChangeEvent from '../lib/SoundChangeEvent';
-import { Sound } from './Sound';
-import Sounds from './Sounds';
+import * as React from "react";
+import SoundChangeEvent from "../lib/SoundChangeEvent";
+import { Sound } from "./Sound";
+import Sounds from "./Sounds";
 
-import './SoundSelection.css';
+import "./SoundSelection.scss";
 
 export interface SoundSelectionProps {
   onSoundChange(e: SoundChangeEvent): void;
@@ -18,16 +18,16 @@ class SoundSelection extends React.Component<
   SoundSelectionProps,
   SoundSelectionState
 > {
-  public static SilentSound = 'silent';
-  public static DefaultSound = 'gong';
-  private overlay: HTMLDivElement;
+  public static SilentSound = "silent";
+  public static DefaultSound = "gong";
+  private overlay: HTMLDivElement | undefined = undefined;
 
   constructor(props: SoundSelectionProps) {
     super(props);
 
     this.state = {
       sound: SoundSelection.DefaultSound,
-      sounds: [],
+      sounds: []
     };
 
     this.toggleOverlay = this.toggleOverlay.bind(this);
@@ -141,9 +141,9 @@ class SoundSelection extends React.Component<
 
   public componentDidMount() {
     const host = window.location.hostname;
-    const hostSounds = Sounds.filter(s => s.hosts.some(h => h === host));
+    const hostSounds = Sounds.filter(s => s.hosts.some((h: any) => h === host));
     this.setState({
-      sounds: hostSounds,
+      sounds: hostSounds
     });
   }
 
@@ -153,8 +153,10 @@ class SoundSelection extends React.Component<
   }
 
   private toggleOverlay() {
-    this.overlay.style.height =
-      this.overlay.style.height === '100%' ? '0' : '100%';
+    if (this.overlay) {
+      this.overlay.style.height =
+        this.overlay.style.height === "100%" ? "0" : "100%";
+    }
   }
 
   private handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -163,7 +165,7 @@ class SoundSelection extends React.Component<
 
     // I have to use any until fixed: https://github.com/Microsoft/TypeScript/issues/15534
     this.setState({
-      [name]: target.value,
+      [name]: target.value
       // tslint:disable-next-line:no-any
     } as any);
     this.props.onSoundChange({ newSound: target.value });

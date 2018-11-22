@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import './Modal.css';
+import "./Modal.scss";
 
 export interface ModalProps {
   children: JSX.Element;

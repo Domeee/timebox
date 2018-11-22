@@ -1,15 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 import TimeboxChangeEvent, {
-  TimeboxChangeEventType,
-} from '../lib/TimeboxChangeEvent';
-import TimeboxUnit from '../lib/TimeboxUnit';
-import KeyCode from '../lib/KeyCode';
-import SwipeGesture from '../lib/SwipeGesture';
-import SwipeAxis from '../lib/SwipeAxis';
-import ThemeChangeEvent from '../lib/ThemeChangeEvent';
-import BrowserUtils from '../lib/BrowserUtils';
+  TimeboxChangeEventType
+} from "../lib/TimeboxChangeEvent";
+import TimeboxUnit from "../lib/TimeboxUnit";
+import KeyCode from "../lib/KeyCode";
+import SwipeGesture from "../lib/SwipeGesture";
+import SwipeAxis from "../lib/SwipeAxis";
+import ThemeChangeEvent from "../lib/ThemeChangeEvent";
+import BrowserUtils from "../lib/BrowserUtils";
 
-import './TimeboxEventEmitter.css';
+import "./TimeboxEventEmitter.scss";
 
 export interface TimeboxEventEmitterProps {
   onTimeboxChange(e: TimeboxChangeEvent): void;
@@ -21,9 +21,9 @@ export interface TimeboxEventEmitterProps {
 class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
   private static SensitivityVertical = 0.03;
   private static SensitivityHorizontal = 0.1;
-  private currentY: number;
-  private currentX: number;
-  private currentUnit: TimeboxUnit;
+  private currentY: number = 0;
+  private currentX: number = 0;
+  private currentUnit: TimeboxUnit = TimeboxUnit.SECONDS;
   private axis?: SwipeAxis;
   private gesture?: SwipeGesture;
 
@@ -137,13 +137,13 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
       if (gesture === SwipeGesture.SwipeUp) {
         this.props.onTimeboxChange({
           type: TimeboxChangeEventType.INCREASE_UNIT,
-          unit: this.currentUnit,
+          unit: this.currentUnit
         });
         this.currentY = newPositionY;
       } else if (gesture === SwipeGesture.SwipeDown) {
         this.props.onTimeboxChange({
           type: TimeboxChangeEventType.DECREASE_UNIT,
-          unit: this.currentUnit,
+          unit: this.currentUnit
         });
         this.currentY = newPositionY;
       }
@@ -251,14 +251,14 @@ class TimeboxEventEmitter extends React.Component<TimeboxEventEmitterProps> {
 
   private getViewportHeight() {
     return Math.max(
-      document.documentElement.clientHeight,
+      document.documentElement!.clientHeight,
       window.innerHeight || 0
     );
   }
 
   private getViewportWidth() {
     return Math.max(
-      document.documentElement.clientWidth,
+      document.documentElement!.clientWidth,
       window.innerWidth || 0
     );
   }

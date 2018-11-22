@@ -47,4 +47,4 @@ npm run deploy
 
 Unlimited web and mobile app testing is sponsored by [Browserstack](https://www.browserstack.com/). THANKS!
 
-[![Browserstack](https://timebox.innoarchitects.ch/browserstack.png 'Browserstack')](https://www.browserstack.com)
+[![Browserstack](https://timebox-test.donhubi.ch/browserstack.png "Browserstack")](https://www.browserstack.com)

@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import './TimePickerValue.css';
+import "./TimePickerValue.scss";
 
 export interface TimePickerValueProps {
   value: number;
@@ -10,8 +10,8 @@ export interface TimePickerValueProps {
 
 export default (props: TimePickerValueProps) => {
   function padLeft(value: number): string {
-    const str = value + '';
-    const pad = '00';
+    const str = value + "";
+    const pad = "00";
     return pad.substring(0, pad.length - str.length) + str;
   }
 
@@ -25,8 +25,8 @@ export default (props: TimePickerValueProps) => {
       }}
       className={
         props.isActive
-          ? 'button button-time-value active'
-          : 'button button-time-value'
+          ? "button button-time-value active"
+          : "button button-time-value"
       }
     >
       {v}

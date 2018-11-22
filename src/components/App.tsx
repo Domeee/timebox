@@ -1,26 +1,26 @@
-import * as React from 'react';
-import { Howl } from 'howler';
-import TimeboxEventEmitter from './TimeboxEventEmitter';
+import * as React from "react";
+import { Howl } from "howler";
+import TimeboxEventEmitter from "./TimeboxEventEmitter";
 import TimeboxChangeEvent, {
-  TimeboxChangeEventType,
-} from '../lib/TimeboxChangeEvent';
-import TimeboxUnit from '../lib/TimeboxUnit';
-import SoundSelection from './SoundSelection';
-import SoundChangeEvent from '../lib/SoundChangeEvent';
-import ThemeChangeEvent from '../lib/ThemeChangeEvent';
-import TimeboxToggle from './TimeboxToggle';
-import Clock from './Clock';
-import LogoIa from './LogoIa';
-import Nudge from './Nudge';
-import ThemeSwiper from './ThemeSwiper';
-import Sounds from './Sounds';
-import { Sound } from './Sound';
+  TimeboxChangeEventType
+} from "../lib/TimeboxChangeEvent";
+import TimeboxUnit from "../lib/TimeboxUnit";
+import SoundSelection from "./SoundSelection";
+import SoundChangeEvent from "../lib/SoundChangeEvent";
+import ThemeChangeEvent from "../lib/ThemeChangeEvent";
+import TimeboxToggle from "./TimeboxToggle";
+import Clock from "./Clock";
+import LogoIa from "./LogoIa";
+import Nudge from "./Nudge";
+import ThemeSwiper from "./ThemeSwiper";
+import Sounds from "./Sounds";
+import { Sound } from "./Sound";
 // @ts-ignore
-import Gong from '../sounds/gong.mp3';
-import Modal from './Modal';
-import TimePicker from './TimePicker/TimePicker';
+import Gong from "../sounds/gong.mp3";
+import Modal from "./Modal";
+import TimePicker from "./TimePicker/TimePicker";
 
-import './App.css';
+import "./App.scss";
 
 export interface AppState {
   seconds: number;
@@ -32,11 +32,11 @@ export interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
-  private timeboxInterval: number;
-  private flashBackgroundInterval: number;
+  private timeboxInterval: number = 0;
+  private flashBackgroundInterval: number = 0;
   private song = SoundSelection.DefaultSound;
-  private initialTheme: number;
-  private themes = ['dark', 'blue', 'yellow', 'pink', 'purple', 'alarm'];
+  private initialTheme: number = 0;
+  private themes = ["dark", "blue", "yellow", "pink", "purple", "alarm"];
   // 5th position in themes array
   private alarmTheme = 5;
 
@@ -48,7 +48,7 @@ class App extends React.Component<{}, AppState> {
       isTimeboxStarted: false,
       timer: 0,
       theme: 0,
-      isModalVisible: false,
+      isModalVisible: false
     };
     this.handleTimeboxChange = this.handleTimeboxChange.bind(this);
     this.handleTimeboxToggle = this.handleTimeboxToggle.bind(this);
@@ -190,7 +190,7 @@ class App extends React.Component<{}, AppState> {
     }
     this.setInitialTheme(theme);
     this.setState({
-      theme,
+      theme
     });
   }
 
@@ -211,7 +211,7 @@ class App extends React.Component<{}, AppState> {
       window.setTimeout(() => {
         window.clearInterval(this.flashBackgroundInterval);
         this.setState({
-          theme: this.initialTheme,
+          theme: this.initialTheme
         });
         // tslint:disable-next-line:align
       }, 3000);

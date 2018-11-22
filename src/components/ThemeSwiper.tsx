@@ -1,7 +1,7 @@
-import * as React from 'react';
-import './ThemeSwiper.css';
-import ThemeChangeEvent from '../lib/ThemeChangeEvent';
-import BrowserUtils from '../lib/BrowserUtils';
+import * as React from "react";
+import "./ThemeSwiper.scss";
+import ThemeChangeEvent from "../lib/ThemeChangeEvent";
+import BrowserUtils from "../lib/BrowserUtils";
 
 export interface ThemeSwiperProps {
   forward: boolean;

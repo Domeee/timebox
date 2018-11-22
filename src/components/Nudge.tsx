@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
-import './Nudge.css';
+import "./Nudge.scss";
 import TimeboxChangeEvent, {
-  TimeboxChangeEventType,
-} from '../lib/TimeboxChangeEvent';
+  TimeboxChangeEventType
+} from "../lib/TimeboxChangeEvent";
 
 export interface NudgeProps {
   forward: boolean;
@@ -22,7 +22,7 @@ export default (props: NudgeProps) => {
         props.onTimeboxChange({
           type: TimeboxChangeEventType.INCREASE_UNIT,
           unit: props.unit,
-          nudge: true,
+          nudge: true
         });
       }}
     >
@@ -78,7 +78,7 @@ export default (props: NudgeProps) => {
         props.onTimeboxChange({
           type: TimeboxChangeEventType.DECREASE_UNIT,
           unit: props.unit,
-          nudge: true,
+          nudge: true
         });
       }}
     >

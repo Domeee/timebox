@@ -1,4 +1,4 @@
-@import 'shared.scss';
+@import "../styles/shared";
 
 .clock-value-container {
   display: flex;
@@ -7,7 +7,7 @@
 }
 
 .clock-style {
-  font-family: 'Roboto Condensed';
+  font-family: "Roboto Condensed";
   @each $theme, $map in $themes {
     .#{$theme} & {
       color: map-get($map, colorClock);
@@ -32,7 +32,7 @@
 }
 
 .clock-style-colon {
-  font-family: 'Roboto Condensed';
+  font-family: "Roboto Condensed";
   @each $theme, $map in $themes {
     .#{$theme} & {
       color: map-get($map, colorClock);

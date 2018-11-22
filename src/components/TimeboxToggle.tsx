@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import './TimeboxToggle.css';
+import "./TimeboxToggle.scss";
 
 export interface TimeboxToggleProps {
   isTimeboxStarted: boolean;

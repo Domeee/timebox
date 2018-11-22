@@ -1,10 +1,10 @@
-import * as React from 'react';
-import TimePickerValue from './TimePickerValue';
+import * as React from "react";
+import TimePickerValue from "./TimePickerValue";
 import TimeboxChangeEvent, {
-  TimeboxChangeEventType,
-} from '../../lib/TimeboxChangeEvent';
+  TimeboxChangeEventType
+} from "../../lib/TimeboxChangeEvent";
 
-import './TimePicker.css';
+import "./TimePicker.scss";
 
 export interface TimePickerProps {
   minutes?: number;
@@ -26,7 +26,7 @@ class TimePicker extends React.Component<TimePickerProps, TimePickerState> {
 
     this.state = {
       minutes: this.props.minutes || 0,
-      seconds: this.props.seconds || 0,
+      seconds: this.props.seconds || 0
     };
 
     for (let i = 0; i < 60; i++) {
@@ -93,7 +93,7 @@ class TimePicker extends React.Component<TimePickerProps, TimePickerState> {
   private handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     this.props.onTimeboxChange({
       unit: this.state.seconds + this.state.minutes * 60,
-      type: TimeboxChangeEventType.INIT_UNIT,
+      type: TimeboxChangeEventType.INIT_UNIT
     });
   }
 }
