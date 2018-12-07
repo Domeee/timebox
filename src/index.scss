@@ -4,6 +4,9 @@ html {
   height: 100%;
   width: 100%;
   font-size: 62.5%;
+
+  // Stop bouncing on iOS
+  position: fixed;
 }
 
 body {
@@ -12,6 +15,9 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
+
+  // Stop bouncing on iOS
+  position: fixed;
 }
 
 #root {
