@@ -27,6 +27,7 @@ class PickerColumn extends React.Component<
 > {
   private transitionDuration = "500ms";
   private touchY: number = 0;
+  private touchMoveSpeedFactor = 4;
 
   constructor(props: PickerColumnProps) {
     super(props);
@@ -40,8 +41,6 @@ class PickerColumn extends React.Component<
   }
 
   public componentWillReceiveProps(nextProps: PickerColumnProps) {
-    console.log("componentWillReceiveProps");
-    console.log(this.props.value);
     if (this.state.isMoving) {
       return;
     }
@@ -123,7 +122,7 @@ class PickerColumn extends React.Component<
     console.log("handleTouchStart");
     const startTouchY = event.targetTouches[0].pageY;
     this.setState(({ scrollerTranslate }) => ({
-      startTouchY: startTouchY * 4,
+      startTouchY: startTouchY * this.touchMoveSpeedFactor,
       startScrollerTranslate: scrollerTranslate,
       isMoving: true
     }));
@@ -149,7 +148,9 @@ class PickerColumn extends React.Component<
       }
 
       let nextScrollerTranslate =
-        prevState.startScrollerTranslate + touchY * 4 - prevState.startTouchY;
+        prevState.startScrollerTranslate +
+        touchY * this.touchMoveSpeedFactor -
+        prevState.startTouchY;
       if (nextScrollerTranslate < prevState.minTranslate) {
         nextScrollerTranslate =
           prevState.minTranslate -
@@ -180,7 +181,7 @@ class PickerColumn extends React.Component<
       (prevState: PickerColumnState) => {
         let nextScrollerTranslate =
           prevState.startScrollerTranslate +
-          this.touchY * 4 -
+          this.touchY * this.touchMoveSpeedFactor -
           prevState.startTouchY;
         return {
           scrollerTranslate: nextScrollerTranslate,
