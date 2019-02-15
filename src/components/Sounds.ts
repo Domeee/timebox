@@ -12,6 +12,8 @@ import Getupstandup from "../sounds/getupstandup.mp3";
 import Laidback from "../sounds/laidback.mp3";
 // @ts-ignore
 import Singingbowl from "../sounds/singingbowl.mp3";
+// @ts-ignore
+import Indianbell from "../sounds/indianbell.mp3";
 
 const Sounds: any[] = [
   {
@@ -68,6 +70,13 @@ const Sounds: any[] = [
     name: "singingbowl",
     path: Singingbowl,
     title: "Singing Bowl",
+    hosts: ["localhost", "timebox-test.donhubi.ch", "timebox.innoarchitects.ch"]
+  },
+  {
+    id: 9,
+    name: "indianbell",
+    path: Indianbell,
+    title: "Indian Bell",
     hosts: ["localhost", "timebox-test.donhubi.ch", "timebox.innoarchitects.ch"]
   }
 ];

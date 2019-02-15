@@ -1,0 +1,40 @@
+@import "../../styles/shared";
+
+.picker-item {
+  position: relative;
+  padding: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  font-family: "Roboto Condensed";
+  @each $theme, $map in $themes {
+    .#{$theme} & {
+      color: rgba(map-get($map, colorClock), 0.2);
+    }
+  }
+  @include mobile {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+  @include tablet {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+  @include desktop {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+  @include big {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+
+  &.picker-item-selected {
+    @each $theme, $map in $themes {
+      .#{$theme} & {
+        color: map-get($map, colorClock);
+      }
+    }
+  }
+}

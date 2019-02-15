@@ -21,10 +21,13 @@ import Modal from "./Modal";
 import TimePicker from "./TimePicker/TimePicker";
 
 import "./App.scss";
+import Picker from "./TimePickerV2/Picker";
+import BrowserUtils from "../lib/BrowserUtils";
 
 export interface AppState {
   seconds: number;
   minutes: number;
+  hours: number;
   isTimeboxStarted: boolean;
   timer: number;
   theme: number;
@@ -42,9 +45,11 @@ class App extends React.Component<{}, AppState> {
 
   constructor(props: {}) {
     super(props);
+
     this.state = {
       seconds: 0,
       minutes: 0,
+      hours: 0,
       isTimeboxStarted: false,
       timer: 0,
       theme: 0,
@@ -61,12 +66,11 @@ class App extends React.Component<{}, AppState> {
 
   public render() {
     const appClasses = `app ${this.themes[this.state.theme]}`;
+    const { height, itemHeight } = this.getDimensions();
     return (
       <div className={appClasses}>
         <TimeboxEventEmitter
-          onTimeboxChange={this.handleTimeboxChange}
           onTimeboxToggle={this.handleTimeboxToggle}
-          onThemeChange={this.handleThemeChange}
           onTimeboxClick={this.handleTimeboxClick}
         >
           <div className="header-container">
@@ -78,11 +82,29 @@ class App extends React.Component<{}, AppState> {
               forward={false}
               onThemeChange={this.handleThemeChange}
             />
-            <Clock
-              seconds={this.state.seconds}
-              minutes={this.state.minutes}
-              isTimeboxStarted={this.state.isTimeboxStarted}
-            />
+            {!this.state.isTimeboxStarted && BrowserUtils.hasTouch() && (
+              <Picker
+                height={height}
+                itemHeight={itemHeight}
+                valueGroups={{
+                  seconds: this.state.seconds,
+                  minutes: this.state.minutes,
+                  hours: this.state.hours
+                }}
+                onClick={() => (option: string, value: number) => {
+                  console.log(`CLICK: option: ${option}, value ${value}`);
+                }}
+                onChange={this.handlePickerChange}
+              />
+            )}
+            {(this.state.isTimeboxStarted || !BrowserUtils.hasTouch()) && (
+              <Clock
+                seconds={this.state.seconds}
+                minutes={this.state.minutes}
+                hours={this.state.hours}
+                isTimeboxStarted={this.state.isTimeboxStarted}
+              />
+            )}
             <ThemeSwiper
               forward={true}
               onThemeChange={this.handleThemeChange}
@@ -129,6 +151,23 @@ class App extends React.Component<{}, AppState> {
     this.setInitialTheme();
   }
 
+  public componentDidUpdate(prevProps: {}, prevState: AppState) {
+    if (
+      (!this.state.isTimeboxStarted &&
+        this.state.seconds !== prevState.seconds) ||
+      this.state.minutes !== prevState.minutes ||
+      this.state.hours !== prevState.hours
+    ) {
+      const timer =
+        this.state.seconds + this.state.minutes * 60 + this.state.hours * 3600;
+      this.setState({ timer });
+    }
+  }
+
+  private handlePickerChange = (option: string, value: number) => {
+    this.setState({ [option]: value } as any);
+  };
+
   private handleTimeboxChange(e: TimeboxChangeEvent) {
     // Ignore change for running timebox
     if (this.state.isTimeboxStarted && !e.nudge) return;
@@ -168,7 +207,7 @@ class App extends React.Component<{}, AppState> {
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
       this.setState(prevState => {
-        return { timer: 0, seconds: 0, minutes: 0 };
+        return { timer: 0, seconds: 0, minutes: 0, hours: 0 };
       });
     } else {
       this.setState({ isTimeboxStarted: true });
@@ -198,8 +237,8 @@ class App extends React.Component<{}, AppState> {
     if (this.state.timer > 1) {
       this.setState(prevState => {
         const timer = prevState.timer - 1;
-        const { seconds, minutes } = this.calculateDisplayTime(timer);
-        return { timer, seconds, minutes };
+        const { seconds, minutes, hours } = this.calculateDisplayTime(timer);
+        return { timer, seconds, minutes, hours };
       });
     } else {
       this.playSound();
@@ -236,10 +275,10 @@ class App extends React.Component<{}, AppState> {
   }
 
   private calculateDisplayTime(timer: number) {
-    const minutes = Math.floor(timer / 60);
-    const seconds = timer - minutes * 60;
-    const res = { seconds, minutes };
-    return res;
+    const hours = Math.floor(timer / 3600);
+    const minutes = Math.floor((timer - hours * 3600) / 60);
+    const seconds = timer - hours * 3600 - minutes * 60;
+    return { seconds, minutes, hours };
   }
 
   private flashBackground() {
@@ -276,6 +315,17 @@ class App extends React.Component<{}, AppState> {
     this.setState(prevState => {
       return { isModalVisible: !prevState.isModalVisible };
     });
+  }
+
+  private getDimensions() {
+    let dimensions = { height: 240, itemHeight: 40 };
+    const width = window.innerWidth;
+
+    if (width > 767) {
+      dimensions = { height: 360, itemHeight: 60 };
+    }
+
+    return dimensions;
   }
 }
 
