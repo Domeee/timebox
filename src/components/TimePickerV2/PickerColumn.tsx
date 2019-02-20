@@ -199,7 +199,7 @@ class PickerColumn extends React.Component<
         } else if (scrollerTranslate < minTranslate) {
           activeIndex = options.length - 1;
         } else {
-          activeIndex = -Math.floor(
+          activeIndex = -Math.round(
             (scrollerTranslate - maxTranslate) / itemHeight
           );
         }
