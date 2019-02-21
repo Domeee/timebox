@@ -5,7 +5,7 @@ export interface PickerItemProps {
   option: number;
   value: number;
   itemHeight: number;
-  onClick(option: number): void;
+  // onClick(option: number): void;
 }
 
 export default (props: PickerItemProps) => {
@@ -22,7 +22,7 @@ export default (props: PickerItemProps) => {
     <div
       className={className}
       style={style}
-      onClick={() => props.onClick(props.option)}
+      // onClick={() => props.onClick(props.option)}
     >
       {props.option}
     </div>
