@@ -72,6 +72,7 @@ class App extends React.Component<{}, AppState> {
         <TimeboxEventEmitter
           onTimeboxToggle={this.handleTimeboxToggle}
           onTimeboxClick={this.handleTimeboxClick}
+          onThemeChange={this.handleThemeChange}
         >
           <div className="header-container">
             <SoundSelection onSoundChange={this.handleSoundChange} />

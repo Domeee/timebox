@@ -58,7 +58,8 @@ class PickerColumn extends React.Component<
       OTransform: translateString,
       WebkitTransform: translateString,
       transform: translateString,
-      transitionDuration: `${this.state.transitionDuration}ms`
+      transitionDuration: `${this.state.transitionDuration}ms`,
+      transitionTimingFunction: "cubic-bezier(0, 0.5, 0, 1)"
     };
     const items = this.props.options.map(option => {
       return (
@@ -175,7 +176,7 @@ class PickerColumn extends React.Component<
         prevState => {
           return {
             scrollerTranslate: prevState.scrollerTranslate + push,
-            transitionDuration: 1200,
+            transitionDuration: 2000,
             isMoving: false,
             startTouchY: 0,
             startScrollerTranslate: 0
