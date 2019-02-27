@@ -9,9 +9,9 @@
 
   font-family: "Roboto Condensed";
   @each $theme, $map in $themes {
-    .#{$theme} & {
-      color: rgba(map-get($map, colorClock), 0.2);
-    }
+    // .#{$theme} & {
+    //   color: rgba(map-get($map, colorClock), 0.2);
+    // }
   }
   @include mobile {
     font-size: 2rem;
@@ -31,10 +31,10 @@
   }
 
   &.picker-item-selected {
-    @each $theme, $map in $themes {
-      .#{$theme} & {
-        color: map-get($map, colorClock);
-      }
-    }
+    // @each $theme, $map in $themes {
+    //   .#{$theme} & {
+    //     color: map-get($map, colorClock);
+    //   }
+    // }
   }
 }

@@ -27,8 +27,15 @@ class PickerColumn extends React.Component<
   PickerColumnProps,
   PickerColumnState
 > {
+  // Strength of a touch push in terms of distance distance traveled for a push
   private static readonly TouchPushSpeedFactor = 4;
+
+  // Minimum scroll distance to be treated as push interaction
   private static readonly PushInteractionThreshold = 5;
+
+  // Transition duration for a click interaction
+  private static readonly ClickInteractionTransitionDuration = 1600;
+
   private blub: number[] = [];
 
   constructor(props: PickerColumnProps) {
@@ -234,7 +241,7 @@ class PickerColumn extends React.Component<
             isMoving: false,
             startTouchY: 0,
             startScrollerTranslate: 0,
-            transitionDuration: 400
+            transitionDuration: PickerColumn.ClickInteractionTransitionDuration
           };
         },
         () => {

@@ -13,9 +13,4 @@
 
   /* disable browser handling of all panning and zooming gestures */
   touch-action: none;
-
-  .picker-scroller {
-    transition: 300ms;
-    transition-timing-function: ease-out;
-  }
 }
