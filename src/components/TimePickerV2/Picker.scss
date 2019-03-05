@@ -48,40 +48,34 @@
       transparent 98%,
       transparent
     );
-    // -webkit-mask-box-image: linear-gradient(
-    //   to top,
-    //   transparent,
-    //   transparent 5%,
-    //   white 20%,
-    //   white 80%,
-    //   transparent 95%,
-    //   transparent
-    // );
     .picker-label {
       display: flex;
+      position: absolute;
       align-items: center;
       font-family: "Roboto Condensed";
-      // @each $theme, $map in $themes {
-      //   .#{$theme} & {
-      //     color: map-get($map, colorClock);
-      //   }
-      // }
       @include mobile {
         font-size: 2rem;
         line-height: 2rem;
-        // margin-left: -12rem;
+        margin-top: 11rem;
+        margin-left: 2.5rem;
       }
       @include tablet {
         font-size: 3rem;
         line-height: 3rem;
+        margin-top: 16.5rem;
+        margin-left: 4rem;
       }
       @include desktop {
         font-size: 3rem;
         line-height: 3rem;
+        margin-top: 16.5rem;
+        margin-left: 4rem;
       }
       @include big {
         font-size: 3rem;
         line-height: 3rem;
+        margin-top: 16.5rem;
+        margin-left: 4rem;
       }
     }
 
