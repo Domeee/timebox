@@ -21,6 +21,7 @@ interface PickerColumnState {
   minTranslate: number;
   maxTranslate: number;
   transitionDuration: number;
+  transitionTimingFunction: string;
 }
 
 class PickerColumn extends React.Component<
@@ -29,12 +30,12 @@ class PickerColumn extends React.Component<
 > {
   // Strength of a touch push in terms of distance distance traveled for a push
   private static readonly TouchPushSpeedFactor = 4;
-
   // Minimum scroll distance to be treated as push interaction
   private static readonly PushInteractionThreshold = 5;
 
-  // Transition duration for a click interaction
-  private static readonly ClickInteractionTransitionDuration = 1600;
+  private static readonly ClickInteractionTransitionDuration = 200;
+
+  private static readonly ClickInteractionTransitionTimingFucntion = "linear";
 
   private blub: number[] = [];
 
@@ -46,6 +47,8 @@ class PickerColumn extends React.Component<
       startTouchY: 0,
       startScrollerTranslate: 0,
       transitionDuration: 0,
+      transitionTimingFunction:
+        PickerColumn.ClickInteractionTransitionTimingFucntion,
       ...this.computeTranslate(props)
     };
   }
@@ -66,7 +69,7 @@ class PickerColumn extends React.Component<
       WebkitTransform: translateString,
       transform: translateString,
       transitionDuration: `${this.state.transitionDuration}ms`,
-      transitionTimingFunction: "cubic-bezier(0, 0.5, 0, 1)"
+      transitionTimingFunction: this.state.transitionTimingFunction
     };
     const items = this.props.options.map(option => {
       return (
@@ -129,7 +132,9 @@ class PickerColumn extends React.Component<
       startTouchY: startTouchY,
       startScrollerTranslate: scrollerTranslate,
       isMoving: true,
-      transitionDuration: 0
+      transitionDuration: 0,
+      transitionTimingFunction:
+        PickerColumn.ClickInteractionTransitionTimingFucntion
     }));
   };
 
@@ -184,6 +189,7 @@ class PickerColumn extends React.Component<
           return {
             scrollerTranslate: prevState.scrollerTranslate + push,
             transitionDuration: 2000,
+            transitionTimingFunction: "cubic-bezier(0, 0.5, 0, 1)",
             isMoving: false,
             startTouchY: 0,
             startScrollerTranslate: 0
