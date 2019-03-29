@@ -210,6 +210,7 @@ class PickerColumn extends React.Component<
         }
       );
     } else if (this.blub.length > 0) {
+      console.log("handleTouchEnd scroll interaction");
       this.setState(
         prevState => {
           return {
@@ -235,6 +236,7 @@ class PickerColumn extends React.Component<
         }
       );
     } else {
+      // Can be simplified by attaching onClick in PickerItem
       console.log("handleTouchEnd click interaction");
       this.setState(
         (prevState: PickerColumnState) => {

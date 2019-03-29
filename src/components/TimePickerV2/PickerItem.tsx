@@ -10,8 +10,8 @@ export interface PickerItemProps {
 
 export default (props: PickerItemProps) => {
   const style = {
-    height: `${props.itemHeight}px`,
-    lineHeight: `${props.itemHeight}px`
+    height: `${props.itemHeight}px`
+    // lineHeight: `${props.itemHeight}px`
   };
 
   const className = `picker-item${

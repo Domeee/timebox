@@ -1,27 +1,25 @@
 @import "../../styles/shared";
 
 .picker-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  padding: 0 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: "Roboto Condensed";
 
   @include mobile {
-    font-size: 2rem;
-    line-height: 2rem;
+    font-size: 3.6rem;
   }
   @include tablet {
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: 4.8rem;
   }
   @include desktop {
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: 6rem;
   }
   @include big {
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: 9rem;
   }
 }
