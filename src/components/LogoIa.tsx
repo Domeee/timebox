@@ -7,6 +7,7 @@ export default () => {
     <a
       href="https://innoarchitects.ch"
       target="_blank"
+      rel="noopener noreferrer"
       onClick={e => e.stopPropagation()}
     >
       <svg

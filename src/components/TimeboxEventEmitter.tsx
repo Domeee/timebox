@@ -4,7 +4,6 @@ import BrowserUtils from "../lib/BrowserUtils";
 import TimeboxUnit from "../lib/TimeboxUnit";
 import SwipeAxis from "../lib/SwipeAxis";
 import SwipeGesture from "../lib/SwipeGesture";
-import { TimeboxChangeEventType } from "../lib/TimeboxChangeEvent";
 import ThemeChangeEvent from "../lib/ThemeChangeEvent";
 
 import "./TimeboxEventEmitter.scss";
