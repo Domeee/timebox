@@ -128,9 +128,23 @@ class PickerColumn extends React.Component<
 
   private handleTouchStart = (event: any) => {
     const startTouchY = event.targetTouches[0].pageY;
+
+    const scroller = document.querySelector(".picker-scroller");
+    const m = window.getComputedStyle(scroller!).transform!;
+    const n = parseInt(
+      m
+        .split(",")[5]
+        .trim()
+        .replace(")", ""),
+      10
+    );
+
+    console.log(n);
+
     this.setState(({ scrollerTranslate }) => ({
       startTouchY: startTouchY,
       startScrollerTranslate: scrollerTranslate,
+      scrollerTranslate: n,
       isMoving: true,
       transitionDuration: 0,
       transitionTimingFunction:
@@ -140,6 +154,10 @@ class PickerColumn extends React.Component<
 
   handleTouchMove = (e: React.TouchEvent<HTMLElement>) => {
     e.preventDefault();
+    const scroller = document.querySelector(".picker-scroller");
+    var m = window.getComputedStyle(scroller!).transform!;
+    console.log();
+
     const touchY = e.targetTouches[0].pageY;
     this.blub.push(touchY);
     this.setState(prevState => {
