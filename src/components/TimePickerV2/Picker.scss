@@ -22,21 +22,9 @@
   .picker-inner {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 100%;
-    @include mobile {
-      padding: 0 2rem;
-    }
-    @include tablet {
-      padding: 0 2rem;
-    }
-    @include desktop {
-      padding: 0 2rem;
-    }
-    @include big {
-      padding: 0 2rem;
-    }
-
+    padding: 0 2rem;
     font-size: 1.2em;
     mask-image: linear-gradient(
       to top,
@@ -49,40 +37,37 @@
       transparent
     );
     .picker-label {
-      display: flex;
-      position: absolute;
-      align-items: center;
       font-family: "Roboto Condensed";
+
       @include mobile {
         font-size: 1.6rem;
         line-height: 1.6rem;
         margin-top: 11.9rem;
-        margin-left: 2.8rem;
+        margin-left: 0.8rem;
       }
       @include tablet {
         font-size: 2.3rem;
         line-height: 2.3rem;
         margin-top: 17.8rem;
-        margin-left: 4rem;
+        margin-left: 1.2rem;
       }
       @include desktop {
         font-size: 2.3rem;
         line-height: 2.3rem;
         margin-top: 21.4rem;
-        margin-left: 5rem;
+        margin-left: 1.2rem;
       }
       @include big {
         font-size: 3.5rem;
         line-height: 3.5rem;
         margin-top: 31.6rem;
-        margin-left: 7rem;
+        margin-left: 1.8rem;
       }
     }
 
     .picker-column-container {
       display: flex;
       justify-content: center;
-      flex: 1 1;
     }
   }
 
