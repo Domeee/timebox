@@ -39,8 +39,12 @@ class PickerColumn extends React.Component<
 
   private blub: number[] = [];
 
+  private ref: React.RefObject<HTMLDivElement>;
+
   constructor(props: PickerColumnProps) {
     super(props);
+
+    this.ref = React.createRef();
 
     this.state = {
       isMoving: false,
@@ -84,6 +88,7 @@ class PickerColumn extends React.Component<
     return (
       <div className="picker-column">
         <div
+          ref={this.ref}
           className="picker-scroller"
           style={style}
           onTouchStart={this.handleTouchStart}
@@ -129,8 +134,11 @@ class PickerColumn extends React.Component<
   private handleTouchStart = (event: any) => {
     const startTouchY = event.targetTouches[0].pageY;
 
-    const scroller = document.querySelector(".picker-scroller");
-    const m = window.getComputedStyle(scroller!).transform!;
+    console.log(this.ref);
+    const m = window
+      .getComputedStyle(this.ref.current!)
+      .getPropertyValue("transform");
+    // console.log(m);
     const n = parseInt(
       m
         .split(",")[5]
@@ -139,12 +147,12 @@ class PickerColumn extends React.Component<
       10
     );
 
-    console.log(n);
+    console.log("init scroller translate: " + n);
 
     this.setState(({ scrollerTranslate }) => ({
       startTouchY: startTouchY,
       startScrollerTranslate: scrollerTranslate,
-      scrollerTranslate: n,
+      // scrollerTranslate: n,
       isMoving: true,
       transitionDuration: 0,
       transitionTimingFunction:
@@ -154,9 +162,21 @@ class PickerColumn extends React.Component<
 
   handleTouchMove = (e: React.TouchEvent<HTMLElement>) => {
     e.preventDefault();
-    const scroller = document.querySelector(".picker-scroller");
-    var m = window.getComputedStyle(scroller!).transform!;
-    console.log();
+    console.log("touch move");
+
+    const m = window
+      .getComputedStyle(this.ref.current!)
+      .getPropertyValue("transform");
+    console.log(m);
+    const n = parseInt(
+      m
+        .split(",")[5]
+        .trim()
+        .replace(")", ""),
+      10
+    );
+
+    console.log("current scroller translate: " + n);
 
     const touchY = e.targetTouches[0].pageY;
     this.blub.push(touchY);
@@ -195,6 +215,8 @@ class PickerColumn extends React.Component<
       return;
     }
 
+    console.log("touch end");
+
     if (this.calcIsPushInteraction()) {
       console.log("handleTouchEnd push interaction");
       const push = ScrollInteractionHelper.calcPush(
@@ -214,6 +236,9 @@ class PickerColumn extends React.Component<
           };
         },
         () => {
+          console.log(
+            "targeted scroller translate: " + this.state.scrollerTranslate
+          );
           const { options, itemHeight } = this.props;
           const { scrollerTranslate, minTranslate, maxTranslate } = this.state;
           const activeIndex = this.calcActiveIndex(
