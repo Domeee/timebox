@@ -38,30 +38,33 @@
     );
     .picker-label {
       font-family: "Roboto Condensed";
+      position: absolute;
+      display: flex;
+      align-items: center;
 
       @include mobile {
         font-size: 1.6rem;
         line-height: 1.6rem;
-        margin-top: 11.9rem;
-        margin-left: 0.8rem;
+        margin-top: 21.5rem;
+        margin-left: 2.6rem;
       }
       @include tablet {
         font-size: 2.3rem;
         line-height: 2.3rem;
-        margin-top: 17.8rem;
-        margin-left: 1.2rem;
+        margin-top: 26.7rem;
+        margin-left: 3.2rem;
       }
       @include desktop {
         font-size: 2.3rem;
         line-height: 2.3rem;
-        margin-top: 21.4rem;
-        margin-left: 1.2rem;
+        margin-top: 32.2rem;
+        margin-left: 3.6rem;
       }
       @include big {
         font-size: 3.5rem;
         line-height: 3.5rem;
-        margin-top: 31.6rem;
-        margin-left: 1.8rem;
+        margin-top: 47.4rem;
+        margin-left: 5rem;
       }
     }
 
