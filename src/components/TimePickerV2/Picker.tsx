@@ -30,32 +30,30 @@ export default (props: PickerProps) => {
   return (
     <div className="picker-container" style={style}>
       <div className="picker-inner">
-        <React.Fragment>
-          <div className="picker-column-container">
-            <PickerColumn
-              name={"minutes"}
-              options={minutes}
-              value={valueGroups["minutes"]}
-              itemHeight={itemHeight}
-              columnHeight={height}
-              onChange={onChange}
-              onClick={onClick}
-            />
-            <div className="picker-label">m</div>
-          </div>
-          <div className="picker-column-container">
-            <PickerColumn
-              name={"seconds"}
-              options={seconds}
-              value={valueGroups["seconds"]}
-              itemHeight={itemHeight}
-              columnHeight={height}
-              onChange={onChange}
-              onClick={onClick}
-            />
-            <div className="picker-label">s</div>
-          </div>
-        </React.Fragment>
+        <div className="picker-column-container">
+          <PickerColumn
+            name={"minutes"}
+            options={minutes}
+            value={valueGroups["minutes"]}
+            itemHeight={itemHeight}
+            columnHeight={height}
+            onChange={onChange}
+            onClick={onClick}
+          />
+          <div className="picker-label">m</div>
+        </div>
+        <div className="picker-column-container">
+          <PickerColumn
+            name={"seconds"}
+            options={seconds}
+            value={valueGroups["seconds"]}
+            itemHeight={itemHeight}
+            columnHeight={height}
+            onChange={onChange}
+            onClick={onClick}
+          />
+          <div className="picker-label">s</div>
+        </div>
         <div className="picker-highlight" style={highlightStyle} />
       </div>
     </div>

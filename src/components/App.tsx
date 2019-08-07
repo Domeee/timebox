@@ -312,15 +312,15 @@ class App extends React.Component<{}, AppState> {
   }
 
   private getDimensions() {
-    let dimensions = { height: 240, itemHeight: 48 };
+    let dimensions = { height: 432, itemHeight: 48 };
     const width = window.innerWidth;
 
     if (width > 1439) {
-      dimensions = { height: 630, itemHeight: 105 };
+      dimensions = { height: 945, itemHeight: 105 };
     } else if (width > 1023) {
-      dimensions = { height: 426, itemHeight: 71 };
+      dimensions = { height: 639, itemHeight: 71 };
     } else if (width > 767) {
-      dimensions = { height: 360, itemHeight: 60 };
+      dimensions = { height: 540, itemHeight: 60 };
     }
 
     return dimensions;

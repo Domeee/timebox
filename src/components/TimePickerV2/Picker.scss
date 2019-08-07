@@ -22,18 +22,18 @@
   .picker-inner {
     position: relative;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     height: 100%;
     padding: 0 2rem;
     font-size: 1.2em;
     mask-image: linear-gradient(
       to top,
       transparent,
-      transparent 2%,
+      transparent 15%,
       rgba(white, 0.3) 35%,
       white 50%,
       rgba(white, 0.3) 65%,
-      transparent 98%,
+      transparent 85%,
       transparent
     );
     .picker-label {
@@ -68,6 +68,7 @@
     .picker-column-container {
       display: flex;
       justify-content: center;
+      flex: 1 1;
     }
   }
 
