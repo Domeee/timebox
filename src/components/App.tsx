@@ -16,7 +16,7 @@ import ThemeSwiper from "./ThemeSwiper";
 import Sounds from "./Sounds";
 import { Sound } from "./Sound";
 // @ts-ignore
-import Gong from "../sounds/gong.mp3";
+import Gong from "../sounds/gong1.mp3";
 import Modal from "./Modal";
 import TimePicker from "./TimePicker/TimePicker";
 
@@ -67,15 +67,15 @@ class App extends React.Component<{}, AppState> {
     const { height, itemHeight } = this.getDimensions();
     return (
       <div className={appClasses}>
+        <div className="header-container">
+          <SoundSelection onSoundChange={this.handleSoundChange} />
+          <LogoIa />
+        </div>
         <TimeboxEventEmitter
           onTimeboxToggle={this.handleTimeboxToggle}
           onTimeboxClick={this.handleTimeboxClick}
           onThemeChange={this.handleThemeChange}
         >
-          <div className="header-container">
-            <SoundSelection onSoundChange={this.handleSoundChange} />
-            <LogoIa />
-          </div>
           <div className="clock-container">
             <ThemeSwiper
               forward={false}

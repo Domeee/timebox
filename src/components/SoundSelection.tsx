@@ -19,7 +19,7 @@ class SoundSelection extends React.Component<
   SoundSelectionState
 > {
   public static SilentSound = "silent";
-  public static DefaultSound = "gong";
+  public static DefaultSound = "gong1";
   private overlay: HTMLDivElement | undefined = undefined;
 
   constructor(props: SoundSelectionProps) {
@@ -166,7 +166,6 @@ class SoundSelection extends React.Component<
     // I have to use any until fixed: https://github.com/Microsoft/TypeScript/issues/15534
     this.setState({
       [name]: target.value
-      // tslint:disable-next-line:no-any
     } as any);
     this.props.onSoundChange({ newSound: target.value });
     this.toggleOverlay();

@@ -15,7 +15,7 @@
       background: map-get($map, background);
     }
   }
-  overflow: hidden;
+  overflow: scroll;
   transition: 0.5s;
 }
 
