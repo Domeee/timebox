@@ -2,12 +2,9 @@
 
 .picker-item {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  position: relative;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  justify-content: flex-end;
+  margin-right: 45%;
   font-family: "Roboto Condensed";
 
   @include mobile {

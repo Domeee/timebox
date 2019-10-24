@@ -196,6 +196,7 @@ class PickerColumn extends React.Component<
     }
 
     if (this.calcIsPushInteraction()) {
+      console.log("calc push interaction");
       // handleTouchEnd push interaction
       const push = ScrollInteractionHelper.calcPush(
         this.touchHistory,
@@ -228,6 +229,7 @@ class PickerColumn extends React.Component<
         }
       );
     } else if (this.touchHistory.length > 0) {
+      console.log("touch scroll interaction");
       // handleTouchEnd scroll interaction
       this.setState(
         prevState => {
@@ -256,11 +258,13 @@ class PickerColumn extends React.Component<
     } else {
       // Can be simplified by attaching onClick in PickerItem
       // handleTouchEnd click interaction
+      console.log("touch click interaction");
       this.setState(
         (prevState: PickerColumnState) => {
+          // 2.4 = 60% / 50% * 2 ======> highlight-line schnitt liegt bei 60%, siehe .clock-container { translateY(-60%); }
           let nextScrollerTranslate =
             prevState.startScrollerTranslate +
-            window.innerHeight / 2 -
+            window.innerHeight / 2.4 -
             prevState.startTouchY;
           return {
             scrollerTranslate: nextScrollerTranslate,
