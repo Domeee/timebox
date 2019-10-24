@@ -25,6 +25,7 @@ You will need the following things properly installed on your computer.
 git clone git@github.com:Domeee/timebox.git
 cd timebox
 npm install
+npm install -g firebase-tools
 ```
 
 ## Run Development
@@ -40,6 +41,8 @@ Visit your app at [http://localhost:3000](http://localhost:3000).
 Production build with webpack and deployment to firebase.
 
 ```sh
+firebase project:list
+firebase use [timebox-test-aea15|timebox-innoarchitects-9d7c0]
 npm run deploy
 ```
 

@@ -23,3 +23,4 @@ yarn-error.log*
 src/**/*.css
 
 .firebase/
+firebase-debug.log
