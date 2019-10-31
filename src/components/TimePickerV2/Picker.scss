@@ -42,6 +42,12 @@
       display: flex;
       align-items: center;
 
+      /* disable text selection via swiping */
+      user-select: none;
+
+      /* disable browser handling of all panning and zooming gestures */
+      touch-action: none;
+
       @include mobile {
         font-size: 1.6rem;
         line-height: 1.6rem;
