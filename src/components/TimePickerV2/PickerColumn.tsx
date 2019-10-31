@@ -16,8 +16,8 @@ export interface PickerColumnProps {
 interface PickerColumnState {
   isMoving: boolean;
   startTouchY: number;
-  startScrollerTranslate: number;
-  scrollerTranslate: number;
+  startScrollTranslate: number;
+  scrollTranslate: number;
   minTranslate: number;
   maxTranslate: number;
   transitionDuration: number;
@@ -31,15 +31,12 @@ class PickerColumn extends React.Component<
   // Strength of a touch push in terms of distance distance traveled for a push
   private static readonly TouchPushSpeedFactor = 4;
   // Minimum scroll distance to be treated as push interaction
-  private static readonly PushInteractionThreshold = 5;
-
+  private static readonly PushInteractionThreshold = 0;
   private static readonly ClickInteractionTransitionDuration = 200;
-
   private static readonly ClickInteractionTransitionTimingFucntion = "linear";
-
   private touchHistory: number[] = [];
-
   private ref: React.RefObject<HTMLDivElement>;
+  private static readonly PushInteractionTransitionDuration = 2000;
 
   constructor(props: PickerColumnProps) {
     super(props);
@@ -49,7 +46,7 @@ class PickerColumn extends React.Component<
     this.state = {
       isMoving: false,
       startTouchY: 0,
-      startScrollerTranslate: 0,
+      startScrollTranslate: 0,
       transitionDuration: 0,
       transitionTimingFunction:
         PickerColumn.ClickInteractionTransitionTimingFucntion,
@@ -65,7 +62,7 @@ class PickerColumn extends React.Component<
   }
 
   public render() {
-    const translateString = `translate(0, ${this.state.scrollerTranslate}px)`;
+    const translateString = `translate(0, ${this.state.scrollTranslate}px)`;
     const style: React.CSSProperties = {
       OTransform: translateString,
       WebkitTransform: translateString,
@@ -88,7 +85,6 @@ class PickerColumn extends React.Component<
       <div className="picker-column">
         <div
           ref={this.ref}
-          className="picker-scroller"
           style={style}
           onTouchStart={this.handleTouchStart}
           onTouchMove={this.handleTouchMove}
@@ -118,7 +114,7 @@ class PickerColumn extends React.Component<
     }
 
     return {
-      scrollerTranslate:
+      scrollTranslate:
         columnHeight / 2 - itemHeight / 2 - selectedIndex * itemHeight,
       minTranslate:
         columnHeight / 2 - itemHeight * options.length + itemHeight / 2,
@@ -146,8 +142,8 @@ class PickerColumn extends React.Component<
 
     this.setState({
       startTouchY: startTouchY,
-      startScrollerTranslate: computedVerticalTransform,
-      scrollerTranslate: computedVerticalTransform,
+      startScrollTranslate: computedVerticalTransform,
+      scrollTranslate: computedVerticalTransform,
       isMoving: true,
       transitionDuration: 0,
       transitionTimingFunction:
@@ -160,32 +156,33 @@ class PickerColumn extends React.Component<
 
     const touchY = e.targetTouches[0].pageY;
     this.touchHistory.push(touchY);
+
     this.setState(prevState => {
       if (!prevState.isMoving) {
         return {
           isMoving: true,
           maxTranslate: prevState.maxTranslate,
           minTranslate: prevState.minTranslate,
-          scrollerTranslate: prevState.scrollerTranslate,
-          startScrollerTranslate: prevState.startScrollerTranslate,
+          scrollTranslate: prevState.scrollTranslate,
+          startScrollTranslate: prevState.startScrollTranslate,
           startTouchY: prevState.startTouchY
         };
       }
 
-      let nextScrollerTranslate =
-        prevState.startScrollerTranslate + touchY - prevState.startTouchY;
-      if (nextScrollerTranslate < prevState.minTranslate) {
-        nextScrollerTranslate =
+      let nextScrollTranslate =
+        prevState.startScrollTranslate + touchY - prevState.startTouchY;
+      if (nextScrollTranslate < prevState.minTranslate) {
+        nextScrollTranslate =
           prevState.minTranslate -
-          Math.pow(prevState.minTranslate - nextScrollerTranslate, 0.8);
-      } else if (nextScrollerTranslate > prevState.maxTranslate) {
-        nextScrollerTranslate =
+          Math.pow(prevState.minTranslate - nextScrollTranslate, 0.8);
+      } else if (nextScrollTranslate > prevState.maxTranslate) {
+        nextScrollTranslate =
           prevState.maxTranslate +
-          Math.pow(nextScrollerTranslate - prevState.maxTranslate, 0.8);
+          Math.pow(nextScrollTranslate - prevState.maxTranslate, 0.8);
       }
       return {
         ...prevState,
-        scrollerTranslate: nextScrollerTranslate
+        scrollTranslate: nextScrollTranslate
       };
     });
   };
@@ -196,99 +193,14 @@ class PickerColumn extends React.Component<
     }
 
     if (this.calcIsPushInteraction()) {
-      console.log("calc push interaction");
-      // handleTouchEnd push interaction
-      const push = ScrollInteractionHelper.calcPush(
-        this.touchHistory,
-        PickerColumn.PushInteractionThreshold,
-        PickerColumn.TouchPushSpeedFactor
-      );
-      this.setState(
-        prevState => {
-          return {
-            scrollerTranslate: prevState.scrollerTranslate + push,
-            transitionDuration: 2000,
-            transitionTimingFunction: "cubic-bezier(0, 0.5, 0, 1)",
-            isMoving: false,
-            startTouchY: 0,
-            startScrollerTranslate: 0
-          };
-        },
-        () => {
-          const { options, itemHeight } = this.props;
-          const { scrollerTranslate, minTranslate, maxTranslate } = this.state;
-          const activeIndex = this.calcActiveIndex(
-            scrollerTranslate + push,
-            maxTranslate,
-            minTranslate,
-            options.length,
-            itemHeight
-          );
-          this.touchHistory = [];
-          this.onValueSelected(options[activeIndex]);
-        }
-      );
+      this.handleTouchPushInteraction();
     } else if (this.touchHistory.length > 0) {
-      console.log("touch scroll interaction");
-      // handleTouchEnd scroll interaction
-      this.setState(
-        prevState => {
-          return {
-            scrollerTranslate: prevState.scrollerTranslate,
-            transitionDuration: 0,
-            isMoving: false,
-            startTouchY: 0,
-            startScrollerTranslate: 0
-          };
-        },
-        () => {
-          const { options, itemHeight } = this.props;
-          const { scrollerTranslate, minTranslate, maxTranslate } = this.state;
-          const activeIndex = this.calcActiveIndex(
-            scrollerTranslate,
-            maxTranslate,
-            minTranslate,
-            options.length,
-            itemHeight
-          );
-          this.touchHistory = [];
-          this.onValueSelected(options[activeIndex]);
-        }
-      );
+      this.handleTouchScrollInteraction();
     } else {
-      // Can be simplified by attaching onClick in PickerItem
-      // handleTouchEnd click interaction
-      console.log("touch click interaction");
-      this.setState(
-        (prevState: PickerColumnState) => {
-          // 2.4 = 60% / 50% * 2 ======> highlight-line schnitt liegt bei 60%, siehe .clock-container { translateY(-60%); }
-          let nextScrollerTranslate =
-            prevState.startScrollerTranslate +
-            window.innerHeight / 2.4 -
-            prevState.startTouchY;
-          return {
-            scrollerTranslate: nextScrollerTranslate,
-            isMoving: false,
-            startTouchY: 0,
-            startScrollerTranslate: 0,
-            transitionDuration: PickerColumn.ClickInteractionTransitionDuration
-          };
-        },
-        () => {
-          const { options, itemHeight } = this.props;
-          const { scrollerTranslate, minTranslate, maxTranslate } = this.state;
-          const activeIndex = this.calcActiveIndex(
-            scrollerTranslate,
-            maxTranslate,
-            minTranslate,
-            options.length,
-            itemHeight
-          );
-          this.touchHistory = [];
-          this.onValueSelected(options[activeIndex]);
-        }
-      );
+      this.handleTouchClickInteraction();
     }
+
+    this.touchHistory = [];
   };
 
   handleTouchCancel = (event: any) => {
@@ -298,49 +210,132 @@ class PickerColumn extends React.Component<
     this.setState(prevProps => ({
       isMoving: false,
       startTouchY: 0,
-      startScrollerTranslate: 0,
-      scrollerTranslate: prevProps.startScrollerTranslate,
+      startScrollTranslate: 0,
+      scrollTranslate: prevProps.startScrollTranslate,
       maxTranslate: prevProps.maxTranslate,
       minTranslate: prevProps.minTranslate
     }));
   };
 
-  // handleItemClick = (option: any) => {
-  //   console.log("handleItemClick");
-  //   if (option !== this.props.value) {
-  //     this.onValueSelected(option);
-  //   } else {
-  //     this.props.onClick(this.props.name, this.props.value);
-  //   }
-  // };
+  private handleTouchClickInteraction() {
+    this.setState(
+      (prevState: PickerColumnState) => {
+        // 2.4 = 60% / 50% * 2 ======> highlight-line schnitt liegt bei 60%, siehe .clock-container { translateY(-60%); }
+        let nextScrollTranslate =
+          prevState.startScrollTranslate +
+          window.innerHeight / 2.4 -
+          prevState.startTouchY;
+        return {
+          scrollTranslate: nextScrollTranslate,
+          isMoving: false,
+          startTouchY: 0,
+          startScrollTranslate: 0,
+          transitionDuration: PickerColumn.ClickInteractionTransitionDuration
+        };
+      },
+      () => {
+        const { options, itemHeight } = this.props;
+        const { scrollTranslate, minTranslate, maxTranslate } = this.state;
+        const activeIndex = this.calcActiveIndex(
+          scrollTranslate,
+          maxTranslate,
+          minTranslate,
+          options.length,
+          itemHeight
+        );
+        this.onValueSelected(options[activeIndex]);
+      }
+    );
+  }
+
+  private handleTouchScrollInteraction() {
+    this.setState(
+      prevState => {
+        return {
+          scrollTranslate: prevState.scrollTranslate,
+          transitionDuration: 0,
+          isMoving: false,
+          startTouchY: 0,
+          startScrollTranslate: 0
+        };
+      },
+      () => {
+        const { options, itemHeight } = this.props;
+        const { scrollTranslate, minTranslate, maxTranslate } = this.state;
+        const activeIndex = this.calcActiveIndex(
+          scrollTranslate,
+          maxTranslate,
+          minTranslate,
+          options.length,
+          itemHeight
+        );
+        this.onValueSelected(options[activeIndex]);
+      }
+    );
+  }
+
+  private handleTouchPushInteraction() {
+    const push = ScrollInteractionHelper.calcPush(
+      this.touchHistory,
+      PickerColumn.PushInteractionThreshold,
+      PickerColumn.TouchPushSpeedFactor
+    );
+    this.setState(
+      prevState => {
+        return {
+          scrollTranslate: prevState.scrollTranslate + push,
+          transitionDuration: PickerColumn.PushInteractionTransitionDuration,
+          transitionTimingFunction: "cubic-bezier(0, 0.5, 0, 1)",
+          isMoving: false,
+          startTouchY: 0,
+          startScrollTranslate: 0
+        };
+      },
+      () => {
+        const { options, itemHeight } = this.props;
+        const {
+          scrollTranslate: scrollTranslate,
+          minTranslate,
+          maxTranslate
+        } = this.state;
+        const activeIndex = this.calcActiveIndex(
+          scrollTranslate + push,
+          maxTranslate,
+          minTranslate,
+          options.length,
+          itemHeight
+        );
+        this.onValueSelected(options[activeIndex]);
+      }
+    );
+  }
 
   calcIsPushInteraction() {
     let isPush = false;
     if (this.touchHistory.length > 1) {
       const a = this.touchHistory[this.touchHistory.length - 2];
       const b = this.touchHistory[this.touchHistory.length - 1];
-      const diff = a >= b ? a - b : b - a;
-      isPush = diff > PickerColumn.PushInteractionThreshold;
+
+      const distance = a >= b ? a - b : b - a;
+      isPush = distance > PickerColumn.PushInteractionThreshold;
     }
     return isPush;
   }
 
   calcActiveIndex(
-    scrollerTranslate: number,
+    scrollTranslate: number,
     maxTranslate: number,
     minTranslate: number,
     optionsLength: number,
     itemHeight: number
   ) {
     let activeIndex;
-    if (scrollerTranslate > maxTranslate) {
+    if (scrollTranslate > maxTranslate) {
       activeIndex = 0;
-    } else if (scrollerTranslate < minTranslate) {
+    } else if (scrollTranslate < minTranslate) {
       activeIndex = optionsLength - 1;
     } else {
-      activeIndex = -Math.round(
-        (scrollerTranslate - maxTranslate) / itemHeight
-      );
+      activeIndex = -Math.round((scrollTranslate - maxTranslate) / itemHeight);
     }
     return activeIndex;
   }
