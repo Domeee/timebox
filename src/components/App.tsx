@@ -41,6 +41,7 @@ class App extends React.Component<{}, AppState> {
   private themes = ["dark", "blue", "yellow", "pink", "purple", "alarm"];
   // 5th position in themes array
   private alarmTheme = 5;
+  private backupTimer = 0;
 
   constructor(props: {}) {
     super(props);
@@ -201,14 +202,20 @@ class App extends React.Component<{}, AppState> {
     if (this.state.isTimeboxStarted) {
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
-      this.setState(prevState => {
-        return { timer: 0, seconds: 0, minutes: 0 };
-      });
+      this.restoreTimer();
     } else {
+      // Backup timer to be restored on stop or after regular alarm
+      this.backupTimer = this.state.timer;
+
       this.setState({ isTimeboxStarted: true });
       this.timeboxInterval = window.setInterval(this.handleTimeboxTick, 1000);
       this.unlockSoundPlayback();
     }
+  }
+
+  private restoreTimer() {
+    const { minutes, seconds } = this.calculateDisplayTime(this.backupTimer);
+    this.setState({ timer: this.backupTimer, minutes, seconds });
   }
 
   private handleThemeChange(e: ThemeChangeEvent) {
@@ -247,13 +254,10 @@ class App extends React.Component<{}, AppState> {
         this.setState({
           theme: this.initialTheme
         });
-        // tslint:disable-next-line:align
       }, 3000);
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
-      this.setState(prevState => {
-        return { timer: 0, seconds: 0, minutes: 0 };
-      });
+      this.restoreTimer();
     }
   }
 
