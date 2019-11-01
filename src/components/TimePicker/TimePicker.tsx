@@ -29,7 +29,7 @@ class TimePicker extends React.Component<TimePickerProps, TimePickerState> {
       seconds: this.props.seconds || 0
     };
 
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 90; i++) {
       this.minuteValues.push(i);
     }
 

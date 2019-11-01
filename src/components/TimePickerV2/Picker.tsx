@@ -20,7 +20,7 @@ export default (props: PickerProps) => {
     marginTop: -(itemHeight / 2)
   };
   const seconds = [];
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 60; i += 5) {
     seconds.push(i);
   }
   const minutes = [];

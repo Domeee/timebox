@@ -15,10 +15,6 @@ import Cometogether from "../sounds/cometogether.mp3";
 // @ts-ignore
 import CuckooClock from "../sounds/cuckooclock.mp3";
 // @ts-ignore
-import Fivesonic from "../sounds/fivesonic.mp3";
-// @ts-ignore
-import Galaxy from "../sounds/galaxy.mp3";
-// @ts-ignore
 import GameBell1 from "../sounds/gamebell1.mp3";
 // @ts-ignore
 import GameBell2 from "../sounds/gamebell2.mp3";
@@ -36,8 +32,6 @@ import Gong4 from "../sounds/gong4.mp3";
 import Gong5 from "../sounds/gong5.mp3";
 // @ts-ignore
 import Indianbell from "../sounds/indianbell.mp3";
-// @ts-ignore
-import Laidback from "../sounds/laidback.mp3";
 // @ts-ignore
 import Rooster from "../sounds/rooster.mp3";
 // @ts-ignore
@@ -108,20 +102,6 @@ const Sounds: any[] = [
     hosts: ["localhost", "timebox-test.donhubi.ch", "timebox.innoarchitects.ch"]
   },
   {
-    id: 9,
-    name: "fivesonic",
-    path: Fivesonic,
-    title: "5 Sonic",
-    hosts: ["localhost", "timebox-test.donhubi.ch", "timebox.innoarchitects.ch"]
-  },
-  {
-    id: 10,
-    name: "galaxy",
-    path: Galaxy,
-    title: "Galaxy",
-    hosts: ["localhost", "timebox-test.donhubi.ch", "timebox.innoarchitects.ch"]
-  },
-  {
     id: 11,
     name: "gamebell1",
     path: GameBell1,
@@ -182,13 +162,6 @@ const Sounds: any[] = [
     name: "indianbell",
     path: Indianbell,
     title: "Indian Bell",
-    hosts: ["localhost", "timebox-test.donhubi.ch", "timebox.innoarchitects.ch"]
-  },
-  {
-    id: 20,
-    name: "laidback",
-    path: Laidback,
-    title: "Laidback",
     hosts: ["localhost", "timebox-test.donhubi.ch", "timebox.innoarchitects.ch"]
   },
   {
