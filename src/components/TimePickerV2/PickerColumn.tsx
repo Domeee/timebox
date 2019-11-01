@@ -280,34 +280,37 @@ class PickerColumn extends React.Component<
       PickerColumn.PushInteractionThreshold,
       PickerColumn.TouchPushSpeedFactor
     );
-    this.setState(
-      prevState => {
-        return {
-          scrollTranslate: prevState.scrollTranslate + push,
-          transitionDuration: PickerColumn.PushInteractionTransitionDuration,
-          transitionTimingFunction: "cubic-bezier(0, 0.5, 0, 1)",
-          isMoving: false,
-          startTouchY: 0,
-          startScrollTranslate: 0
-        };
-      },
-      () => {
-        const { options, itemHeight } = this.props;
-        const {
-          scrollTranslate: scrollTranslate,
-          minTranslate,
-          maxTranslate
-        } = this.state;
-        const activeIndex = this.calcActiveIndex(
-          scrollTranslate + push,
-          maxTranslate,
-          minTranslate,
-          options.length,
-          itemHeight
-        );
-        this.onValueSelected(options[activeIndex]);
-      }
-    );
+    this.setState(prevState => {
+      const { options, itemHeight } = this.props;
+      const { scrollTranslate, minTranslate, maxTranslate } = this.state;
+      const activeIndex = this.calcActiveIndex(
+        scrollTranslate + push,
+        maxTranslate,
+        minTranslate,
+        options.length,
+        itemHeight
+      );
+
+      const fn =
+        options[activeIndex] === 0 || activeIndex === options.length - 1
+          ? "cubic-bezier(0.52, 0.88, 0.65, 1.42)"
+          : "cubic-bezier(0, 0.5, 0, 1)";
+
+      const duration =
+        options[activeIndex] === 0 || activeIndex === options.length - 1
+          ? 500
+          : PickerColumn.PushInteractionTransitionDuration;
+
+      this.onValueSelected(options[activeIndex]);
+      return {
+        scrollTranslate: prevState.scrollTranslate + push,
+        transitionDuration: duration,
+        transitionTimingFunction: fn,
+        isMoving: false,
+        startTouchY: 0,
+        startScrollTranslate: 0
+      };
+    });
   }
 
   calcIsPushInteraction() {
