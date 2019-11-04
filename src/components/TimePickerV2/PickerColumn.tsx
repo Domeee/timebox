@@ -22,16 +22,16 @@ interface PickerColumnState {
   maxTranslate: number;
   transitionDuration: number;
   transitionTimingFunction: string;
+  // Minimum scroll distance to be treated as push interaction
+  pushInteractionThreshold: number;
+  // Strength of a touch push in terms of distance distance traveled for a push
+  pushInteractionSpeed: number;
 }
 
 class PickerColumn extends React.Component<
   PickerColumnProps,
   PickerColumnState
 > {
-  // Strength of a touch push in terms of distance distance traveled for a push
-  private static readonly TouchPushSpeedFactor = 4;
-  // Minimum scroll distance to be treated as push interaction
-  private static readonly PushInteractionThreshold = 0;
   private static readonly ClickInteractionTransitionDuration = 200;
   private static readonly ClickInteractionTransitionTimingFucntion = "linear";
   private touchHistory: number[] = [];
@@ -50,6 +50,8 @@ class PickerColumn extends React.Component<
       transitionDuration: 0,
       transitionTimingFunction:
         PickerColumn.ClickInteractionTransitionTimingFucntion,
+      pushInteractionSpeed: 4,
+      pushInteractionThreshold: 2,
       ...this.computeTranslate(props)
     };
   }
@@ -277,8 +279,8 @@ class PickerColumn extends React.Component<
   private handleTouchPushInteraction() {
     const push = ScrollInteractionHelper.calcPush(
       this.touchHistory,
-      PickerColumn.PushInteractionThreshold,
-      PickerColumn.TouchPushSpeedFactor
+      this.state.pushInteractionThreshold,
+      this.state.pushInteractionSpeed
     );
     this.setState(prevState => {
       const { options, itemHeight } = this.props;
@@ -320,7 +322,7 @@ class PickerColumn extends React.Component<
       const b = this.touchHistory[this.touchHistory.length - 1];
 
       const distance = a >= b ? a - b : b - a;
-      isPush = distance > PickerColumn.PushInteractionThreshold;
+      isPush = distance > this.state.pushInteractionThreshold;
     }
     return isPush;
   }
