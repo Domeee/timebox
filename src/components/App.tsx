@@ -254,10 +254,10 @@ class App extends React.Component<{}, AppState> {
         this.setState({
           theme: this.initialTheme
         });
+        this.restoreTimer();
       }, 3000);
       this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
-      this.restoreTimer();
     }
   }
 
