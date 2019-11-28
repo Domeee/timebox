@@ -236,13 +236,9 @@ class App extends React.Component<{}, AppState> {
   }
 
   private handleTimeboxTick() {
-    if (this.state.timer > 1) {
-      this.setState(prevState => {
-        const timer = prevState.timer - 1;
-        const { seconds, minutes } = this.calculateDisplayTime(timer);
-        return { timer, seconds, minutes };
-      });
-    } else {
+    if (this.state.timer === 0) return;
+
+    if (this.state.timer === 1) {
       this.playSound();
       this.flashBackgroundInterval = window.setInterval(
         this.flashBackground,
@@ -254,11 +250,17 @@ class App extends React.Component<{}, AppState> {
         this.setState({
           theme: this.initialTheme
         });
+        this.setState({ isTimeboxStarted: false });
         this.restoreTimer();
       }, 3000);
-      this.setState({ isTimeboxStarted: false });
       window.clearInterval(this.timeboxInterval);
     }
+
+    this.setState(prevState => {
+      const timer = prevState.timer - 1;
+      const { seconds, minutes } = this.calculateDisplayTime(timer);
+      return { timer, seconds, minutes };
+    });
   }
 
   private handleSoundChange(e: SoundChangeEvent) {
