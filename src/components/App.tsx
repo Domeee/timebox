@@ -16,7 +16,7 @@ import ThemeSwiper from "./ThemeSwiper";
 import Sounds from "./Sounds";
 import { Sound } from "./Sound";
 // @ts-ignore
-import Gong from "../sounds/gong1.mp3";
+import Gong from "../sounds/gong.mp3";
 import Modal from "./Modal";
 import TimePicker from "./TimePicker/TimePicker";
 

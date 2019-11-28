@@ -19,7 +19,7 @@ class SoundSelection extends React.Component<
   SoundSelectionState
 > {
   public static SilentSound = "silent";
-  public static DefaultSound = "gong1";
+  public static DefaultSound = "gong";
   private overlay: HTMLDivElement | undefined = undefined;
 
   constructor(props: SoundSelectionProps) {
